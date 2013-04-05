@@ -1,0 +1,47 @@
+.controls-bar {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
+
+.controls {
+	background-color: rgba(255,255,255,.5);
+	padding: 2px;
+	overflow: hidden;
+	margin: 5px;
+	border-radius: 5px;
+}
+
+.control-timeline {
+	position: absolute; /* @todo remove */
+	cursor: pointer;
+}
+
+.control-timeline-loaded {
+	position: absolute; /* @todo remove */
+}
+
+.control-timeline-bar {
+	position: absolute; /* @todo remove */
+}
+
+.control-button-play {
+	cursor: pointer;
+}
+
+.control-button-mute {
+	cursor: pointer;
+}
+
+.control-volume {
+	cursor: pointer;
+}
+
+.player.is-fullscreen, .player.is-fullscreen > video, .player.is-fullscreen > .wrapper {
+	width: 100% !important;
+	height: 100% !important;
+}
+
+.player.is-playing-ad {
+	cursor: pointer;
+}

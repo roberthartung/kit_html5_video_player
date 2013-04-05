@@ -1,0 +1,67 @@
+.player {
+	background-color: #333;
+}
+
+.control-timeline {
+	height: 10px;
+	background-color: rgba(255,255,255,.25);
+	border-radius: 5px;
+	margin: 5px 5px;
+}
+
+.control-timeline-loaded {
+	height: 10px; /* @todo remove */
+	background-color: #fff;
+	border-radius: 5px;
+}
+
+.control-timeline-bar {
+	height: 10px; /* @todo remove */
+	background-color: rgba(255,0,0,.25);
+	border-radius: 5px;
+}
+
+.control-button-play {
+	float: left;
+	margin: 2px;
+}
+
+.control-button-mute {
+	float: right;
+	margin: 2px;
+}
+
+.control-info-time {
+	float: right;
+	color: #fff;
+	font-size: 10px;
+}
+
+.control-volume {
+	float: right;
+	width: 100px;
+	height: 10px;
+	margin: 5px 5px 5px 0;
+	border-radius: 5px;
+	background-color: #fff;
+}
+
+.control-volume-bar {
+	background-color: rgba(255,0,0,.25);
+	height: 10px; /* @todo remove */
+	border-radius: 5px;
+}
+
+.control-fullscreen {
+	top: 5px;
+	right: 5px;
+	position: absolute;
+}
+
+.player.is-paused {
+		/* @todo add play icon */
+}
+
+.error-unsupported {
+	background-color: #f00;
+}

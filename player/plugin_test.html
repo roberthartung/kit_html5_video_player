@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+	<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html" />
+		<meta name="author" content="Robert Hartung" />
+	
+		<title>jQuery Plugin Test</title>
+		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+	</head>
+	
+	<body>
+		<div class="bar"></div>
+		<div class="foo"></div>
+		<script>
+			(function($){
+				$.fn.player = function(opts, callback)
+				{
+					if (typeof opts == 'string') opts = { swf: opts }
+   				if ($.isFunction(opts)) { callback = opts; opts = {} }
+   				
+   				return this.data("flowplayer") || this.each(function()
+					{
+   					var that = $(this);
+   					
+ 						var api2 = {
+ 							state : null,
+ 							init : function()
+ 							{
+ 								api2.state = that.attr('class');
+ 							},
+ 							get : function()
+ 							{
+ 								return api2.state;
+ 							}
+ 						};
+ 						
+ 						$(this).data('flowplayer', api2);
+ 						
+ 						api2.init();
+					});
+				}
+			})(jQuery);
+			
+			$('div').player();
+			
+			// var api2 = $('div').player().data('flowplayer');
+			// console.log(api2, api2.get());
+			
+			console.log($('div.foo').data('flowplayer'), $('div.foo').data('flowplayer').get());
+		</script>
+	</body>
+</html>
