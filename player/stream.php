@@ -3,8 +3,9 @@
 	//
 	//var_dump(isset($_SERVER['HTTP_RANGE']), $_SERVER);
 	
-	define('INSTANCE_LENGTH', 1024 * 25); // 25 kB at once
+	define('INSTANCE_LENGTH', 1024 * 50); // 25 kB at once
 	define('FILE', 'openx-ad.webm');
+	$fsize = filesize(FILE);
 	
 	if(array_key_exists('HTTP_RANGE', $_SERVER))
 	{
@@ -12,7 +13,8 @@
 		{
 			header('Content-Type: video/webm');
 			header('Accept-Ranges: bytes');
-			header('Content-Length: '.filesize(FILE));
+			header('Content-Length: '.$fsize);
+			header('Etag: "75fc2-4d9638fbe6337"');
 		}
 		else
 		{
@@ -22,7 +24,12 @@
 			list($begin, $end) = explode('-', $range);
 			if(empty($end))
 			{
+				header('Content-Length: '.INSTANCE_LENGTH);
 				$end = $begin + INSTANCE_LENGTH;
+			}
+			else
+			{
+				header('Content-Length: '.INSTANCE_LENGTH);
 			}
 			
 			switch($type)
@@ -32,26 +39,24 @@
 					
 					fseek($fopen, $begin);
 					$bytes_left = INSTANCE_LENGTH;
-					
 				break;
 			}
 			
 			header('Content-Type: video/webm');
 			header('Etag: "75fc2-4d9638fbe6337"');
 			header('Accept-Ranges: bytes');
-			//header('Content-Length: '.INSTANCE_LENGTH);
-			header('Content-Length: '.filesize(FILE));
-			header('Content-Range: bytes '.$begin.'-'.($end-1).'/'.INSTANCE_LENGTH);
+			header('Content-Range: bytes '.$begin.'-'.($end-1).'/'.$fsize);
 			
 			while(!feof($fopen))
 			{
-				echo fread($fopen, $bytes_left > 1024 ? 1024 : $bytes_left);
+				// $bytes_left >= 1024 ? 1024 : 
+				echo fread($fopen, $bytes_left);
 				flush();
-				$bytes_left -= 1024;
-				usleep(50000);
-				flush();
-				if($bytes_left <= 0)
-					break;
+				//$bytes_left -= INSTANCE_LENGTH;
+				//usleep(50000);
+				//flush();
+				//if($bytes_left <= 0)
+				//break;
 			}
 			fclose($fopen);
 		}

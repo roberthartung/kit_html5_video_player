@@ -1136,9 +1136,16 @@
 			console.log(e.type, e);
 		});
 		
+		video.on('progress', function(e)
+		{
+			console.log(e.type, 'length:', videoObject.buffered.length, 'length2:', videoObject.played.length);
+		});
+		
+		/*
 		window.setInterval(function(){
 			console.log('ready', videoObject.readyState, 'network:', videoObject.networkState)
 		}, 500);
+		*/
 		
 		// ### event.timeupdate
 		video.on('timeupdate', function(e)
