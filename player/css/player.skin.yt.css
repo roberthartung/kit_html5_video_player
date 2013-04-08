@@ -2,30 +2,46 @@
 	background-color: #333;
 }
 
-.controls {
-	background-color: rgba(255,255,255,.5);
-	padding: 2px;
-	margin: 5px;
-	border-radius: 5px;
-}
-
 .control-timeline {
 	height: 10px;
 	background-color: rgba(255,255,255,.25);
-	border-radius: 5px;
-	margin: 5px 5px;
+	left:0;
+	right:0;
+	bottom: 20px;
+	z-index: 2;
 }
 
 .control-timeline-loaded {
 	height: 10px; /* @todo remove */
 	background-color: #fff;
-	border-radius: 5px;
 }
 
 .control-timeline-bar {
 	height: 10px; /* @todo remove */
-	background-color: rgba(255,0,0,.25);
-	border-radius: 5px;
+	background-color: #d00;
+	overflow: visible !important;
+}
+
+.control-timeline-bar > div {
+	margin-left: 100%;
+	height: 10px;
+	position: absolute;
+}
+
+.control-timeline-bar > div > a {
+	position: absolute;
+	margin-top: -4px;
+	border-radius: 10px;
+	border: 7px solid #fff;
+	width: 5px;
+	height: 5px;
+	margin-left: -11px;
+	background-color:#ccc;
+}
+
+.controls-bar {
+	background-color: #000;
+	z-index: 1;
 }
 
 .control-button-play {

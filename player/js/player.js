@@ -180,6 +180,35 @@
 	  clip : null,
 	  defaults : {
 		volume : .75
+	  },
+	  skin : 'default',
+	  tree : {
+		default : {
+			div_overlay : { },
+			control_fullscreen : { },
+			div_controls_bar : {
+				div_controls : {
+					control_timeline : { control_timeline_loaded : {}, control_timeline_progress : {} },
+					control_volume : { control_volume_bar : {} },
+					control_mute : { },
+					control_play : { },
+					control_time : { }
+				}
+			}
+		},
+		yt : {
+			div_overlay : { },
+			control_timeline : { control_timeline_loaded : {}, control_timeline_progress : '<div><a></a></div>' },
+			div_controls_bar : {
+				div_controls : {
+					control_volume : { control_volume_bar : {} },
+					control_mute : { },
+					control_play : { },
+					control_time : { },
+					control_fullscreen : { }
+				}
+			}
+		}
 	  }
     }, conf);
 	
@@ -254,13 +283,14 @@
 		var div_controls_bar = $('<div class="controls-bar"/>');
 		var div_controls = $('<div class="controls"/>');
 		var div_overlay = $('<div class="overlay"/>');
-		var control_timeline = $('<div class="control-timeline"><div class="control-timeline-loaded"></div><div class="control-timeline-bar"></div></div>');
+		var control_timeline = $('<div class="control-timeline"></div>');
 		var control_mute = $('<i class="icon-white control-button-mute icon-volume-up"></i>');
 		var control_play = $('<i class="icon-white control-button-play icon-play"></i>');
 		var control_time = $('<span class="control-info-time">00:00</span>');
-		var control_volume = $('<div class="control-volume"><div class="control-volume-bar"></div></div>');
-		var control_timeline_progress = control_timeline.find('.control-timeline-bar');
-		var control_timeline_loaded = control_timeline.find('.control-timeline-loaded');
+		var control_volume = $('<div class="control-volume"></div>');
+		var control_volume_bar = $('<div class="control-volume-bar"></div>');
+		var control_timeline_progress = $('<div class="control-timeline-bar"></div>');
+		var control_timeline_loaded = $('<div class="control-timeline-loaded"></div>');
 		var control_volume_bar = control_timeline.find('.control-volume-bar');
 		var control_fullscreen = $('<i class="icon-white control-fullscreen icon-resize-full"></i>');
 		
@@ -270,10 +300,13 @@
 			div_controls : div_controls,
 			div_overlay : div_overlay,
 			control_timeline : control_timeline,
+			control_timeline_loaded : control_timeline_loaded,
+			control_timeline_progress : control_timeline_progress,
 			control_mute : control_mute,
 			control_play : control_play,
 			control_time : control_time,
 			control_volume : control_volume,
+			control_volume_bar : control_volume_bar,
 			control_fullscreen : control_fullscreen
 		}
 		
@@ -291,34 +324,26 @@
 			video.removeAttr('loop');
 		}
 		
-		console.log('collection:', divCollection, divCollection['div_overlay']);
-		
-		var tree = {
-			div_wrapper : {
-				div_overlay : { },
-				control_fullscreen : { },
-				div_controls_bar : {
-					div_controls : {
-						control_timeline : { },
-						control_volume : { },
-						control_mute : { },
-						control_play : { },
-						control_time : { }
-					}
-				}
-			}
-		};
-		
-		function _appendTree(obj, root)
+		function _appendTree(obj, tree)
 		{
-			for(name in root)
+			for(name in tree)
 			{
 				obj.append(divCollection[name]);
-				_appendTree(divCollection[name], root[name]);
+				
+				if(typeof tree[name] === 'string')
+				{
+					
+					divCollection[name].append(tree[name]);
+					continue;
+				}
+				
+				//obj.append(divCollection[name]);
+				_appendTree(divCollection[name], tree[name]);
 			}
 		}
 		
-		_appendTree(that, tree);
+		_appendTree(div_wrapper, conf.tree[conf.skin]);
+		that.append(div_wrapper);
 		
 		// Append 
 		/*
@@ -338,10 +363,13 @@
 		
 		var controlMargin = (div_controls.outerWidth(true) - div_controls.innerWidth()) / 2;
 		
-		control_timeline.css({
-			left : control_play.outerWidth(true) + controlMargin,
-			right : control_time.outerWidth(true) + control_mute.outerWidth(true) + control_volume.outerWidth(true) + controlMargin
-		});
+		if(div_controls.has('.control-timeline').length)
+		{
+			control_timeline.css({
+				left : control_play.outerWidth(true) + controlMargin,
+				right : control_time.outerWidth(true) + control_mute.outerWidth(true) + control_volume.outerWidth(true) + controlMargin
+			});
+		}
 		
 		// API
 		
@@ -1102,6 +1130,15 @@
 			//_log('[event.seeked] ', videoObject.currentTime, 's ', p, '%');
 			control_timeline_progress.stop().css({width : p + '%'});
 		});
+		
+		video.on('loadstart suspend abort error emptied stalled loadeddata canplay canplaythrough seeking seeked waiting playing pause readystatechange networkstatechange', function(e)
+		{
+			console.log(e.type, e);
+		});
+		
+		window.setInterval(function(){
+			console.log('ready', videoObject.readyState, 'network:', videoObject.networkState)
+		}, 500);
 		
 		// ### event.timeupdate
 		video.on('timeupdate', function(e)

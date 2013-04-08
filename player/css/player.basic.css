@@ -5,11 +5,7 @@
 }
 
 .controls {
-	background-color: rgba(255,255,255,.5);
-	padding: 2px;
 	overflow: hidden;
-	margin: 5px;
-	border-radius: 5px;
 }
 
 .control-timeline {
