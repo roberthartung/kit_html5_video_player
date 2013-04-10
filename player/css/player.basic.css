@@ -41,3 +41,13 @@
 .player.is-playing-ad {
 	cursor: pointer;
 }
+
+.control-timeline-loaded.connect-right {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.control-timeline-loaded.connect-left {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}

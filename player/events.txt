@@ -1,0 +1,507 @@
+--- GOOGLE CHROME ---
+
+// preload=none
+
+emptied 10.4.2013 07:06:49 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+loadstart 10.4.2013 07:06:49 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+stalled 10.4.2013 07:06:52 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+
+// after play
+
+playNextAd(pre-roll) 0 pre-roll 
+abort 10.4.2013 07:07:03 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+emptied 10.4.2013 07:07:03 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+play 10.4.2013 07:07:03 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+waiting 10.4.2013 07:07:03 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+loadstart 10.4.2013 07:07:03 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+stalled 10.4.2013 07:07:06 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+
+// preload = metadata
+
+emptied 10.4.2013 07:10:51 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+loadstart 10.4.2013 07:10:51 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+progress 10.4.2013 07:10:51 readyState: 0 networkState: 1 buffered: undefined currentTime: 0 
+suspend 10.4.2013 07:10:51 readyState: 0 networkState: 1 buffered: undefined currentTime: 0 
+progress 10.4.2013 07:10:51 readyState: 0 networkState: 1 buffered: 38.54512405395508 currentTime: 0 
+suspend 10.4.2013 07:10:51 readyState: 0 networkState: 1 buffered: 38.54512405395508 currentTime: 0 
+durationchange 10.4.2013 07:10:51 readyState: 1 networkState: 1 buffered: 38.54512405395508 currentTime: 0 
+loadedmetadata 10.4.2013 07:10:51 readyState: 1 networkState: 1 buffered: 38.54512405395508 currentTime: 0 
+loadeddata 10.4.2013 07:10:51 readyState: 4 networkState: 1 buffered: 38.54512405395508 currentTime: 0 
+canplay 10.4.2013 07:10:51 readyState: 4 networkState: 1 buffered: 38.54512405395508 currentTime: 0 
+canplaythrough 10.4.2013 07:10:51 readyState: 4 networkState: 1 buffered: 38.54512405395508 currentTime: 0 
+
+
+// after play
+playNextAd(pre-roll) 0 pre-roll 
+abort 10.4.2013 07:11:15 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+emptied 10.4.2013 07:11:15 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+play 10.4.2013 07:11:15 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+waiting 10.4.2013 07:11:15 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+loadstart 10.4.2013 07:11:15 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+progress 10.4.2013 07:11:15 readyState: 0 networkState: 1 buffered: undefined currentTime: 0 
+suspend 10.4.2013 07:11:15 readyState: 0 networkState: 1 buffered: undefined currentTime: 0 
+durationchange 10.4.2013 07:11:15 readyState: 1 networkState: 1 buffered: 10.119999885559082 currentTime: 0 
+loadedmetadata 10.4.2013 07:11:15 readyState: 1 networkState: 1 buffered: 10.119999885559082 currentTime: 0 
+loadeddata 10.4.2013 07:11:15 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 0 
+canplay 10.4.2013 07:11:15 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 0 
+canplaythrough 10.4.2013 07:11:15 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 0 
+playing 10.4.2013 07:11:15 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 0 
+timeupdate 10.4.2013 07:11:15 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 0.2323320060968399 
+timeupdate 10.4.2013 07:11:16 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 0.4786660075187683 
+timeupdate 10.4.2013 07:11:16 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 0.7356659770011902 
+timeupdate 10.4.2013 07:11:16 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 0.9809989929199219 
+timeupdate 10.4.2013 07:11:16 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 1.2359989881515503 
+timeupdate 10.4.2013 07:11:17 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 1.4823329448699951 
+timeupdate 10.4.2013 07:11:17 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 1.736665964126587 
+timeupdate 10.4.2013 07:11:17 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 1.982666015625 
+timeupdate 10.4.2013 07:11:17 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 2.227998971939087 
+timeupdate 10.4.2013 07:11:18 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 2.483999013900757 
+timeupdate 10.4.2013 07:11:18 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 2.7293319702148438 
+timeupdate 10.4.2013 07:11:18 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 2.9853320121765137 
+timeupdate 10.4.2013 07:11:18 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 3.231666088104248 
+timeupdate 10.4.2013 07:11:19 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 3.486665964126587 
+timeupdate 10.4.2013 07:11:19 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 3.731998920440674 
+timeupdate 10.4.2013 07:11:19 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 3.9773330688476562 
+timeupdate 10.4.2013 07:11:19 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 4.233333110809326 
+timeupdate 10.4.2013 07:11:20 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 4.480666160583496 
+timeupdate 10.4.2013 07:11:20 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 4.736666202545166 
+timeupdate 10.4.2013 07:11:20 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 4.980998992919922 
+timeupdate 10.4.2013 07:11:20 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 5.237998962402344 
+timeupdate 10.4.2013 07:11:21 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 5.48333215713501 
+timeupdate 10.4.2013 07:11:21 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 5.73866605758667 
+timeupdate 10.4.2013 07:11:21 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 5.983665943145752 
+timeupdate 10.4.2013 07:11:21 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 6.228999137878418 
+timeupdate 10.4.2013 07:11:22 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 6.484999179840088 
+timeupdate 10.4.2013 07:11:22 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 6.730332851409912 
+timeupdate 10.4.2013 07:11:22 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 6.986332893371582 
+timeupdate 10.4.2013 07:11:22 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 7.232666015625 
+timeupdate 10.4.2013 07:11:23 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 7.487666130065918 
+timeupdate 10.4.2013 07:11:23 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 7.732998847961426 
+timeupdate 10.4.2013 07:11:23 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 7.939332962036133 
+timeupdate 10.4.2013 07:11:23 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 8.190333366394043 
+timeupdate 10.4.2013 07:11:24 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 8.439332962036133 
+timeupdate 10.4.2013 07:11:24 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 8.689332962036133 
+timeupdate 10.4.2013 07:11:24 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 8.939332962036133 
+timeupdate 10.4.2013 07:11:24 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 9.189332962036133 
+timeupdate 10.4.2013 07:11:25 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 9.439332962036133 
+timeupdate 10.4.2013 07:11:25 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 9.689332962036133 
+timeupdate 10.4.2013 07:11:25 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 9.939332962036133 
+timeupdate 10.4.2013 07:11:25 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 10.119999885559082 
+pause 10.4.2013 07:11:25 readyState: 4 networkState: 1 buffered: 10.119999885559082 currentTime: 10.119999885559082 
+[ended] was playing ad 
+playNextAd(pre-roll) 1 bottom 
+[event.ended] 
+ended 10.4.2013 07:11:25 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+abort 10.4.2013 07:11:25 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+emptied 10.4.2013 07:11:25 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+timeupdate 10.4.2013 07:11:26 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+loadstart 10.4.2013 07:11:26 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+progress 10.4.2013 07:11:26 readyState: 0 networkState: 1 buffered: undefined currentTime: 0 
+suspend 10.4.2013 07:11:26 readyState: 0 networkState: 1 buffered: undefined currentTime: 0 
+progress 10.4.2013 07:11:26 readyState: 0 networkState: 1 buffered: 38.54512405395508 currentTime: 0 
+suspend 10.4.2013 07:11:26 readyState: 0 networkState: 1 buffered: 38.54512405395508 currentTime: 0 
+durationchange 10.4.2013 07:11:26 readyState: 1 networkState: 1 buffered: 38.54512405395508 currentTime: 0 
+loadedmetadata 10.4.2013 07:11:26 readyState: 1 networkState: 1 buffered: 38.54512405395508 currentTime: 0 
+loadeddata 10.4.2013 07:11:26 readyState: 4 networkState: 1 buffered: 38.54512405395508 currentTime: 0 
+canplay 10.4.2013 07:11:26 readyState: 4 networkState: 1 buffered: 38.54512405395508 currentTime: 0 
+canplaythrough 10.4.2013 07:11:26 readyState: 4 networkState: 1 buffered: 38.54512405395508 currentTime: 0 
+
+--- INTERNET EXPLORER 12 ---
+
+// preload=none
+
+emptied Mittwoch, 10. April 2013 07:24:08 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+loadstart Mittwoch, 10. April 2013 07:24:08 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+durationchange Mittwoch, 10. April 2013 07:24:08 readyState: 3 networkState: 2 buffered: 38.545 currentTime: 0 
+loadedmetadata Mittwoch, 10. April 2013 07:24:08 readyState: 3 networkState: 2 buffered: 38.545 currentTime: 0 
+loadeddata Mittwoch, 10. April 2013 07:24:08 readyState: 3 networkState: 2 buffered: 38.545 currentTime: 0 
+canplay Mittwoch, 10. April 2013 07:24:08 readyState: 3 networkState: 2 buffered: 38.545 currentTime: 0 
+canplaythrough Mittwoch, 10. April 2013 07:24:08 readyState: 4 networkState: 1 buffered: 38.545 currentTime: 0 
+
+
+// after play
+
+playNextAd(pre-roll) 0 pre-roll 
+abort Mittwoch, 10. April 2013 07:24:20 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+emptied Mittwoch, 10. April 2013 07:24:20 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+timeupdate Mittwoch, 10. April 2013 07:24:20 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+play Mittwoch, 10. April 2013 07:24:20 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+waiting Mittwoch, 10. April 2013 07:24:20 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+loadstart Mittwoch, 10. April 2013 07:24:20 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+durationchange Mittwoch, 10. April 2013 07:24:20 readyState: 3 networkState: 2 buffered: 10.1199999 currentTime: 0 
+loadedmetadata Mittwoch, 10. April 2013 07:24:20 readyState: 3 networkState: 2 buffered: 10.1199999 currentTime: 0 
+loadeddata Mittwoch, 10. April 2013 07:24:20 readyState: 3 networkState: 2 buffered: 10.1199999 currentTime: 0 
+canplay Mittwoch, 10. April 2013 07:24:20 readyState: 3 networkState: 2 buffered: 10.1199999 currentTime: 0 
+timeupdate Mittwoch, 10. April 2013 07:24:20 readyState: 3 networkState: 2 buffered: 10.1199999 currentTime: 0.0050567 
+playing Mittwoch, 10. April 2013 07:24:20 readyState: 3 networkState: 2 buffered: 10.1199999 currentTime: 0.0098866 
+timeupdate Mittwoch, 10. April 2013 07:24:20 readyState: 3 networkState: 2 buffered: 10.1199999 currentTime: 0.2392519 
+canplaythrough Mittwoch, 10. April 2013 07:24:20 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 0.3132429 
+timeupdate Mittwoch, 10. April 2013 07:24:20 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 0.4912477 
+timeupdate Mittwoch, 10. April 2013 07:24:20 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 0.7392526 
+timeupdate Mittwoch, 10. April 2013 07:24:21 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 0.9893889 
+timeupdate Mittwoch, 10. April 2013 07:24:21 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 1.2393439 
+timeupdate Mittwoch, 10. April 2013 07:24:21 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 1.4893669 
+timeupdate Mittwoch, 10. April 2013 07:24:21 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 1.7392992 
+timeupdate Mittwoch, 10. April 2013 07:24:22 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 1.9893675 
+timeupdate Mittwoch, 10. April 2013 07:24:22 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 2.2395266 
+timeupdate Mittwoch, 10. April 2013 07:24:22 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 2.4894135 
+timeupdate Mittwoch, 10. April 2013 07:24:22 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 2.7394818 
+timeupdate Mittwoch, 10. April 2013 07:24:23 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 2.9917724 
+timeupdate Mittwoch, 10. April 2013 07:24:23 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 3.2525437 
+timeupdate Mittwoch, 10. April 2013 07:24:23 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 3.5069884 
+timeupdate Mittwoch, 10. April 2013 07:24:23 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 3.7393697 
+timeupdate Mittwoch, 10. April 2013 07:24:24 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 3.9924086 
+timeupdate Mittwoch, 10. April 2013 07:24:24 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 4.2395291 
+timeupdate Mittwoch, 10. April 2013 07:24:24 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 4.5191893 
+timeupdate Mittwoch, 10. April 2013 07:24:24 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 4.7395524 
+timeupdate Mittwoch, 10. April 2013 07:24:25 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 4.9896207 
+timeupdate Mittwoch, 10. April 2013 07:24:25 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 5.2395076 
+timeupdate Mittwoch, 10. April 2013 07:24:25 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 5.4895986 
+timeupdate Mittwoch, 10. April 2013 07:24:25 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 5.7420933 
+timeupdate Mittwoch, 10. April 2013 07:24:26 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 5.9895085 
+timeupdate Mittwoch, 10. April 2013 07:24:26 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 6.239713 
+timeupdate Mittwoch, 10. April 2013 07:24:26 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 6.4897006 
+timeupdate Mittwoch, 10. April 2013 07:24:26 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 6.7396782 
+timeupdate Mittwoch, 10. April 2013 07:24:27 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 6.9897692 
+timeupdate Mittwoch, 10. April 2013 07:24:27 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 7.2401324 
+timeupdate Mittwoch, 10. April 2013 07:24:27 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 7.4897472 
+timeupdate Mittwoch, 10. April 2013 07:24:27 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 7.7522872 
+timeupdate Mittwoch, 10. April 2013 07:24:28 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 8.0038293 
+timeupdate Mittwoch, 10. April 2013 07:24:28 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 8.239793 
+timeupdate Mittwoch, 10. April 2013 07:24:28 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 8.4898384 
+timeupdate Mittwoch, 10. April 2013 07:24:28 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 8.7409042 
+timeupdate Mittwoch, 10. April 2013 07:24:29 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 8.9898611 
+timeupdate Mittwoch, 10. April 2013 07:24:29 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 9.2519246 
+timeupdate Mittwoch, 10. April 2013 07:24:29 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 9.4898837 
+timeupdate Mittwoch, 10. April 2013 07:24:29 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 9.7398157 
+timeupdate Mittwoch, 10. April 2013 07:24:30 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 9.9897477 
+timeupdate Mittwoch, 10. April 2013 07:24:30 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 10.1199999 
+[ended] was playing ad 
+playNextAd(pre-roll) 1 bottom 
+[event.ended] 
+ended Mittwoch, 10. April 2013 07:24:30 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+abort Mittwoch, 10. April 2013 07:24:30 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+timeupdate Mittwoch, 10. April 2013 07:24:30 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+emptied Mittwoch, 10. April 2013 07:24:30 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+loadstart Mittwoch, 10. April 2013 07:24:30 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+durationchange Mittwoch, 10. April 2013 07:24:30 readyState: 3 networkState: 2 buffered: 38.545 currentTime: 0 
+loadedmetadata Mittwoch, 10. April 2013 07:24:30 readyState: 3 networkState: 2 buffered: 38.545 currentTime: 0 
+loadeddata Mittwoch, 10. April 2013 07:24:30 readyState: 3 networkState: 2 buffered: 38.545 currentTime: 0 
+canplay Mittwoch, 10. April 2013 07:24:30 readyState: 3 networkState: 2 buffered: 38.545 currentTime: 0 
+canplaythrough Mittwoch, 10. April 2013 07:24:31 readyState: 4 networkState: 1 buffered: 38.545 currentTime: 0 
+
+
+
+// preload=metadata
+
+emptied Mittwoch, 10. April 2013 07:13:06 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+loadstart Mittwoch, 10. April 2013 07:13:06 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+durationchange Mittwoch, 10. April 2013 07:13:06 readyState: 3 networkState: 2 buffered: 2.7158701242850385 currentTime: 0 
+loadedmetadata Mittwoch, 10. April 2013 07:13:06 readyState: 3 networkState: 2 buffered: 2.7158701242850385 currentTime: 0 
+loadeddata Mittwoch, 10. April 2013 07:13:06 readyState: 3 networkState: 2 buffered: 2.7158701242850385 currentTime: 0 
+canplay Mittwoch, 10. April 2013 07:13:06 readyState: 3 networkState: 2 buffered: 2.7158701242850385 currentTime: 0 
+progress Mittwoch, 10. April 2013 07:13:06 readyState: 3 networkState: 2 buffered: 2.7158701242850385 currentTime: 0 
+canplaythrough Mittwoch, 10. April 2013 07:13:07 readyState: 4 networkState: 2 buffered: 2.7158701242850385 currentTime: 0 
+
+// after play
+playNextAd(pre-roll) 0 pre-roll 
+abort Mittwoch, 10. April 2013 07:13:16 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+emptied Mittwoch, 10. April 2013 07:13:16 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+timeupdate Mittwoch, 10. April 2013 07:13:16 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+play Mittwoch, 10. April 2013 07:13:16 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+waiting Mittwoch, 10. April 2013 07:13:16 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+loadstart Mittwoch, 10. April 2013 07:13:16 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+durationchange Mittwoch, 10. April 2013 07:13:16 readyState: 3 networkState: 2 buffered: 10.1199999 currentTime: 0 
+loadedmetadata Mittwoch, 10. April 2013 07:13:16 readyState: 3 networkState: 2 buffered: 10.1199999 currentTime: 0 
+loadeddata Mittwoch, 10. April 2013 07:13:16 readyState: 3 networkState: 2 buffered: 10.1199999 currentTime: 0 
+canplay Mittwoch,< 10. April 2013 07:13:16 readyState: 3 networkState: 2 buffered: 10.1199999 currentTime: 0 
+timeupdate Mittwoch, 10. April 2013 07:13:16 readyState: 3 networkState: 2 buffered: 10.1199999 currentTime: 0.0086621 
+playing Mittwoch, 10. April 2013 07:13:16 readyState: 3 networkState: 2 buffered: 10.1199999 currentTime: 0.0135147 
+timeupdate Mittwoch, 10. April 2013 07:13:16 readyState: 3 networkState: 2 buffered: 10.1199999 currentTime: 0.2396601 
+canplaythrough Mittwoch, 10. April 2013 07:13:16 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 0.32254 
+timeupdate Mittwoch, 10. April 2013 07:13:17 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 0.4933112 
+timeupdate Mittwoch, 10. April 2013 07:13:17 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 0.7395927 
+timeupdate Mittwoch, 10. April 2013 07:13:17 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 0.9897517 
+timeupdate Mittwoch, 10. April 2013 07:13:17 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 1.3010673 
+timeupdate Mittwoch, 10. April 2013 07:13:18 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 1.5193442 
+timeupdate Mittwoch, 10. April 2013 07:13:18 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 1.7397754 
+timeupdate Mittwoch, 10. April 2013 07:13:18 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 1.9898891 
+timeupdate Mittwoch, 10. April 2013 07:13:18 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 2.2397306 
+timeupdate Mittwoch, 10. April 2013 07:13:19 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 2.4896856 
+timeupdate Mittwoch, 10. April 2013 07:13:19 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 2.7414546 
+timeupdate Mittwoch, 10. April 2013 07:13:19 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 2.9898903 
+timeupdate Mittwoch, 10. April 2013 07:13:19 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 3.2400267 
+timeupdate Mittwoch, 10. April 2013 07:13:20 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 3.5135644 
+timeupdate Mittwoch, 10. April 2013 07:13:20 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 3.7398686 
+timeupdate Mittwoch, 10. April 2013 07:13:20 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 3.9898916 
+timeupdate Mittwoch, 10. April 2013 07:13:20 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 4.2399372 
+timeupdate Mittwoch, 10. April 2013 07:13:21 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 4.4900736 
+timeupdate Mittwoch, 10. April 2013 07:13:21 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 4.7399605 
+timeupdate Mittwoch, 10. April 2013 07:13:21 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 4.9899608 
+timeupdate Mittwoch, 10. April 2013 07:13:21 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 5.2399611 
+timeupdate Mittwoch, 10. April 2013 07:13:22 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 5.4899161 
+timeupdate Mittwoch, 10. April 2013 07:13:22 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 5.7400751 
+timeupdate Mittwoch, 10. April 2013 07:13:22 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 5.9900301 
+timeupdate Mittwoch, 10. April 2013 07:13:22 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 6.2400304 
+timeupdate Mittwoch, 10. April 2013 07:13:23 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 6.4900407 
+timeupdate Mittwoch, 10. April 2013 07:13:23 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 6.739973 
+timeupdate Mittwoch, 10. April 2013 07:13:23 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 6.9903135 
+timeupdate Mittwoch, 10. April 2013 07:13:23 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 7.2401097 
+timeupdate Mittwoch, 10. April 2013 07:13:24 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 7.4903141 
+timeupdate Mittwoch, 10. April 2013 07:13:24 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 7.7401783 
+timeupdate Mittwoch, 10. April 2013 07:13:24 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 7.9901332 
+timeupdate Mittwoch, 10. April 2013 07:13:24 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 8.2403373 
+timeupdate Mittwoch, 10. April 2013 07:13:25 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 8.4968452 
+timeupdate Mittwoch, 10. April 2013 07:13:25 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 8.7402466 
+timeupdate Mittwoch, 10. April 2013 07:13:25 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 8.9901785 
+timeupdate Mittwoch, 10. April 2013 07:13:25 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 9.2402692 
+timeupdate Mittwoch, 10. April 2013 07:13:26 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 9.490428 
+timeupdate Mittwoch, 10. April 2013 07:13:26 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 9.7402466 
+timeupdate Mittwoch, 10. April 2013 07:13:26 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 9.9901785 
+timeupdate Mittwoch, 10. April 2013 07:13:26 readyState: 4 networkState: 1 buffered: 10.1199999 currentTime: 10.1199999 
+[ended] was playing ad 
+playNextAd(pre-roll) 1 bottom 
+[event.ended] 
+ended Mittwoch, 10. April 2013 07:13:26 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+abort Mittwoch, 10. April 2013 07:13:26 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+timeupdate Mittwoch, 10. April 2013 07:13:26 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+emptied Mittwoch, 10. April 2013 07:13:26 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+loadstart Mittwoch, 10. April 2013 07:13:26 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+durationchange Mittwoch, 10. April 2013 07:13:27 readyState: 3 networkState: 2 buffered: 4.752772717498817 currentTime: 0 
+loadedmetadata Mittwoch, 10. April 2013 07:13:27 readyState: 3 networkState: 2 buffered: 4.752772717498817 currentTime: 0 
+loadeddata Mittwoch, 10. April 2013 07:13:27 readyState: 3 networkState: 2 buffered: 4.752772717498817 currentTime: 0 
+canplay Mittwoch, 10. April 2013 07:13:27 readyState: 3 networkState: 2 buffered: 4.752772717498817 currentTime: 0 
+progress Mittwoch, 10. April 2013 07:13:27 readyState: 3 networkState: 2 buffered: 4.752772717498817 currentTime: 0 
+canplaythrough Mittwoch, 10. April 2013 07:13:27 readyState: 4 networkState: 2 buffered: 4.752772717498817 currentTime: 0 
+
+
+--- OPERA ---
+
+// preload=none
+
+emptied Mittwoch, 10. April 2013 07:01:54 readyState: 0 networkState: 1 buffered: undefined currentTime: 0 
+loadstart Mittwoch, 10. April 2013 07:01:54 readyState: 0 networkState: 1 buffered: undefined currentTime: 0 
+suspend Mittwoch, 10. April 2013 07:01:54 readyState: 0 networkState: 1 buffered: undefined currentTime: 0 
+
+// after play
+
+playNextAd(pre-roll) 0 pre-roll 
+abort Mittwoch, 10. April 2013 07:01:57 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+emptied Mittwoch, 10. April 2013 07:01:57 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+play Mittwoch, 10. April 2013 07:01:57 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+waiting Mittwoch, 10. April 2013 07:01:57 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+timeupdate Mittwoch, 10. April 2013 07:01:57 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+loadstart Mittwoch, 10. April 2013 07:01:57 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+progress Mittwoch, 10. April 2013 07:01:57 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+durationchange Mittwoch, 10. April 2013 07:01:57 readyState: 4 networkState: 1 buffered: 10.120000000000001 currentTime: 0 
+loadedmetadata Mittwoch, 10. April 2013 07:01:57 readyState: 4 networkState: 1 buffered: 10.120000000000001 currentTime: 0 
+loadeddata Mittwoch, 10. April 2013 07:01:57 readyState: 4 networkState: 1 buffered: 10.120000000000001 currentTime: 0 
+canplay Mittwoch, 10. April 2013 07:01:57 readyState: 4 networkState: 1 buffered: 10.120000000000001 currentTime: 0 
+playing Mittwoch, 10. April 2013 07:01:57 readyState: 4 networkState: 1 buffered: 10.120000000000001 currentTime: 0 
+canplaythrough Mittwoch, 10. April 2013 07:01:57 readyState: 4 networkState: 1 buffered: 10.120000000000001 currentTime: 0 
+suspend Mittwoch, 10. April 2013 07:01:57 readyState: 4 networkState: 1 buffered: 10.120000000000001 currentTime: 0 
+timeupdate Mittwoch, 10. April 2013 07:02:07 readyState: 2 networkState: 1 buffered: 10.120000000000001 currentTime: 10.120000000000001 
+[ended] was playing ad 
+playNextAd(pre-roll) 1 bottom 
+[event.ended] 
+ended Mittwoch, 10. April 2013 07:02:07 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+abort Mittwoch, 10. April 2013 07:02:07 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+timeupdate Mittwoch, 10. April 2013 07:02:07 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+emptied Mittwoch, 10. April 2013 07:02:07 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+loadstart Mittwoch, 10. April 2013 07:02:07 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+
+// preload = metadata
+
+emptied Mittwoch, 10. April 2013 07:12:34 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+loadstart Mittwoch, 10. April 2013 07:12:34 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+progress Mittwoch, 10. April 2013 07:12:34 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+durationchange Mittwoch, 10. April 2013 07:12:35 readyState: 2 networkState: 1 buffered: 2.1107425008137324 currentTime: 0 
+loadedmetadata Mittwoch, 10. April 2013 07:12:35 readyState: 2 networkState: 1 buffered: 2.1107425008137324 currentTime: 0 
+loadeddata Mittwoch, 10. April 2013 07:12:35 readyState: 2 networkState: 1 buffered: 2.1107425008137324 currentTime: 0 
+progress Mittwoch, 10. April 2013 07:12:35 readyState: 2 networkState: 1 buffered: 2.1107425008137324 currentTime: 0 
+suspend Mittwoch, 10. April 2013 07:12:35 readyState: 2 networkState: 1 buffered: 2.1107425008137324 currentTime: 0 
+
+// after play
+
+playNextAd(pre-roll) 0 pre-roll 
+abort Mittwoch, 10. April 2013 07:12:44 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+emptied Mittwoch, 10. April 2013 07:12:44 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+play Mittwoch, 10. April 2013 07:12:44 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+waiting Mittwoch, 10. April 2013 07:12:44 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+timeupdate Mittwoch, 10. April 2013 07:12:44 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+loadstart Mittwoch, 10. April 2013 07:12:44 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+progress Mittwoch, 10. April 2013 07:12:44 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+durationchange Mittwoch, 10. April 2013 07:12:44 readyState: 4 networkState: 1 buffered: 10.120000000000001 currentTime: 0 
+loadedmetadata Mittwoch, 10. April 2013 07:12:44 readyState: 4 networkState: 1 buffered: 10.120000000000001 currentTime: 0 
+loadeddata Mittwoch, 10. April 2013 07:12:44 readyState: 4 networkState: 1 buffered: 10.120000000000001 currentTime: 0 
+canplay Mittwoch, 10. April 2013 07:12:44 readyState: 4 networkState: 1 buffered: 10.120000000000001 currentTime: 0 
+playing Mittwoch, 10. April 2013 07:12:44 readyState: 4 networkState: 1 buffered: 10.120000000000001 currentTime: 0 
+canplaythrough Mittwoch, 10. April 2013 07:12:44 readyState: 4 networkState: 1 buffered: 10.120000000000001 currentTime: 0 
+suspend Mittwoch, 10. April 2013 07:12:44 readyState: 4 networkState: 1 buffered: 10.120000000000001 currentTime: 0 
+
+
+--- Firefox ---
+
+// preload=none
+
+emptied Mittwoch, 10. April 2013 07:02:20 readyState: 0 networkState: 0 buffered: undefined currentTime: 0 
+emptied Mittwoch, 10. April 2013 07:02:20 readyState: 0 networkState: 0 buffered: undefined currentTime: 0 
+loadstart Mittwoch, 10. April 2013 07:02:20 readyState: 0 networkState: 1 buffered: undefined currentTime: 0 
+suspend Mittwoch, 10. April 2013 07:02:20 readyState: 0 networkState: 1 buffered: undefined currentTime: 0 
+
+// 
+
+playNextAd(pre-roll) 0 pre-roll 
+abort Mittwoch, 10. April 2013 07:02:27 readyState: 0 networkState: 1 buffered: undefined currentTime: 0 
+emptied Mittwoch, 10. April 2013 07:02:27 readyState: 0 networkState: 0 buffered: undefined currentTime: 0 
+play Mittwoch, 10. April 2013 07:02:27 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+waiting Mittwoch, 10. April 2013 07:02:27 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+loadstart Mittwoch, 10. April 2013 07:02:27 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+progress Mittwoch, 10. April 2013 07:02:27 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+progress Mittwoch, 10. April 2013 07:02:27 readyState: 0 networkState: 1 buffered: undefined currentTime: 0 
+suspend Mittwoch, 10. April 2013 07:02:27 readyState: 0 networkState: 1 buffered: undefined currentTime: 0 
+durationchange Mittwoch, 10. April 2013 07:02:27 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 0 
+loadedmetadata Mittwoch, 10. April 2013 07:02:27 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 0 
+progress Mittwoch, 10. April 2013 07:02:27 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 0 
+loadeddata Mittwoch, 10. April 2013 07:02:27 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 0 
+canplay Mittwoch, 10. April 2013 07:02:27 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 0 
+playing Mittwoch, 10. April 2013 07:02:27 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 0 
+canplaythrough Mittwoch, 10. April 2013 07:02:27 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 0 
+timeupdate Mittwoch, 10. April 2013 07:02:28 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 0.007625 
+timeupdate Mittwoch, 10. April 2013 07:02:28 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 0.28 
+timeupdate Mittwoch, 10. April 2013 07:02:28 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 0.56075 
+timeupdate Mittwoch, 10. April 2013 07:02:28 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 0.84 
+timeupdate Mittwoch, 10. April 2013 07:02:29 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 1.120041 
+timeupdate Mittwoch, 10. April 2013 07:02:29 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 1.399937 
+timeupdate Mittwoch, 10. April 2013 07:02:29 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 1.68002 
+timeupdate Mittwoch, 10. April 2013 07:02:30 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 1.96002 
+timeupdate Mittwoch, 10. April 2013 07:02:30 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 2.24 
+timeupdate Mittwoch, 10. April 2013 07:02:30 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 2.52002 
+timeupdate Mittwoch, 10. April 2013 07:02:30 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 2.8 
+timeupdate Mittwoch, 10. April 2013 07:02:31 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 3.080875 
+timeupdate Mittwoch, 10. April 2013 07:02:31 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 3.36 
+timeupdate Mittwoch, 10. April 2013 07:02:31 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 3.64 
+timeupdate Mittwoch, 10. April 2013 07:02:31 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 3.918687 
+timeupdate Mittwoch, 10. April 2013 07:02:32 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 4.2 
+timeupdate Mittwoch, 10. April 2013 07:02:32 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 4.478979 
+timeupdate Mittwoch, 10. April 2013 07:02:32 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 4.76 
+timeupdate Mittwoch, 10. April 2013 07:02:33 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 5.038937 
+timeupdate Mittwoch, 10. April 2013 07:02:33 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 5.319979 
+timeupdate Mittwoch, 10. April 2013 07:02:33 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 5.599 
+timeupdate Mittwoch, 10. April 2013 07:02:33 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 5.880083 
+timeupdate Mittwoch, 10. April 2013 07:02:34 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 6.160145 
+timeupdate Mittwoch, 10. April 2013 07:02:34 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 6.440062 
+timeupdate Mittwoch, 10. April 2013 07:02:34 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 6.72002 
+timeupdate Mittwoch, 10. April 2013 07:02:35 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 6.96 
+timeupdate Mittwoch, 10. April 2013 07:02:35 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 7.239125 
+timeupdate Mittwoch, 10. April 2013 07:02:35 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 7.520187 
+timeupdate Mittwoch, 10. April 2013 07:02:35 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 7.788229 
+timeupdate Mittwoch, 10. April 2013 07:02:36 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 7.933189 
+timeupdate Mittwoch, 10. April 2013 07:02:36 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 8.199998 
+timeupdate Mittwoch, 10. April 2013 07:02:36 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 8.479999 
+timeupdate Mittwoch, 10. April 2013 07:02:36 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 8.760212 
+timeupdate Mittwoch, 10. April 2013 07:02:37 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 9.03884 
+timeupdate Mittwoch, 10. April 2013 07:02:37 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 9.320204 
+timeupdate Mittwoch, 10. April 2013 07:02:37 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 9.598679 
+timeupdate Mittwoch, 10. April 2013 07:02:38 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 9.880253 
+timeupdate Mittwoch, 10. April 2013 07:02:38 readyState: 2 networkState: 1 buffered: 10.12 currentTime: 10.12 
+pause Mittwoch, 10. April 2013 07:02:38 readyState: 2 networkState: 1 buffered: 10.12 currentTime: 10.12 
+timeupdate Mittwoch, 10. April 2013 07:02:38 readyState: 2 networkState: 1 buffered: 10.12 currentTime: 10.12 
+[ended] was playing ad 
+playNextAd(pre-roll) 1 bottom 
+abort Mittwoch, 10. April 2013 07:02:38 readyState: 2 networkState: 1 buffered: undefined currentTime: 0 
+emptied Mittwoch, 10. April 2013 07:02:38 readyState: 0 networkState: 0 buffered: undefined currentTime: 0 
+[event.ended] 
+ended Mittwoch, 10. April 2013 07:02:38 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+timeupdate Mittwoch, 10. April 2013 07:02:38 readyState: 0 networkState: 1 buffered: undefined currentTime: 0 
+loadstart Mittwoch, 10. April 2013 07:02:38 readyState: 0 networkState: 1 buffered: undefined currentTime: 0 
+suspend Mittwoch, 10. April 2013 07:02:38 readyState: 0 networkState: 1 buffered: undefined currentTime: 0 
+
+// preload = metadata
+
+emptied Mittwoch, 10. April 2013 07:11:38 readyState: 0 networkState: 0 buffered: undefined currentTime: 0 
+emptied Mittwoch, 10. April 2013 07:11:38 readyState: 0 networkState: 0 buffered: undefined currentTime: 0 
+loadstart Mittwoch, 10. April 2013 07:11:38 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+progress Mittwoch, 10. April 2013 07:11:38 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+durationchange Mittwoch, 10. April 2013 07:11:38 readyState: 2 networkState: 1 buffered: 15.265 currentTime: 0 
+loadedmetadata Mittwoch, 10. April 2013 07:11:38 readyState: 2 networkState: 1 buffered: 15.265 currentTime: 0 
+loadeddata Mittwoch, 10. April 2013 07:11:38 readyState: 2 networkState: 1 buffered: 15.265 currentTime: 0 
+progress Mittwoch, 10. April 2013 07:11:38 readyState: 2 networkState: 1 buffered: 15.265 currentTime: 0 
+suspend Mittwoch, 10. April 2013 07:11:38 readyState: 2 networkState: 1 buffered: 15.265 currentTime: 0 
+canplay Mittwoch, 10. April 2013 07:11:38 readyState: 3 networkState: 1 buffered: 15.265 currentTime: 0 
+
+
+// after play
+
+playNextAd(pre-roll) 0 pre-roll 
+abort Mittwoch, 10. April 2013 07:12:00 readyState: 3 networkState: 1 buffered: undefined currentTime: 0 
+emptied Mittwoch, 10. April 2013 07:12:00 readyState: 0 networkState: 0 buffered: undefined currentTime: 0 
+play Mittwoch, 10. April 2013 07:12:00 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+waiting Mittwoch, 10. April 2013 07:12:00 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+loadstart Mittwoch, 10. April 2013 07:12:00 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+progress Mittwoch, 10. April 2013 07:12:00 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 0 
+progress Mittwoch, 10. April 2013 07:12:00 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 0 
+suspend Mittwoch, 10. April 2013 07:12:00 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 0 
+durationchange Mittwoch, 10. April 2013 07:12:00 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 0 
+loadedmetadata Mittwoch, 10. April 2013 07:12:00 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 0 
+progress Mittwoch, 10. April 2013 07:12:00 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 0 
+loadeddata Mittwoch, 10. April 2013 07:12:00 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 0 
+canplay Mittwoch, 10. April 2013 07:12:00 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 0 
+playing Mittwoch, 10. April 2013 07:12:00 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 0 
+canplaythrough Mittwoch, 10. April 2013 07:12:00 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 0 
+timeupdate Mittwoch, 10. April 2013 07:12:00 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 0.001937 
+timeupdate Mittwoch, 10. April 2013 07:12:01 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 0.28 
+timeupdate Mittwoch, 10. April 2013 07:12:01 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 0.560541 
+timeupdate Mittwoch, 10. April 2013 07:12:01 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 0.84 
+timeupdate Mittwoch, 10. April 2013 07:12:02 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 1.12 
+timeupdate Mittwoch, 10. April 2013 07:12:02 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 1.4 
+timeupdate Mittwoch, 10. April 2013 07:12:02 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 1.680062 
+timeupdate Mittwoch, 10. April 2013 07:12:02 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 1.96 
+timeupdate Mittwoch, 10. April 2013 07:12:03 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 2.240625 
+timeupdate Mittwoch, 10. April 2013 07:12:03 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 2.520708 
+timeupdate Mittwoch, 10. April 2013 07:12:03 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 2.800729 
+timeupdate Mittwoch, 10. April 2013 07:12:04 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 3.078708 
+timeupdate Mittwoch, 10. April 2013 07:12:04 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 3.360687 
+timeupdate Mittwoch, 10. April 2013 07:12:04 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 3.64002 
+timeupdate Mittwoch, 10. April 2013 07:12:04 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 3.920041 
+timeupdate Mittwoch, 10. April 2013 07:12:05 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 4.2 
+timeupdate Mittwoch, 10. April 2013 07:12:05 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 4.480041 
+timeupdate Mittwoch, 10. April 2013 07:12:05 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 4.760062 
+timeupdate Mittwoch, 10. April 2013 07:12:06 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 5.038875 
+timeupdate Mittwoch, 10. April 2013 07:12:06 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 5.319979 
+timeupdate Mittwoch, 10. April 2013 07:12:06 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 5.598875 
+timeupdate Mittwoch, 10. April 2013 07:12:06 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 5.880041 
+timeupdate Mittwoch, 10. April 2013 07:12:07 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 6.158916 
+timeupdate Mittwoch, 10. April 2013 07:12:07 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 6.438937 
+timeupdate Mittwoch, 10. April 2013 07:12:07 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 6.718916 
+timeupdate Mittwoch, 10. April 2013 07:12:07 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 6.998958 
+timeupdate Mittwoch, 10. April 2013 07:12:08 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 7.280062 
+timeupdate Mittwoch, 10. April 2013 07:12:08 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 7.558958 
+timeupdate Mittwoch, 10. April 2013 07:12:08 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 7.8 
+timeupdate Mittwoch, 10. April 2013 07:12:09 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 8.08 
+timeupdate Mittwoch, 10. April 2013 07:12:09 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 8.359173 
+timeupdate Mittwoch, 10. April 2013 07:12:09 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 8.639959 
+timeupdate Mittwoch, 10. April 2013 07:12:10 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 8.920036 
+timeupdate Mittwoch, 10. April 2013 07:12:10 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 9.198931 
+timeupdate Mittwoch, 10. April 2013 07:12:10 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 9.48 
+timeupdate Mittwoch, 10. April 2013 07:12:10 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 9.759281 
+timeupdate Mittwoch, 10. April 2013 07:12:11 readyState: 4 networkState: 1 buffered: 10.12 currentTime: 10.039138 
+timeupdate Mittwoch, 10. April 2013 07:12:11 readyState: 2 networkState: 1 buffered: 10.12 currentTime: 10.12 
+pause Mittwoch, 10. April 2013 07:12:11 readyState: 2 networkState: 1 buffered: 10.12 currentTime: 10.12 
+timeupdate Mittwoch, 10. April 2013 07:12:11 readyState: 2 networkState: 1 buffered: 10.12 currentTime: 10.12 
+[ended] was playing ad 
+playNextAd(pre-roll) 1 bottom 
+abort Mittwoch, 10. April 2013 07:12:11 readyState: 2 networkState: 1 buffered: undefined currentTime: 0 
+emptied Mittwoch, 10. April 2013 07:12:11 readyState: 0 networkState: 0 buffered: undefined currentTime: 0 
+[event.ended] 
+ended Mittwoch, 10. April 2013 07:12:11 readyState: 0 networkState: 3 buffered: undefined currentTime: 0 
+timeupdate Mittwoch, 10. April 2013 07:12:11 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+loadstart Mittwoch, 10. April 2013 07:12:11 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+progress Mittwoch, 10. April 2013 07:12:11 readyState: 0 networkState: 2 buffered: undefined currentTime: 0 
+durationchange Mittwoch, 10. April 2013 07:12:11 readyState: 2 networkState: 1 buffered: 19.52 currentTime: 0 
+loadedmetadata Mittwoch, 10. April 2013 07:12:11 readyState: 2 networkState: 1 buffered: 19.52 currentTime: 0 
+loadeddata Mittwoch, 10. April 2013 07:12:11 readyState: 2 networkState: 1 buffered: 19.52 currentTime: 0 
+progress Mittwoch, 10. April 2013 07:12:11 readyState: 2 networkState: 1 buffered: 19.52 currentTime: 0 
+suspend Mittwoch, 10. April 2013 07:12:11 readyState: 2 networkState: 1 buffered: 19.52 currentTime: 0 
+canplay Mittwoch, 10. April 2013 07:12:11 readyState: 3 networkState: 1 buffered: 19.52 currentTime: 0 
+progress Mittwoch, 10. April 2013 07:12:11 readyState: 3 networkState: 1 buffered: 19.52 currentTime: 0 

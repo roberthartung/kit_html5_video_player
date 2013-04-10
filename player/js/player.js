@@ -201,9 +201,9 @@
 			control_timeline : { control_timeline_loaded : {}, control_timeline_progress : '<div><a></a></div>' },
 			div_controls_bar : {
 				div_controls : {
-					control_volume : { control_volume_bar : {} },
-					control_mute : { },
 					control_play : { },
+					control_mute : { },
+					control_volume : { control_volume_bar : {} },
 					control_time : { },
 					control_fullscreen : { }
 				}
@@ -214,14 +214,34 @@
 	
 	function _log()
 	{
+		if($('#debug').length)
+		{
+			$(arguments).each(function(k,v)
+			{
+				$('#debug').val($('#debug').val() + v + " ");
+			});
+			$('#debug').val($('#debug').val() + "\n");
+		}
+		
 		if(typeof console != 'undefined' && conf.debug)
 		{
+			
+			
 			console.log.apply(console, arguments);
 		}
 	}
 	
 	function _info()
 	{
+		if($('#debug').length)
+		{
+			$(arguments).each(function(k,v)
+			{
+				$('#debug').append(v + " ");
+			});
+			$('#debug').append("\n");
+		}
+		
 		if(typeof console != 'undefined' && conf.debug)
 		{
 			console.info.apply(console, arguments);
@@ -230,6 +250,15 @@
 	
 	function _error()
 	{
+		if($('#debug').length)
+		{
+			$(arguments).each(function(k,v)
+			{
+				$('#debug').append(v + " ");
+			});
+			$('#debug').append("\n");
+		}
+		
 		if(typeof console != 'undefined')
 		{
 			if(typeof console.error == 'function')
@@ -243,7 +272,7 @@
 		}
 	}
 	
-    return this.data('player') || this.each(function xxx()
+  return this.data('player') || this.each(function xxx()
 	{
 		var that = $(this);
 		
@@ -291,7 +320,7 @@
 		var control_volume_bar = $('<div class="control-volume-bar"></div>');
 		var control_timeline_progress = $('<div class="control-timeline-bar"></div>');
 		var control_timeline_loaded = $('<div class="control-timeline-loaded"></div>');
-		var control_volume_bar = control_timeline.find('.control-volume-bar');
+		//var control_volume_bar = control_timeline.find('.control-volume-bar');
 		var control_fullscreen = $('<i class="icon-white control-fullscreen icon-resize-full"></i>');
 		
 		var divCollection = {
@@ -337,13 +366,38 @@
 					continue;
 				}
 				
-				//obj.append(divCollection[name]);
 				_appendTree(divCollection[name], tree[name]);
 			}
 		}
 		
 		_appendTree(div_wrapper, conf.tree[conf.skin]);
 		that.append(div_wrapper);
+		
+		if(conf.skin == 'yt')
+		{
+			var control_volume_width = control_volume.width();
+			
+			control_volume.css('width', 0);
+			control_mute.on('mouseover', function(e)
+			{
+				control_volume.clearQueue().animate({'width': control_volume_width + 'px'});
+			});
+			
+			control_mute.on('mouseout', function(e)
+			{
+				control_volume.delay(1000).animate({'width': 0});
+			});
+			
+			control_volume.on('mouseover', function(e)
+			{
+				control_volume.clearQueue().css('width', control_volume_width);
+			});
+			
+			control_volume.on('mouseout', function(e)
+			{
+				control_volume.delay(1000).animate({'width': 0});
+			});
+		}
 		
 		// Append 
 		/*
@@ -380,6 +434,7 @@
 			ad : false,
 			overlay : false,
 			fullscreen : false,
+			waiting : false,
 			// ##### Functions
 			// load a new clip
 			load : function(clip)
@@ -479,7 +534,7 @@
 						delete clip.ads[a];
 					}
 					
-					_info('clip.ads:', clip.ads, 'nextAd:', nextAd);
+					//_info('clip.ads:', clip.ads, 'nextAd:', nextAd);
 				}
 				else
 				{
@@ -980,6 +1035,15 @@
 			setSize();
 		});
 		
+		video.on('canplay', function(e)
+		{
+			if(player.waiting)
+			{
+				player.waiting = false;
+				videoObject.play();
+			}
+		})
+		
 		// ### Duration Change
 		
 		video.on('durationchange', function(e)
@@ -1045,12 +1109,12 @@
 					if(!playNextAd('pre-roll'))
 					{
 						videoObject.src = player.clip.src;
-						videoObject.play();
+						//videoObject.play();
 					}
 					// we got another ad, start it!
 					else
 					{
-						videoObject.play();
+						//videoObject.play();
 					}
 				}
 				// end of actual clip
@@ -1061,7 +1125,7 @@
 					_log('[ended] actual clip is over, playing next post-roll');
 					if(playNextAd('post-roll'))
 					{
-						videoObject.play();
+						//videoObject.play();
 					}
 					else
 					{
@@ -1131,20 +1195,54 @@
 			control_timeline_progress.stop().css({width : p + '%'});
 		});
 		
-		video.on('loadstart suspend abort error emptied stalled loadeddata canplay canplaythrough seeking seeked waiting playing pause readystatechange networkstatechange', function(e)
+		/* from flowplayer:s._trackEvent(
+			"Video / Seconds played", // category
+			t.engine + "/" + o.type, // action (html / video/mp4)
+			n.attr("title") || o.src.split("/").slice(-1)[0].replace(d, ""), // label
+			Math.round(i / 1e3) // value --> duration
+		)*/
+		
+		video.on('progress loadstart suspend abort error emptied stalled loadeddata loadedmetadata canplay canplaythrough seeking seeked waiting playing ended pause readystatechange networkstatechange error durationchange timeupdate play volumechange', function(e)
 		{
-			console.log(e.type, e);
+			//console.log(e.type, e);
+			_log(e.type, (new Date()).toLocaleString(), 'readyState:', videoObject.readyState, 'networkState:', videoObject.networkState, 'buffered:', videoObject.buffered.length ? videoObject.buffered.end(0) : 'undefined', 'currentTime:', videoObject.currentTime);
 		});
 		
-		video.on('progress', function(e)
+		video.on('waiting canplay', function(e)
 		{
-			console.log(e.type, 'length:', videoObject.buffered.length, 'length2:', videoObject.played.length);
+			if(player.waiting || e.type == 'canplay')
+			{
+				that.removeClass('waiting');
+				player.waiting = false;
+			}
+			else
+			{
+				that.addClass('waiting');
+				player.waiting = true;
+			}
 		});
 		
 		/*
+		video.on('progress', function(e)
+		{
+			//console.log(e.type, 'length:', videoObject.buffered.length, 'length2:', videoObject.played.length);
+			var l;
+			var start;
+			var end;
+			for(l=0; l<videoObject.buffered.length; l++)
+			{
+				start = videoObject.buffered.start(l);
+				end = videoObject.buffered.end(l);
+				console.log('buffered(' + l + ')', start, Math.round(start*100)/100, end, Math.round(end*100)/100);
+			}
+		});
+		*/
+		
+		/*
 		window.setInterval(function(){
-			console.log('ready', videoObject.readyState, 'network:', videoObject.networkState)
-		}, 500);
+			//console.log('ready', videoObject.readyState, 'network:', videoObject.networkState)
+			console.log(videoObject.textTracks[0], videoObject.subtitles);
+		}, 5000);
 		*/
 		
 		// ### event.timeupdate
@@ -1280,21 +1378,86 @@
 			p = Math.round(p);
 			control_timeline_progress.stop().animate({width : p + '%'}, 500, 'linear');
 		});
-		
-		video.on('progress', function(e)
+		// 
+		video.on('progress loadeddata buffered', function(e)
 		{
+			control_timeline.find('.control-timeline-loaded').remove();
+			
 			if(!videoObject.buffered.length)
 				return;
 			
-			var p = videoObject.buffered.end(0) / videoObject.duration;
-			p *= 100;
-			p = Math.round(p);
+			var l = videoObject.buffered.length;
+			var b;
+			for(b=0;b<l;b++)
+			{
+				//console.log(e.type + ':', videoObject.buffered.start(b), videoObject.buffered.end(b), videoObject.currentTime);
+				
+				var start = videoObject.buffered.start(b);
+				var end = videoObject.buffered.end(b);
+				
+				var bar_loaded = $('<div class="control-timeline-loaded"></div>');
+				bar_loaded.css({
+					position : 'absolute',
+					left : (start / videoObject.duration) * 100 + '%',
+					width : ((end - start) / videoObject.duration) * 100 + '%'
+				});
+				
+				
+				if(b == 0)	// first element
+				{
+					bar_loaded.addClass('first');
+					
+					if(l > 1 && Math.round(end * 100) / 100 == Math.round(videoObject.buffered.start(b+1) * 100) / 100) // we have a following element
+					{
+						bar_loaded.addClass('connect-right');
+					}
+				}
+				else if(b == l-1) // last element
+				{
+					bar_loaded.addClass('last');
+					
+					if(b > 0 && Math.round(start * 100) / 100 == Math.round(videoObject.buffered.end(b-1) * 100) / 100) // we have a following element
+					{
+						bar_loaded.addClass('connect-left');
+					}
+				}
+				else // between
+				{
+					if(b > 0 && Math.round(start * 100) / 100 == Math.round(videoObject.buffered.end(b-1) * 100) / 100) // we have a following element
+					{
+						bar_loaded.addClass('connect-left');
+					}
+					
+					if(l > 1 && Math.round(end * 100) / 100 == Math.round(videoObject.buffered.start(b+1) * 100) / 100) // we have a following element
+					{
+						bar_loaded.addClass('connect-right');
+					}
+				}
+				
+				control_timeline.prepend(bar_loaded);
+			}
 			
-			$('.control-timeline-loaded').stop().css({width:p + '%'});
+			/*
+			
+			for(b=0;b<videoObject.buffered.length;b++)
+			{
+				
+			}
+			*/
+			
+			//var p = videoObject.buffered.end(0) / videoObject.duration;
+			//p *= 100;
+			//p = Math.round(p);
+			
+			//$('.control-timeline-loaded').stop().css({width:p + '%'});
 		});
 		
 		// after all initializations are done, we can add the player
 		that.data('player', player);
+		
+		var _src = videoObject.src;
+		videoObject.src = '';
+		videoObject.src = _src;
 	});
 
   };

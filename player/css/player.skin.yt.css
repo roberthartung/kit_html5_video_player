@@ -50,7 +50,7 @@
 }
 
 .control-button-mute {
-	float: right;
+	float: left;
 	margin: 2px;
 }
 
@@ -61,7 +61,7 @@
 }
 
 .control-volume {
-	float: right;
+	float: left;
 	width: 100px;
 	height: 10px;
 	margin: 5px 5px 5px 0;

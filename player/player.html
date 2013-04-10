@@ -4,8 +4,8 @@
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<link rel="stylesheet" href="css/bootstrap.min.css" />
 		<link rel="stylesheet" href="css/player.basic.css" />
-		<link rel="stylesheet" href="css/player.skin.default.css" />
-		<!--<link rel="stylesheet" href="css/player.skin.yt.css" />-->
+		<!--<link rel="stylesheet" href="css/player.skin.default.css" />-->
+		<link rel="stylesheet" href="css/player.skin.yt.css" />
 		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/player.js"></script>
@@ -15,13 +15,22 @@
 				background-color: #f00 !important;
 				display: block;
 			}
+			
+			.waiting .wrapper {
+				background-image: url(img/waiting.gif);
+				background-repeat: no-repeat;
+				background-position: center center;
+			}
 		</style>
 	</head>
 	
 	<body>
 		<div style="background-color: #333; margin: 20px auto;" class="player">
-			<video controls loop>
+			<video preload="none" controls loop>
+				
+				<source type="video/webm" src="624x260.webm"/>
 				<source type="video/mp4" src="624x260.mp4"/>
+				<!--<track src="jellies.srt" kind="subtitle" srclang="de-DE" label="German" default="enabled" />-->
 			</video>
 		</div>
 		
@@ -38,6 +47,7 @@
 		<script type="text/javascript">
 			$(function()
 			{
+				$('#debug').val('');
 				/*
 				$('#slider-test').seekSlider().on('seek', function(e,p)
 				{
@@ -50,7 +60,7 @@
 					debug : true,
 					width: 720,
 					height: 405,
-					/*skin : 'yt',*/
+					skin : 'yt',
 					overlays : {
 						positions : [
 							{
@@ -71,7 +81,8 @@
 								{
 									position : 'pre-roll',
 									sources : [
-										{type:'video/webm',src:'stream.php'}
+										{type:'video/webm',src:'openx-ad.webm'},
+										{type:'video/mp4',src:'openx-ad.mp4'}
 									],
 									url : 'http://www.mecaso.ch',
 								},
@@ -160,5 +171,7 @@
 				//console.log(api.clip);
 			});
 		</script>
+		
+		<textarea id="debug" style="width: 800px; margin: 0 auto !important; display: block;" rows="20"></textarea>
 	</body>
 </html>
