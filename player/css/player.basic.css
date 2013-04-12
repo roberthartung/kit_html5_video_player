@@ -33,6 +33,12 @@
 	cursor: pointer;
 }
 
+.player .wrapper {
+	overflow: hidden;
+	clear: both;
+	background-image: url('transparent.gif');
+}
+
 .player.is-fullscreen, .player.is-fullscreen > video, .player.is-fullscreen > .wrapper {
 	width: 100% !important;
 	height: 100% !important;

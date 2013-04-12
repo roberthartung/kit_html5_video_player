@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<link rel="stylesheet" href="css/bootstrap.min.css" />
 		<link rel="stylesheet" href="css/player.basic.css" />
 		<!--<link rel="stylesheet" href="css/player.skin.default.css" />-->
@@ -21,18 +20,33 @@
 				background-repeat: no-repeat;
 				background-position: center center;
 			}
+			
+			pre { -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; }
 		</style>
 	</head>
 	
 	<body>
+		<script type="text/javascript">
+			var _gaq = _gaq || [];
+			//_gaq.push(['_setAccount', 'UA-39348271-1']);
+			_gaq.push(['_trackPageview']);
+	   </script>
+	   
 		<div style="background-color: #333; margin: 20px auto;" class="player">
 			<video preload="none" controls loop>
-				
-				<source type="video/webm" src="624x260.webm"/>
-				<source type="video/mp4" src="624x260.mp4"/>
-				<!--<track src="jellies.srt" kind="subtitle" srclang="de-DE" label="German" default="enabled" />-->
+				<!--<source type='video/mp4' src='624x260.mp4'/>
+				<source type='video/webm' src="624x260.webm"/>
+				-->
 			</video>
 		</div>
+		
+			<!--
+				<video preload="none" controls src="stream.php?file=openx-ad.webm&8"></video>
+				
+				<source type='video/webm; codecs="vp8"' src="624x260.webm?"/>
+				<source type='video/mp4; codecs="avc1"' src='624x260.mp4?'/>
+			-->
+				<!--<track src="jellies.srt" kind="subtitle" srclang="de-DE" label="German" default="enabled" />-->
 		
 		<!--
 		<div id="slider-test" class="slidertest" style="height: 10px; width: 500px; background-color: #000; position: absolute;">
@@ -55,9 +69,87 @@
 					$('#slider-test').tooltip('destroy').tooltip({animate:false,html:p*duration,title:duration*p,trigger:'manual'}).tooltip('show');
 				});
 				*/
+				
+				var stream = ''; // stream.php?file=
+			
+				var ads = [
+					{
+						title : 'OpenX Pre-Roll',
+						position : 'pre-roll',
+						sources : [
+							{type:'video/webm', src: stream + 'openx-ad.webm?'+(new Date()).getTime()}, // ; codecs="vp8"
+							{type:'video/mp4', src: stream + 'openx-ad.mp4?'+(new Date()).getTime()}, // ; codecs="avc1",
+							{type:'video/ogg', src: stream + 'openx-ad.ogg?'+(new Date()).getTime()}
+						],
+						url : 'http://www.mecaso.ch',
+					},
+					{
+						title : 'Lego Pre-Roll',
+						position : 'pre-roll',
+						sources : [
+							{type:'video/webm', src: stream + 'lego.webm?'+(new Date()).getTime()}, // ; codecs="vp8"
+							{type:'video/mp4', src: stream + 'lego.mp4?'+(new Date()).getTime()}, // ; codecs="avc1",
+							{type:'video/ogg', src: stream + 'lego.ogg?'+(new Date()).getTime()}
+						],
+						url : 'http://www.mecaso.ch',
+					},
+					{
+						position : 'bottom',
+						src : 'ad.swf',
+						url : 'http://www.rhcms.de',
+						type : 'swf',
+						begin : 4,
+						duration : 5,
+						//end : '80%',
+						width : 468,
+						height : 60
+					},
+					{
+						position : 'bottom',
+						type : 'video',
+						sources : [
+							{type:'video/webm', src: stream + 'openx-ad.webm?'+(new Date()).getTime()},
+							{type:'video/mp4', src: stream + 'openx-ad.mp4?'+(new Date()).getTime()},
+							{type:'video/ogg', src: stream + 'openx-ad.ogg?'+(new Date()).getTime()}
+						],
+						begin : 15,
+						duration : 5,
+						//end : '80%',
+						width : 468,
+						height : 60
+					},
+					{
+						title : 'OpenX Post-Roll',
+						position : 'post-roll',
+						sources : [
+							{type:'video/webm; codecs="vp8"', src : stream + 'openx-ad.webm?'+(new Date()).getTime()},
+							{type:'video/mp4; codecs="avc1"', src : stream + 'openx-ad.mp4?'+(new Date()).getTime()}
+						],
+						url : 'http://www.rhcms.de',
+					}
+				];
+				
+				var playlist = [
+					{
+						title : 'Clip 1',
+						sources : [
+							{type:'video/mp4', src : stream + '624x260.mp4?'+(new Date()).getTime()}, // ; codecs="avc1"
+							{type:'video/webm', src : stream + '624x260.webm?'+(new Date()).getTime()}, // ; codecs="vp8"
+							{type:'video/ogg', src : stream + '624x260.ogg?'+(new Date()).getTime()},
+						],
+						ads : ads,
+						cuepoints : [0, 2.0, 4.5]
+					},
+					{
+						title : 'Mozilla Video',
+						src : 'http://techslides.com/demos/sample-videos/small.webm',
+						type : 'video/webm'
+					}
+				];
 			
 				var p = $('.player').player({
 					debug : true,
+					analytics : 'UA-39348271-1',
 					width: 720,
 					height: 405,
 					skin : 'yt',
@@ -70,60 +162,7 @@
 							},
 						]
 					},
-					playlist : [
-						{
-							title : 'Clip 1',
-							sources : [
-								{type:'video/mp4', src :'624x260.mp4'},
-								{type:'video/webm', src :'624x260.webm'}
-							],
-							ads : [
-								{
-									position : 'pre-roll',
-									sources : [
-										{type:'video/webm',src:'openx-ad.webm'},
-										{type:'video/mp4',src:'openx-ad.mp4'}
-									],
-									url : 'http://www.mecaso.ch',
-								},
-								{
-									position : 'bottom',
-									src : 'ad.swf',
-									url : 'http://www.rhcms.de',
-									type : 'swf',
-									begin : 4,
-									duration : 5,
-									//end : '80%',
-									width : 468,
-									height : 60
-								},
-								{
-									position : 'bottom',
-									src : 'ad.swf',
-									url : 'http://www.mecaso.ch',
-									type : 'swf',
-									begin : 15,
-									duration : 5,
-									//end : '80%',
-									width : 468,
-									height : 60
-								},
-								{
-									position : 'post-roll',
-									sources : [
-										{type:'video/webm',src:'openx-ad.webm'}
-									],
-									url : 'http://www.rhcms.de',
-								}
-							],
-							cuepoints : [0, 2.0, 4.5]
-						},
-						{
-							title : 'Mozilla Video',
-							src : 'http://techslides.com/demos/sample-videos/small.webm',
-							type : 'video/webm'
-						}
-					]
+					playlist : playlist
 				})
 				// video starts playing
 				.bind('play', function(e, api)
@@ -161,10 +200,26 @@
 				.bind('beforevolumechange', function(e)
 				{
 					return true;
-				}).
-				bind('cuepoint', function(e, player, clip, cuepoint)
+				})
+				.bind('cuepoint', function(e, player, clip, cuepoint)
 				{
 					//console.log('[onCuePoint]', player, clip, cuepoint);
+				})
+				.bind('play', function(e, player)
+				{
+					console.log('[event.play]', player);
+				})
+				.bind('pause', function(e, player)
+				{
+					console.log('[event.pause]');
+				})
+				.bind('resume', function(e, player)
+				{
+					console.log('[resume]', player.clip.time);
+				})
+				.bind('ended', function(e, player)
+				{
+					console.log('[ended]', player);
 				});
 				
 				var api = p.player();
@@ -172,6 +227,7 @@
 			});
 		</script>
 		
-		<textarea id="debug" style="width: 800px; margin: 0 auto !important; display: block;" rows="20"></textarea>
+		<pre id="debug" style="width: 1200px; margin: 0 auto !important; display: block; height: 400px; overflow: auto;"></pre>
+		<input type="checkbox" id="autoscroll" value="1" checked/> <label for="autoscroll">Autoscroll</label>
 	</body>
 </html>

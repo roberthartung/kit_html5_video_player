@@ -178,6 +178,7 @@
 	  },
 	  playlist : [],
 	  clip : null,
+	  playing : false,
 	  defaults : {
 		volume : .75
 	  },
@@ -204,7 +205,7 @@
 					control_play : { },
 					control_mute : { },
 					control_volume : { control_volume_bar : {} },
-					control_time : { },
+					control_time : { control_time_played : {}, ' / ' : {}, control_time_total : {} },
 					control_fullscreen : { }
 				}
 			}
@@ -212,35 +213,52 @@
 	  }
     }, conf);
 	
-	function _log()
+	function _addDebugLine()
 	{
 		if($('#debug').length)
 		{
+			var old = $('#debug').text();
+			$('#debug').text('');
+			
 			$(arguments).each(function(k,v)
 			{
-				$('#debug').val($('#debug').val() + v + " ");
+				if(typeof v == 'string')
+				{
+					$('#debug').text($('#debug').text() + (""+v) + ((""+v).length <= 4 ? "\t" : "") + ((""+v).length < 8 ? "\t" : "") + ((""+v).length < 12 ? "\t" : "") + ((""+v).length < 16 ? "\t" : "") + "\t");
+				}
+				else
+				{
+					$('#debug').text($('#debug').text() + (""+v) + ((""+v).length <= 4 ? "\t" : "") + "\t");
+				}
 			});
-			$('#debug').val($('#debug').val() + "\n");
-		}
+			
+			 $('#debug').text($('#debug').text() + "\n" + old);
+			
+			//$('#debug').text($('#debug').text() + "\n");
+			/*
+			if(!$('#autoscroll').length || $('#autoscroll').is(':checked'))
+				$('#debug').get(0).scrollTop = $('#debug').get(0).scrollHeight - $('#debug').get(0).offsetHeight;
+				*/
+			return true;
+		}	
+		return false;
+	}
+	
+	function _log()
+	{
+		if(_addDebugLine.apply(this, arguments))
+			return;
 		
 		if(typeof console != 'undefined' && conf.debug)
 		{
-			
-			
 			console.log.apply(console, arguments);
 		}
 	}
 	
 	function _info()
 	{
-		if($('#debug').length)
-		{
-			$(arguments).each(function(k,v)
-			{
-				$('#debug').append(v + " ");
-			});
-			$('#debug').append("\n");
-		}
+		if(_addDebugLine.apply(this, arguments))
+			return;
 		
 		if(typeof console != 'undefined' && conf.debug)
 		{
@@ -250,14 +268,8 @@
 	
 	function _error()
 	{
-		if($('#debug').length)
-		{
-			$(arguments).each(function(k,v)
-			{
-				$('#debug').append(v + " ");
-			});
-			$('#debug').append("\n");
-		}
+		if(_addDebugLine.apply(this, arguments))
+			return;
 		
 		if(typeof console != 'undefined')
 		{
@@ -280,6 +292,7 @@
 		var video = that.find('video').eq(0);
 		var videoObject = video.get(0);
 		var video_loop;
+		var video_autoplay;
 		var video_controls;
 		var timeShowCurrent = conf.info.time.show_current ? 1 : 0; // 0 = remaining, 1 = current
 		
@@ -315,7 +328,10 @@
 		var control_timeline = $('<div class="control-timeline"></div>');
 		var control_mute = $('<i class="icon-white control-button-mute icon-volume-up"></i>');
 		var control_play = $('<i class="icon-white control-button-play icon-play"></i>');
-		var control_time = $('<span class="control-info-time">00:00</span>');
+		var control_time = $('<span class="control-info-time"></span>');
+		var control_time_left = $('<span class="control-info-time-left"></span>');
+		var control_time_total = $('<span class="control-info-time-total"></span>');
+		var control_time_played = $('<span class="control-info-time-played"></span>');
 		var control_volume = $('<div class="control-volume"></div>');
 		var control_volume_bar = $('<div class="control-volume-bar"></div>');
 		var control_timeline_progress = $('<div class="control-timeline-bar"></div>');
@@ -336,12 +352,68 @@
 			control_time : control_time,
 			control_volume : control_volume,
 			control_volume_bar : control_volume_bar,
-			control_fullscreen : control_fullscreen
+			control_fullscreen : control_fullscreen,
+			control_time_left : control_time_left,
+			control_time_total : control_time_total,
+			control_time_played : control_time_played
 		}
+		
+		var controlsHidden = false;
+		
+		
+		
+		div_wrapper.on('mouseout', function(e)
+		{
+			var height = div_controls_bar.height();
+			
+			if(!div_controls_bar.has('.control-timeline').length)
+			{
+				// @todo dot from timeline still visible
+				height += control_timeline.height();
+				
+				control_timeline.delay(1000).animate({marginBottom:'-' + height + 'px'}, 500, function(){
+					controlsHidden = true;
+				});
+			}
+			
+			div_controls_bar.delay(1000).animate({marginBottom:'-' + height + 'px'}, 500, function(){
+				controlsHidden = true;
+			});
+		});
+		
+		function _fadeInControls()
+		{
+			if(controlsHidden)
+			{
+				div_controls_bar.animate({marginBottom:'0'}, function(){
+					controlsHidden = false;
+				});
+				
+				if(!div_controls_bar.has('.control-timeline').length)
+				{
+					control_timeline.animate({marginBottom:'0'}, function(){
+						controlsHidden = false;
+					});
+				}
+			}
+		}
+		
+		function _cancelHide()
+		{
+			div_controls_bar.clearQueue();
+			control_timeline.clearQueue();
+		}
+		
+		div_wrapper.on('mouseover', _fadeInControls);
+		div_controls.on('mouseover', _cancelHide);
+		div_controls_bar.on('mouseover', _cancelHide);
+		control_timeline.on('mouseover', _cancelHide);
+		div_wrapper.on('mouseover', _cancelHide);
 		
 		// Set/Get Video-Container options
 		video.css({position: 'absolute'});
 		video_loop = video.hasAttr('loop');
+		video_autoplay = video.hasAttr('autoplay');
 		video_controls = video.hasAttr('controls');
 		if(video_controls)
 		{
@@ -353,25 +425,39 @@
 			video.removeAttr('loop');
 		}
 		
+		if(video_autoplay)
+		{
+			video.removeAttr('autoplay');
+		}
+		
 		function _appendTree(obj, tree)
 		{
 			for(name in tree)
 			{
-				obj.append(divCollection[name]);
+				var _elem = divCollection[name];
+				if(typeof _elem == 'undefined')
+				{
+					_elem = name;
+				}
+				
+				obj.append(_elem);
 				
 				if(typeof tree[name] === 'string')
 				{
-					
-					divCollection[name].append(tree[name]);
+					_elem.append(tree[name]);
 					continue;
 				}
 				
-				_appendTree(divCollection[name], tree[name]);
+				_appendTree(_elem, tree[name]);
 			}
 		}
 		
 		_appendTree(div_wrapper, conf.tree[conf.skin]);
+		
+		//that.append('<div style="clear: both;"></div>');
 		that.append(div_wrapper);
+		//that.append('<div style="clear: both;"></div>');
+		//that.prepend('<div style="clear: both;"></div>');
 		
 		if(conf.skin == 'yt')
 		{
@@ -398,20 +484,6 @@
 				control_volume.delay(1000).animate({'width': 0});
 			});
 		}
-		
-		// Append 
-		/*
-		div_wrapper.append(div_overlay);
-		div_wrapper.append(control_fullscreen);
-		div_wrapper.append(div_controls_bar);
-		div_controls_bar.append(div_controls);
-		div_controls.append(control_timeline);
-		div_controls.append(control_volume);
-		div_controls.append(control_mute);
-		div_controls.append(control_play);
-		div_controls.append(control_time);
-		that.append(div_wrapper);
-		*/
 		
 		div_overlay.hide();
 		
@@ -446,35 +518,6 @@
 				}
 				else if(clip.sources && clip.sources.length)
 				{
-					/*var src = null;
-					var support;
-					for(var s = 0;s < clip.sources.length; s++)
-					{
-						var _support = videoObject.canPlayType(clip.sources[s].type);
-						switch(_support)
-						{
-							case 'probably' :
-								if(src == null || _support == 'maybe')
-								{
-									src = clip.sources[s];
-									support = 'probably';
-								}
-							break;
-							case 'maybe' :
-								if(src == null)
-								{
-									src = clip.sources[s];
-									support = 'maybe';
-								}
-							break;
-						}
-					}
-				
-					if(src == null)
-					{
-						return;
-					}
-					*/
 					var src;
 					if(src = getSrc(clip.sources))
 					{
@@ -494,8 +537,8 @@
 				}
 				
 				player.clip = clip;
-				
 				videoObject.src = player.clip.src;
+				videoObject.load();
 				
 				// Check for cuepoints
 				if(typeof clip.cuepoints == 'object' && clip.cuepoints.length > 0)
@@ -575,6 +618,19 @@
 		
 		// ############ Helper Functions
 		
+		function _checkMuted()
+		{
+			if(videoObject.volume == 0)
+			{
+				control_mute.addClass('icon-volume-off').removeClass('icon-volume-up');
+			}
+			else
+			{
+				control_mute.removeClass('icon-volume-off').addClass('icon-volume-up');
+			}
+		}
+		
+		// set current volume level and store to 
 		function _setVolume(v)
 		{
 			videoObject.volume = v;
@@ -582,15 +638,6 @@
 			if(typeof localStorage != 'undefined')
 			{
 				localStorage.setItem('volume', v);
-			}
-			
-			if(v <= 0)
-			{
-				control_mute.addClass('icon-volume-off').removeClass('icon-volume-up');
-			}
-			else
-			{
-				control_mute.removeClass('icon-volume-off').addClass('icon-volume-up');
 			}
 		}
 		
@@ -601,6 +648,14 @@
 				player.addOverlayPosition(conf.overlays.positions[p]);
 			}
 		}
+		
+		/**
+		 * Determines which sources are playable for a clip
+		 *
+		 * @param sources
+		 *
+		 * @return object null if no src is playable, object {src, type}
+		 */
 		
 		function getSrc(sources)
 		{
@@ -636,6 +691,10 @@
 			return {type : src.type, src : src.src};
 		}
 		
+		/**
+		 * Sets the size of the player
+		 */
+		
 		function setSize()
 		{
 			that.css({
@@ -648,6 +707,15 @@
 				height : height
 			});
 		}
+		
+		/**
+		 * converts seconds to a timestamp
+		 *
+		 * @param int Seconds
+		 * @param bool force hours in string 
+		 *
+		 * @return string
+		 */
 		
 		function secondsToTime(s, forceHours)
 		{
@@ -688,31 +756,51 @@
 			return str + ':' + s;
 		}
 		
-		function gotoNextAd()
+		/**
+		 * increases the ad pointer or sets it to null if there are no more ads
+		 */
+		
+		function _gotoNextAd()
 		{
 			nextAd++;
 			if(nextAd >= player.clip.ads.length)
 			{
-				_log('no more ads');
 				nextAd = null;
 			}
 		}
 		
-		function playNextAd(position)
+		/**
+		 * call handler for check if we have to play an ad
+		 */
+		
+		function _playNextAd(position)
 		{
 			if(nextAd != null)
-				_log('playNextAd(' + position + ')', nextAd, player.clip.ads[nextAd].position);
+				_log('_playNextAd(' + position + ')', nextAd, player.clip.ads[nextAd].position);
 			
 			if(nextAd != null && player.clip.ads[nextAd].position == position)
 			{
 				videoObject.src = player.clip.ads[nextAd].src;
+				//video.attr('preload', 'metadata');
+				//player.waiting = true;
+				videoObject.load();
+				videoObject.play();
+				//video.attr('preload', 'none');
+				// force waiting for play causes play() on event.canplay
+				
 				player.ad = player.clip.ads[nextAd];
 				that.addClass('is-playing-ad');
-				gotoNextAd();
+				_gotoNextAd();
 				return true;
 			}
 			
 			return false;
+		}
+		
+		function _finishAd()
+		{
+			player.ad = false;
+			that.removeClass('is-playing-ad');
 		}
 		
 		function requestFullscreen(e)
@@ -749,14 +837,26 @@
 			}
 		}
 		
-		function _play()
+		function _initialPlay()
 		{
-			playNextAd('pre-roll');
-			if(that.triggerHandler('beforeplay', [player]) != false)
+			if(!_playNextAd('pre-roll'))
 			{
 				videoObject.play();
 			}
 		}
+		
+		/*
+		function _play()
+		{
+			_playNextAd('pre-roll');
+			
+			if(that.triggerHandler('beforeplay', [player]) != false)
+			{
+				//videoObject.play();
+			}
+			
+		}
+		*/
 		
 		function _pause()
 		{
@@ -766,6 +866,8 @@
 			}
 		}
 		
+		// If width and height have been set in configuration
+		// force width and height for the player as well
 		if(width && height)
 		{
 			setSize();
@@ -781,86 +883,6 @@
 				_info('applying width and height from video resolution');
 			}
 		}
-		
-		// ########## Initialization
-		
-		if(typeof videoObject.canPlayType == 'undefined')
-		{
-			that.addClass('error-unsupported');
-			that.data('player', {error:'Not supported'});
-			_error('HTML5 Video not supported in your Browser');
-			return;
-		}
-		
-		// if we have both: width and height, we can set the width and height
-		
-		
-		// ############ Playlist & Clip
-		
-		// ### If the configuration has a playlist, we always use the first clip
-		
-		if(conf.playlist.length > 0)
-		{
-			clipIndex = 0;
-			conf.clip = conf.playlist[clipIndex];
-		}
-		
-		// ### If we have a clip, check it's types
-		
-		if(conf.clip != null)
-		{
-			// Load Clip via API (forces a reset of all variables)
-			player.load(conf.clip);
-		}
-		
-		// Check if clip was loaded
-		if(player.clip != null)
-		{
-			// we got a clip
-			if(conf.debug)
-			{
-				//console.info('[init] loading clip ', player.clip.src, ' (' + player.clip.type + ')');
-			}
-		}
-		else
-		{
-			if(conf.debug)
-			{
-				//console.error('[init] no valid clip found');
-			}
-			
-			return;
-		}
-		
-		// player.overlay
-		if(typeof conf.overlays != 'undefined')
-		{
-			if(typeof conf.overlays.positions != 'undefined' && conf.overlays.positions.length > 0)
-			{
-				prepareOverlayPositions();
-			}
-		}
-		
-		div_controls_bar.on('dblclick', function(e)
-		{
-			e.stopPropagation();
-			return false;
-		});
-		
-		div_wrapper.on('click', function(e)
-		{
-			if(!$(e.target).is(div_wrapper))
-				return;
-		
-			if(player.ad)
-			{
-				window.open(player.ad.url);
-			}
-			else
-			{
-				control_play.trigger('click');
-			}
-		});
 		
 		// ############ CONTROLS
 		
@@ -884,13 +906,11 @@
 			}
 		});
 		
-		_setVolume(volume);
-		
 		// event.mozfullscreenerror
 		// document.fullscreenElement
 		// document.fullscreenEnabled
 		
-		// ### Play
+		// ### Play | control.play.click
 		control_play.on('click', function(e)
 		{
 			e.preventDefault();
@@ -898,7 +918,17 @@
 			e.stopPropagation();
 			if(videoObject.paused)
 			{
-				_play();	
+				//_playNextAd('pre-roll');
+				
+				// @todo check state here
+				if(player.ad || !_playNextAd('pre-roll'))
+				{
+					videoObject.play();
+				}
+				else
+				{
+					_error('Unexpected');
+				}
 			}
 			else
 			{
@@ -935,9 +965,11 @@
 		});
 		
 		// ### Time
-		
 		control_time.on('click', function(e)
 		{
+			if(control_time.has('.control-info-time-total') || control_time.has('.control-info-time-left'))
+				return;
+		
 			timeShowCurrent = timeShowCurrent ? 0 : 1;
 			if(timeShowCurrent)
 			{
@@ -946,6 +978,28 @@
 			else
 			{
 				control_time.html(secondsToTime(videoObject.duration - videoObject.currentTime));
+			}
+		});
+		
+		div_controls_bar.on('dblclick', function(e)
+		{
+			e.stopPropagation();
+			return false;
+		});
+		
+		div_wrapper.on('click', function(e)
+		{
+			if(!$(e.target).is(div_wrapper))
+				return;
+		
+			if(player.ad)
+			{
+				that.trigger('ad.click', [player]);
+				window.open(player.ad.url);
+			}
+			else
+			{
+				control_play.trigger('click');
 			}
 		});
 		
@@ -984,8 +1038,10 @@
 			.on('endSeek', function(e)
 			{
 				if(wasPlaying)
-					_play();
+					videoObject.play();
 			});
+		
+		// ### Volume Slider
 		
 		control_volume
 			.seekSlider()
@@ -1027,43 +1083,57 @@
 			videoObject.width = width;
 			videoObject.height = height;
 			
-			if(conf.debug)
-			{
-				//console.info('[event.loadedmetadata] duration = ', videoObject.duration);
-			}
-			
 			setSize();
 		});
-		
-		video.on('canplay', function(e)
-		{
-			if(player.waiting)
-			{
-				player.waiting = false;
-				videoObject.play();
-			}
-		})
 		
 		// ### Duration Change
 		
 		video.on('durationchange', function(e)
 		{
-			if(!timeShowCurrent)
+			control_time_left.html(secondsToTime(videoObject.duration - videoObject.currentTime));
+			control_time_played.html(secondsToTime(0));
+			control_time_total.html(secondsToTime(videoObject.duration));
+			
+			if(!control_time.has('.control-info-time-total') && !control_time.has('.control-info-time-left') && !timeShowCurrent)
 			{
 				control_time.html(secondsToTime(videoObject.duration));
 			}
 		
-			if(conf.debug)
+			_info('[event.durationchange] duration = ', videoObject.duration);
+		});
+		
+		// ### event.canplay @TODO
+		video.on('canplay', function(e)
+		{
+			_info('[event.canplay]');
+			if(player.waiting)
 			{
-				//console.info('[event.durationchange] duration = ', videoObject.duration);
+				player.waiting = false;
+				that.removeClass('waiting');
+				videoObject.play();
 			}
+		})
+		
+		// ### event.emptied: Reset UI
+		video.on('emptied', function(e)
+		{
+			_info('[event.emptied]');
+			control_timeline.seekSlider('seek', 0);
 		});
 		
 		// ### Event.Play
 		
 		video.on('play', function(e)
 		{
-			that.trigger('play', [player]);
+			if(videoObject.currentTime)
+			{
+				that.trigger('resume', [player]);
+			}
+			else
+			{
+				that.trigger('play', [player]);
+			}
+			player.playing = true;
 			// Switch to pause icon when in play mode
 			$('.control-button-play').removeClass('icon-play').addClass('icon-pause');
 		});
@@ -1072,6 +1142,8 @@
 		
 		video.on('pause', function(e)
 		{
+			player.playing = false;
+			
 			that.trigger('pause', [player]);
 			// Switch to play icon when in pause mode
 			$('.control-button-play').removeClass('icon-pause').addClass('icon-play');
@@ -1079,13 +1151,49 @@
 			control_timeline_progress.stop();
 		});
 		
+		function _playNextClip()
+		{
+			//_info('_playNextClip');
+			// playlist
+			if(clipIndex != null)
+			{
+				clipIndex++;
+				// end of playlist already reached
+				if(clipIndex >= conf.playlist.length)
+				{
+					clipIndex = 0;
+					if(video_loop)
+					{
+						player.load(conf.playlist[clipIndex]);
+						_initialPlay();
+					}
+				}
+				else
+				{
+					player.load(conf.playlist[clipIndex]);
+					_initialPlay();
+				}
+			}
+			else
+			{
+				if(video_loop)
+				{
+					player.load(conf.clip);
+					_initialPlay();
+				}
+			}
+		}
+		
 		// ### event.ended
 		
 		video.on('ended', function(e)
 		{
+			_info('[event.ended]');
 			hasEnded = true;
 			that.trigger('ended', [player]);
+			//that.trigger('ad.finish', [player, player.ad]);
 			
+			// clear overlays
 			if(player.overlay)
 			{
 				player.overlay = false;
@@ -1094,6 +1202,55 @@
 				div_overlay.find('>*').remove();
 			}
 			
+			// we were playing a pre-, mid- or post-roll
+			if(player.ad)
+			{
+				var _ad_position = player.ad.position;
+				_finishAd();
+				// the ad played was a mid-roll, resume the clip
+				if(_ad_position == 'mid-roll')
+				{
+					// @todo resume clip
+				}
+				else if(_ad_position == 'pre-roll')
+				{
+					if(!_playNextAd('pre-roll'))
+					{
+						videoObject.src = player.clip.src;
+						videoObject.load();
+						videoObject.play();
+					}
+				}
+				else if(_ad_position == 'post-roll')
+				{
+					if(!_playNextAd('post-roll'))
+					{
+						// we finished all ads
+						// check for loop or next clip
+						_playNextClip();
+					}
+				}
+				else
+				{
+					_error('Position unknown');
+				}
+			}
+			// we were playing the actual clip
+			else
+			{
+				// we got 
+				if(_playNextAd('post-roll'))
+				{
+					player.waiting = true;
+					//videoObject.play();
+				}
+				else
+				{
+					_playNextClip();
+				}
+			}
+			
+			/*
 			// we still got ads to show
 			if(nextAd != null)
 			{
@@ -1101,19 +1258,21 @@
 				// either we have more pre-rolls to show or the actual clip will follow now
 				if(player.ad)
 				{
-					_log('[ended] was playing ad');
+					_log('[event.ended] was playing ad');
 					player.ad = false;
 					that.removeClass('is-playing-ad');
 					
-					// If we're not having a next pre-roll add
-					if(!playNextAd('pre-roll'))
+					// If we're not having a next pre-roll we need to show the actual clip
+					if(!_playNextAd('pre-roll'))
 					{
 						videoObject.src = player.clip.src;
-						//videoObject.play();
+						videoObject.load();
+						player.waiting = true;
 					}
 					// we got another ad, start it!
 					else
 					{
+						player.waiting = true;
 						//videoObject.play();
 					}
 				}
@@ -1122,9 +1281,10 @@
 				else
 				{
 					// @TODO skip all overlays here because the clip played was the actual clip
-					_log('[ended] actual clip is over, playing next post-roll');
-					if(playNextAd('post-roll'))
+					_log('[event.ended] actual clip is over, playing next post-roll');
+					if(_playNextAd('post-roll'))
 					{
+						player.waiting = true;
 						//videoObject.play();
 					}
 					else
@@ -1144,36 +1304,14 @@
 				}
 				
 				// @TODO if we have no more post-roll ads -> check if we should loop!
-				_info('no more ads for this clip');
+				_info('[event.ended] no more ads for this clip');
 				
-				if(clipIndex != null)
-				{
-					clipIndex++;
-					if(clipIndex >= conf.playlist.length)
-					{
-						clipIndex = 0;
-						if(video_loop)
-						{
-							player.load(conf.playlist[clipIndex]);
-							_play();
-						}
-					}
-					else
-					{
-						player.load(conf.playlist[clipIndex]);
-						_play();
-					}
-				}
-				else
-				{
-					if(video_loop)
-					{
-						_play();
-					}
-				}
+				
 			}
 			
 			_log('[event.ended]');
+			*/
+			
 			control_timeline.seekSlider('seek', 1);
 		});
 		
@@ -1202,56 +1340,56 @@
 			Math.round(i / 1e3) // value --> duration
 		)*/
 		
-		video.on('progress loadstart suspend abort error emptied stalled loadeddata loadedmetadata canplay canplaythrough seeking seeked waiting playing ended pause readystatechange networkstatechange error durationchange timeupdate play volumechange', function(e)
+		// canplaythrough suspend abort emptied
+		
+		// timeupdate
+		video.on('suspend abort progress loadstart stalled loadeddata loadedmetadata seeking seeked waiting playing ended error', function(e)
 		{
 			//console.log(e.type, e);
-			_log(e.type, (new Date()).toLocaleString(), 'readyState:', videoObject.readyState, 'networkState:', videoObject.networkState, 'buffered:', videoObject.buffered.length ? videoObject.buffered.end(0) : 'undefined', 'currentTime:', videoObject.currentTime);
+			_log(e.type, 'ready:', videoObject.readyState, 'network:', videoObject.networkState, 'buffered:', videoObject.buffered.length ? videoObject.buffered.end(0) : 'undefined', 'currentTime:', videoObject.currentTime);
+			
+			if(e.type == 'error')
+			{
+				_error('error:', videoObject.error.code);
+			}
 		});
 		
-		video.on('waiting canplay', function(e)
+		
+		video.on('volumechange', function(e)
 		{
-			if(player.waiting || e.type == 'canplay')
+			_info('[event.volumechange]', videoObject.volume);
+			_checkMuted();
+		});
+		
+		// Waiting
+		video.on('waiting', function(e)
+		{
+			_info('[event.waiting]');
+			player.waiting = true;
+			that.addClass('waiting');
+		});
+		
+		// Can play
+		video.on('canplay', function(e)
+		{
+			if(player.waiting)
 			{
 				that.removeClass('waiting');
 				player.waiting = false;
-			}
-			else
-			{
-				that.addClass('waiting');
-				player.waiting = true;
+				//_play();
 			}
 		});
 		
-		/*
-		video.on('progress', function(e)
-		{
-			//console.log(e.type, 'length:', videoObject.buffered.length, 'length2:', videoObject.played.length);
-			var l;
-			var start;
-			var end;
-			for(l=0; l<videoObject.buffered.length; l++)
-			{
-				start = videoObject.buffered.start(l);
-				end = videoObject.buffered.end(l);
-				console.log('buffered(' + l + ')', start, Math.round(start*100)/100, end, Math.round(end*100)/100);
-			}
-		});
-		*/
-		
-		/*
-		window.setInterval(function(){
-			//console.log('ready', videoObject.readyState, 'network:', videoObject.networkState)
-			console.log(videoObject.textTracks[0], videoObject.subtitles);
-		}, 5000);
-		*/
-		
-		// ### event.timeupdate
+		// ### event.timeupdate --> Update bar + info time
 		video.on('timeupdate', function(e)
 		{
-			if(isSeeking)
-				return;
-			
-			if(timeShowCurrent)
+			if(control_time.has('.control-info-time-total') || control_time.has('.control-info-time-left'))
+			{
+				// control_time_total.val(videoObject.duration);
+				control_time_left.html(secondsToTime(videoObject.duration - videoObject.currentTime));
+				control_time_played.html(secondsToTime(videoObject.currentTime));
+			}
+			else if(timeShowCurrent)
 			{
 				control_time.html(secondsToTime(videoObject.currentTime));
 			}
@@ -1260,6 +1398,12 @@
 			{
 				control_time.html(secondsToTime(videoObject.duration - videoObject.currentTime));
 			}
+			
+			// if we're seeking, we dont want any cuepoints to be triggered
+			if(isSeeking)
+				return;
+			
+			player.clip.time = videoObject.currentTime;
 			
 			// If we have an index
 			if(!player.ad && cuePointIndex != null && !videoObject.paused)
@@ -1304,11 +1448,37 @@
 					
 					if(typeof overlay_positions[_ad.position] == 'object')
 					{
-						var id = 'overlay-' + (new Date()).getTime();
-						var adObject = $('<div/>');
-						adObject.attr('id', id);
-						div_overlay.append(adObject);
-						swfobject.embedSWF("ad.swf", id, _ad.width, _ad.height, "9.0.0", "expressInstall.swf");
+						console.log(_ad);
+						
+						switch(_ad.type)
+						{
+							case 'swf' :
+								var id = 'overlay-' + (new Date()).getTime();
+								var adObject = $('<div/>');
+								adObject.attr('id', id);
+								div_overlay.append(adObject);
+								swfobject.embedSWF(_ad.src, id, _ad.width, _ad.height, "9.0.0", "expressInstall.swf");
+							break;
+							default :
+								if(_ad.type.match(/^video\/(.*)$/g))
+								{
+									var video = $('<video autoplay width="' + _ad.width + '" height="' + _ad.height + '"></video>')
+									
+									if(_ad.src)
+									{
+										video.attr('src', _ad.src);
+									}
+									else
+									{
+										var src = getSrc(_ad.sources);
+										video.attr('src', src.src);
+									}
+									
+									div_overlay.append(video);
+								}
+							break;
+						}
+						
 						div_overlay.css(position_conf.css);
 						div_overlay.css(
 							 {
@@ -1369,7 +1539,7 @@
 					*/
 					
 					// always goto next ad
-					gotoNextAd();
+					_gotoNextAd();
 				}
 			}
 			
@@ -1378,7 +1548,8 @@
 			p = Math.round(p);
 			control_timeline_progress.stop().animate({width : p + '%'}, 500, 'linear');
 		});
-		// 
+		
+		// update buffer
 		video.on('progress loadeddata buffered', function(e)
 		{
 			control_timeline.find('.control-timeline-loaded').remove();
@@ -1388,6 +1559,7 @@
 			
 			var l = videoObject.buffered.length;
 			var b;
+			
 			for(b=0;b<l;b++)
 			{
 				//console.log(e.type + ':', videoObject.buffered.start(b), videoObject.buffered.end(b), videoObject.currentTime);
@@ -1401,7 +1573,6 @@
 					left : (start / videoObject.duration) * 100 + '%',
 					width : ((end - start) / videoObject.duration) * 100 + '%'
 				});
-				
 				
 				if(b == 0)	// first element
 				{
@@ -1455,9 +1626,173 @@
 		// after all initializations are done, we can add the player
 		that.data('player', player);
 		
-		var _src = videoObject.src;
-		videoObject.src = '';
-		videoObject.src = _src;
+		// ########## Initialization
+		
+		// Check if HTML5 engine is available
+		if(typeof videoObject.canPlayType == 'undefined')
+		{
+			that.addClass('error-unsupported');
+			that.data('player', {error:'Not supported'});
+			_error('HTML5 Video not supported in your Browser');
+			return;
+		}
+		
+		// if we have both: width and height, we can set the width and height
+		
+		// ############ Playlist & Clip
+		
+		// ### If the configuration has a playlist, we always use the first clip
+		
+		if(conf.playlist.length > 0)
+		{
+			clipIndex = 0;
+			conf.clip = conf.playlist[clipIndex];
+		}
+		
+		// ### If we have a clip, load the clip
+		if(conf.clip != null)
+		{
+			// Load Clip via API (forces a reset of all variables)
+			player.load(conf.clip);
+		}
+		
+		// Check if clip was loaded
+		if(player.clip != null)
+		{
+			// we got a clip
+			if(conf.debug)
+			{
+				//console.info('[init] loading clip ', player.clip.src, ' (' + player.clip.type + ')');
+			}
+		}
+		else
+		{
+			if(conf.debug)
+			{
+				//console.error('[init] no valid clip found');
+			}
+			
+			return;
+		}
+		
+		// player.overlay
+		if(typeof conf.overlays != 'undefined')
+		{
+			if(typeof conf.overlays.positions != 'undefined' && conf.overlays.positions.length > 0)
+			{
+				prepareOverlayPositions();
+			}
+		}
+		
+		_setVolume(volume);
+		
+		if(video_autoplay)
+		{
+			// Trigger _play action
+			_initialPlay();
+		}
+		
+		// Analytics Events
+		
+		if(conf.analytics)
+		{
+			var tracker;
+			
+			function _loadTracker()
+			{
+				tracker = _gat._getTracker('UA-39348271-1');
+				tracker._setDomainName('none');
+			}
+			
+			if(typeof _gat == 'undefined')
+			{
+				$.getScript('//www.google-analytics.com/ga.js', _loadTracker);
+			}
+			else
+			{
+				_loadTracker();
+			}
+			
+			function _trackEvent(action, value, implicit)
+			{
+				var category;
+				var label;
+				
+				if(player.ad)
+				{
+					category = 'Ads / ' + player.ad.position;
+					label = player.ad.title ? player.ad.title : player.ad.src;
+				}
+				else
+				{
+					category = 'Videos';
+					label = player.clip.title ? player.clip.title : player.clip.src;
+				}
+				
+				if(!value)
+				{
+					tracker._trackEvent(category, action, label);
+				}
+				else if(typeof implicit == 'undefined')
+				{
+					tracker._trackEvent(category, action, label, parseInt(value));
+				}
+				else
+				{
+					tracker._trackEvent(category, action, label, parseInt(value), implicit ? true : false);
+				}
+				
+				
+			}
+			
+			that.on('resume', function(e)
+			{
+				_trackEvent('Resume', player.clip.time);
+				/*
+				if(player.ad)
+				{
+					
+					tracker._trackEvent("Ads / " + player.ad.position, "Resume", player.ad.title ? player.ad.title : player.ad.src, parseInt());
+				}
+				else
+				{
+					tracker._trackEvent("Videos", "Resume", player.clip.title ? player.clip.title : player.clip.src, parseInt(player.clip.time));
+				}
+				*/
+			});
+			
+			that.on('ended', function(e)
+			{
+				_trackEvent('Finish', player.clip.time);
+				/*
+				if(player.ad)
+				{
+					tracker._trackEvent("Ads / " + player.ad.position, 'Finish', player.ad.title ? player.ad.title : player.ad.src, parseInt(player.clip.time));
+				}
+				else
+				{
+					tracker._trackEvent("Videos", 'Finish', player.clip.title ? player.clip.title : player.clip.src, parseInt(player.clip.time));
+				}
+				*/
+			});
+			
+			that.on('ad.click', function(e)
+			{
+				if(player.ad)
+				{
+					_trackEvent('Click');
+				}
+			});
+			
+			$(window).on('unload', function(e)
+			{
+				// track event only if we have a clip and it has been played!
+				if(player.clip && player.clip.time)
+				{
+					_trackEvent('Stop', player.clip.time);
+				}
+			});
+		}
 	});
 
   };
