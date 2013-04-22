@@ -1,0 +1,272 @@
+/** skin.default : .kit-player.skin-default */
+
+.kit-player.skin-default i[class*='icon-'] {
+	color: #fff;
+}
+
+.kit-player.skin-default .controls {
+	background-color: rgba(255,255,255,.5);
+	padding: 2px;
+	margin: 5px;
+	border-radius: 5px;
+}
+
+.kit-player.skin-default .control-timeline {
+	height: 10px;
+	background-color: rgba(255,255,255,.25);
+	border-radius: 5px;
+	margin: 5px 5px;
+}
+
+.kit-player.skin-default .control-timeline-loaded {
+	height: 10px; /* @todo remove */
+	background-color: #fff;
+	border-radius: 5px;
+}
+
+.kit-player.skin-default .control-timeline-bar {
+	height: 10px; /* @todo remove */
+	background-color: rgba(255,0,0,.25);
+	border-radius: 5px;
+}
+
+.kit-player.skin-default .control-button-play {
+	float: left;
+	margin: 2px;
+}
+
+.kit-player.skin-default .control-button-mute {
+	float: right;
+	margin: 2px;
+}
+
+.kit-player.skin-default .control-info-time {
+	float: right;
+	color: #fff;
+	font-size: 10px;
+}
+
+.kit-player.skin-default .control-volume {
+	float: right;
+	width: 100px;
+	height: 10px;
+	margin: 5px 5px 5px 0;
+	border-radius: 5px;
+	background-color: #fff;
+}
+
+.kit-player.skin-default .control-volume-bar {
+	background-color: rgba(255,0,0,.25);
+	height: 10px; /* @todo remove */
+	border-radius: 5px;
+}
+
+.kit-player.skin-default .control-fullscreen {
+	top: 5px;
+	right: 5px;
+	position: absolute;
+}
+
+/** skin.yt : .kit-player.skin-yt */
+
+.kit-player.skin-yt i[class*='icon-'] {
+	color: #fff;
+}
+
+.kit-player.skin-yt .control-timeline {
+	height: 10px;
+	background-color: rgba(255,255,255,.25);
+	left:0;
+	right:0;
+	bottom: 30px;
+	z-index: 2;
+}
+
+.kit-player.skin-yt .control-timeline-loaded {
+	height: 10px; /* @todo remove */
+	background-color: #fff;
+}
+
+.kit-player.skin-yt .control-timeline-bar {
+	height: 10px; /* @todo remove */
+	background-color: #d00;
+	overflow: visible !important;
+}
+
+.kit-player.skin-yt .control-timeline-bar > div {
+	margin-left: 100%;
+	height: 10px;
+	position: absolute;
+}
+
+.kit-player.skin-yt .control-timeline-bar > div > a {
+	position: absolute;
+	margin-top: -4px;
+	border-radius: 10px;
+	border: 7px solid #fff;
+	width: 5px;
+	height: 5px;
+	margin-left: -11px;
+	background-color:#ccc;
+}
+
+.kit-player.skin-yt .controls-bar {
+	background-color: #000;
+	z-index: 1;
+	padding-top: 5px;
+}
+
+.kit-player.skin-yt .control-button-play {
+	float: left;
+	margin: 4px;
+}
+
+.kit-player.skin-yt .control-button-mute {
+	float: left;
+	margin: 4px;
+}
+
+.kit-player.skin-yt .control-info-time {
+	float: right;
+	color: #fff;
+	font-size: 10px;
+	margin: 2px;
+}
+
+.kit-player.skin-yt .control-settings {
+	float: right;
+	margin: 4px;
+}
+
+.kit-player.skin-yt .control-volume {
+	float: left;
+	width: 100px;
+	height: 6px;
+	margin: 7px 5px 7px 0;
+	background-color: #fff;
+}
+
+.kit-player.skin-yt .control-volume-bar {
+	/*background-color: rgba(255,0,0,.25);*/
+	background-color: #d00;
+	height: 6px;
+}
+
+.kit-player.skin-yt .control-fullscreen {
+	float: right;
+	margin: 4px;
+}
+
+.kit-player .kit-player-settings {
+	position: absolute;
+	color: #fff;
+	background-color: #333;
+	z-index: 500;
+	font-size: .8em;
+}
+
+.kit-player .kit-player-settings a {
+	display: block;
+	color: #fff;
+	padding: 2px 4px;
+	white-space: no-wrap;
+}
+
+.kit-player .kit-player-settings a  i {
+	font-size: .75em;
+}
+
+.kit-player .kit-player-settings a:hover  {
+	text-decoration: none;
+	background-color: #666;
+}
+
+.kit-player.skin-yt.is-playing-ad  .control-timeline, .kit-player.skin-yt.is-playing-ad  .control-timeline-bar, .kit-player.skin-yt.is-playing-ad  .control-timeline-loaded, .kit-player.skin-yt.is-playing-ad .annotation-ad {
+	height: 5px;
+}
+
+.kit-player.skin-yt.is-playing-ad  .control-timeline-bar {
+	background-color: #ffd700;
+}
+
+.kit-player.skin-yt.is-playing-ad  .control-timeline-bar a {
+	display: none;
+}
+
+.kit-player.skin-yt i[class*='icon-']:hover, .kit-player .kit-player-settings a.active i {
+	color: #f00;
+}
+
+.kit-player .annotation-ad {
+	width: 5px;
+	background-color: #ffd700;
+	position: absolute;
+	height: 10px;
+}
+
+.kit-player .info-clip-title {
+	background-color: rgba(0,0,0,.5);
+	color: #fff;
+	padding: 10px;
+}
+
+/**
+ * skin.bubbles
+ */
+ 
+.kit-player.skin-bubbles i[class*='icon-'] {
+	color: #fff;
+}
+
+.kit-player.skin-bubbles .control-button-play {
+	float: left;
+	margin: 4px;
+	background-color: rgba(100,100,100,.75);
+	padding: 5px;
+	border-radius: 5px;
+}
+
+.kit-player.skin-bubbles .control-button-mute {
+	float: left;
+	margin: 4px;
+	background-color: rgba(100,100,100,.75);
+	padding: 5px;
+	border-radius: 5px;
+}
+
+.kit-player.skin-bubbles i + i {
+	margin-left: 0 !important;
+}
+
+.kit-player.skin-bubbles .control-fullscreen {
+	float: right;
+	margin: 4px;
+	background-color: rgba(100,100,100,.75);
+	padding: 5px;
+	border-radius: 5px;
+}
+
+.kit-player.skin-bubbles .control-timeline {
+	left: 20px;
+	right: 20px;
+}
+
+.kit-player.skin-bubbles .control-timeline {
+	margin: 4px;
+	background-color: rgba(100,100,100,.75);
+	padding: 7px;
+	border-radius: 5px;
+	height: 10px;
+}
+
+.kit-player.skin-bubbles .control-timeline-loaded {
+	height: 10px;
+	background-color: #ccc;
+	overflow: visible !important;
+}
+
+.kit-player.skin-bubbles .control-timeline-bar {
+	height: 10px;
+	background-color: #fff;
+	overflow: visible !important;
+}

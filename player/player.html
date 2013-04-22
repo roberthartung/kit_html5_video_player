@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<link rel="stylesheet" href="css/player.basic.css" type="text/css">
+		<link rel="stylesheet" href="css/player.skins.css" type="text/css">
 		<link rel="stylesheet" href="css/bootstrap.min.css" />
-		<link rel="stylesheet" href="css/player.basic.css" />
-		<!--<link rel="stylesheet" href="css/player.skin.default.css" />-->
-		<link rel="stylesheet" href="css/player.skin.yt.css" />
+		<!--<link rel="stylesheet" href="css/elusive-webfont.css" type="text/css">-->
+		<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
 		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/player.js"></script>
@@ -22,6 +23,11 @@
 			}
 			
 			pre { -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; }
+			
+			.ad-info-timeleft {
+				color: #fff;
+				font-size: 10px;
+			}
 		</style>
 	</head>
 	
@@ -29,16 +35,25 @@
 		<script type="text/javascript">
 			var _gaq = _gaq || [];
 			//_gaq.push(['_setAccount', 'UA-39348271-1']);
-			_gaq.push(['_trackPageview']);
+			//_gaq.push(['_trackPageview']);
 	   </script>
 	   
-		<div style="background-color: #333; margin: 20px auto;" class="player">
+		<div style="margin: 20px auto;" class="kit-player" id="player">
 			<video preload="none" controls loop>
 				<!--<source type='video/mp4' src='624x260.mp4'/>
 				<source type='video/webm' src="624x260.webm"/>
 				-->
 			</video>
 		</div>
+		
+		<button onclick="$('#player').data('player').loadPlaylist(playlist1);">Load Playlist 1</button>
+		<button onclick="$('#player').data('player').loadPlaylist(playlist2);">Load Playlist 2</button>
+		<button onclick="$('#player').data('player').loadPlaylist(playlist3);">Load Playlist 3</button>
+		
+		<button onclick="$('#player').data('player').loadSkin('default');">Skin: Default</button>
+		<button onclick="$('#player').data('player').loadSkin('yt');">Skin: YouTube</button>
+		<button onclick="$('#player').data('player').loadSkin('flat');">Skin: Flat</button>
+		<button onclick="$('#player').data('player').loadSkin('bubbles');">Skin: Bubbles</button>
 		
 			<!--
 				<video preload="none" controls src="stream.php?file=openx-ad.webm&8"></video>
@@ -59,121 +74,169 @@
 		-->
 		
 		<script type="text/javascript">
+			var stream = ''; // stream.php?file=
+			
+			var ads = [
+				{
+					title : 'OpenX Pre-Roll',
+					position : 'pre-roll',
+					sources : [
+						{type:'video/webm', src: stream + 'openx-ad.webm?'+(new Date()).getTime()}, // ; codecs="vp8"
+						{type:'video/mp4', src: stream + 'openx-ad.mp4?'+(new Date()).getTime()}, // ; codecs="avc1",
+						{type:'video/ogg', src: stream + 'openx-ad.ogg?'+(new Date()).getTime()}
+					],
+					url : 'http://www.mecaso.ch',
+				},
+				{
+					title : 'Lego Pre-Roll',
+					position : 'pre-roll',
+					sources : [
+						{type:'video/webm', src: stream + 'lego.webm?'+(new Date()).getTime()}, // ; codecs="vp8"
+						{type:'video/mp4', src: stream + 'lego.mp4?'+(new Date()).getTime()}, // ; codecs="avc1",
+						{type:'video/ogg', src: stream + 'lego.ogg?'+(new Date()).getTime()}
+					],
+					url : 'http://www.mecaso.ch',
+				},
+				{
+					position : 'bottom',
+					src : 'ad.swf',
+					url : 'http://www.rhcms.de',
+					type : 'swf',
+					begin : 4,
+					duration : 3,
+					//end : '80%',
+					width : 468,
+					height : 60
+				},
+				/*
+				{
+					title : 'Big Buck Bunny Mid Roll Ad',
+					position : 'mid-roll',
+					begin : 15,
+					sources : [
+						{type:'video/webm', src: stream + 'big_buck_bunny.webm?'+(new Date()).getTime()}, // ; codecs="vp8"
+						{type:'video/mp4', src: stream + 'big_buck_bunny.mp4?'+(new Date()).getTime()}, // ; codecs="avc1",
+						{type:'video/ogg', src: stream + 'big_buck_bunny.ogv?'+(new Date()).getTime()}
+					],
+					url : 'http://www.bigbuckbunny.org/',
+				},
+				*/
+				{
+					position : 'bottom',
+					type : 'video',
+					sources : [
+						{type:'video/webm', src: stream + 'openx-ad.webm?'+(new Date()).getTime()},
+						{type:'video/mp4', src: stream + 'openx-ad.mp4?'+(new Date()).getTime()},
+						{type:'video/ogg', src: stream + 'openx-ad.ogg?'+(new Date()).getTime()}
+					],
+					begin : 15,
+					duration : 8,
+					//end : '80%',
+					width : 468,
+					height : 60
+				},
+				{
+					title : 'OpenX Post-Roll',
+					position : 'post-roll',
+					sources : [
+						{type:'video/webm; codecs="vp8"', src : stream + 'openx-ad.webm?'+(new Date()).getTime()},
+						{type:'video/mp4; codecs="avc1"', src : stream + 'openx-ad.mp4?'+(new Date()).getTime()}
+					],
+					url : 'http://www.rhcms.de',
+				}
+			];
+			
+			var playlist1 = [
+				{
+					title : 'Clip 1',
+					sources : [
+						{type:'video/mp4', src : stream + '624x260.mp4?'+(new Date()).getTime()}, // ; codecs="avc1"
+						{type:'video/webm', src : stream + '624x260.webm?'+(new Date()).getTime()}, // ; codecs="vp8"
+						{type:'video/ogg', src : stream + '624x260.ogg?'+(new Date()).getTime()},
+					],
+					ads : ads,
+					cuepoints : [0, 2.0, 4.5]
+				},
+				{
+					title : 'Mozilla Video',
+					src : 'lego.webm',
+					type : 'video/webm',
+					start : '50%'
+				}
+			];
+			
+			var playlist2 = [
+				{
+					title : 'Mozilla Video',
+					src : 'big_buck_bunny.webm',
+					type : 'video/webm',
+					ads : [
+						{
+							position : 'mid-roll',
+							src : 'superbowl2013-vw.mp4',
+							type : 'video/mp4',
+							begin : '50.5%'
+						}
+					]
+				}
+			];
+			
+			var playlist3 = [
+				{
+					title : 'Mozilla Video',
+					sources : [
+						{type:'video/mp4', resolutions : {
+							'240p' : 'trailer_240p.mp4?'+(new Date()).getTime(),
+							'360p' : 'trailer_360p.mp4?'+(new Date()).getTime(),
+							'480p' : 'trailer_480p.mp4?'+(new Date()).getTime(),
+							'720p' : 'trailer_720p.mp4?'+(new Date()).getTime(),
+							'1080p' : 'trailer_1080p.mp4?'+(new Date()).getTime()
+						}},
+						{type:'video/webm', resolutions : {
+							'240p' : 'trailer_240p.webm?'+(new Date()).getTime(),
+							'360p' : 'trailer_360p.webm?'+(new Date()).getTime(),
+							'480p' : 'trailer_480p.webm?'+(new Date()).getTime(),
+							'720p' : 'trailer_720p.webm?'+(new Date()).getTime(),
+							'1080p' : 'trailer_1080p.webm?'+(new Date()).getTime()
+						}},
+						{type:'video/ogg', resolutions : {
+							'240p' : 'trailer_240p.ogg?'+(new Date()).getTime(),
+							'360p' : 'trailer_360p.ogg?'+(new Date()).getTime(),
+							'480p' : 'trailer_480p.ogg?'+(new Date()).getTime(),
+							'720p' : 'trailer_720p.ogg?'+(new Date()).getTime(),
+							'1080p' : 'trailer_1080p.ogg?'+(new Date()).getTime()
+						}},
+					]
+				}
+			];
+			
 			$(function()
 			{
 				$('#debug').val('');
 				/*
 				$('#slider-test').seekSlider().on('seek', function(e,p)
 				{
-					var duration = 20;
-					$('#slider-test').tooltip('destroy').tooltip({animate:false,html:p*duration,title:duration*p,trigger:'manual'}).tooltip('show');
+					$('.player').tooltip({animate:false,html:true,title:duration*p,trigger:'manual'}).tooltip('show');
+					$('#slider-test').tooltip('destroy');
 				});
 				*/
 				
-				var stream = ''; // stream.php?file=
-			
-				var ads = [
-					{
-						title : 'OpenX Pre-Roll',
-						position : 'pre-roll',
-						sources : [
-							{type:'video/webm', src: stream + 'openx-ad.webm?'+(new Date()).getTime()}, // ; codecs="vp8"
-							{type:'video/mp4', src: stream + 'openx-ad.mp4?'+(new Date()).getTime()}, // ; codecs="avc1",
-							{type:'video/ogg', src: stream + 'openx-ad.ogg?'+(new Date()).getTime()}
-						],
-						url : 'http://www.mecaso.ch',
-					},
-					{
-						title : 'Lego Pre-Roll',
-						position : 'pre-roll',
-						sources : [
-							{type:'video/webm', src: stream + 'lego.webm?'+(new Date()).getTime()}, // ; codecs="vp8"
-							{type:'video/mp4', src: stream + 'lego.mp4?'+(new Date()).getTime()}, // ; codecs="avc1",
-							{type:'video/ogg', src: stream + 'lego.ogg?'+(new Date()).getTime()}
-						],
-						url : 'http://www.mecaso.ch',
-					},
-					{
-						position : 'bottom',
-						src : 'ad.swf',
-						url : 'http://www.rhcms.de',
-						type : 'swf',
-						begin : 4,
-						duration : 5,
-						//end : '80%',
-						width : 468,
-						height : 60
-					},
-					{
-						position : 'bottom',
-						type : 'video',
-						sources : [
-							{type:'video/webm', src: stream + 'openx-ad.webm?'+(new Date()).getTime()},
-							{type:'video/mp4', src: stream + 'openx-ad.mp4?'+(new Date()).getTime()},
-							{type:'video/ogg', src: stream + 'openx-ad.ogg?'+(new Date()).getTime()}
-						],
-						begin : 15,
-						duration : 5,
-						//end : '80%',
-						width : 468,
-						height : 60
-					},
-					{
-						title : 'OpenX Post-Roll',
-						position : 'post-roll',
-						sources : [
-							{type:'video/webm; codecs="vp8"', src : stream + 'openx-ad.webm?'+(new Date()).getTime()},
-							{type:'video/mp4; codecs="avc1"', src : stream + 'openx-ad.mp4?'+(new Date()).getTime()}
-						],
-						url : 'http://www.rhcms.de',
-					}
-				];
-				
-				var playlist = [
-					{
-						title : 'Clip 1',
-						sources : [
-							{type:'video/mp4', src : stream + '624x260.mp4?'+(new Date()).getTime()}, // ; codecs="avc1"
-							{type:'video/webm', src : stream + '624x260.webm?'+(new Date()).getTime()}, // ; codecs="vp8"
-							{type:'video/ogg', src : stream + '624x260.ogg?'+(new Date()).getTime()},
-						],
-						ads : ads,
-						cuepoints : [0, 2.0, 4.5]
-					},
-					{
-						title : 'Mozilla Video',
-						src : 'http://techslides.com/demos/sample-videos/small.webm',
-						type : 'video/webm'
-					}
-				];
-			
-				var p = $('.player').player({
-					debug : true,
-					analytics : 'UA-39348271-1',
-					width: 720,
-					height: 405,
-					skin : 'yt',
-					overlays : {
-						positions : [
-							{
-								id : 'bottom',
-								bottom : 0,
-								align : 'center'
-							},
-						]
-					},
-					playlist : playlist
-				})
-				// video starts playing
-				.bind('play', function(e, api)
+				var p = $('#player')
+				.bind('init', function(e, api)
 				{
-					//console.log('play', api.ad);
-					
-					if(api.ad)
+					var ad_info = $('<span class="small ad-info-timeleft"></span>');
+					$('.player').find('.control-volume').after(ad_info);
+				})
+				.bind('load', function(e, api)
+				{
+					console.log('[event.load]', api.ad);
+					if(api.ad && api.skin == 'yt')
 					{
-						
-					
-						//api.hideTimeline();
+						$('.player').find('.ad-info-timeleft').show();
+					}
+					else
+					{
+						$('.player').find('.ad-info-timeleft').hide();
 					}
 				})
 				.bind('ended', function(e, api)
@@ -186,11 +249,12 @@
 					}
 				})
 				// video stops playing
-				.bind('beforeseek', function(e, api)
+				.bind('beforeseek', function(e, player)
 				{
-					/*if(api.ad)
+					
+					if(player.ad)
 						return false;
-					*/
+					
 					return true;
 				})
 				.bind('beforepause', function(e)
@@ -207,22 +271,54 @@
 				})
 				.bind('play', function(e, player)
 				{
-					console.log('[event.play]', player);
+					//console.log('[event.play]', player);
+					
+					/*
+					if(api.ad)
+					{
+						api.hideTimeline();
+					}
+					*/
 				})
 				.bind('pause', function(e, player)
 				{
-					console.log('[event.pause]');
+					//console.log('[event.pause]');
 				})
 				.bind('resume', function(e, player)
 				{
-					console.log('[resume]', player.clip.time);
+					//console.log('[resume]', player.clip.time);
 				})
 				.bind('ended', function(e, player)
 				{
-					console.log('[ended]', player);
+					//console.log('[ended]', player);
+				})
+				.bind('timeupdate', function(e, player)
+				{
+					if(player.ad)
+					{
+						$('.player').find('.ad-info-timeleft').html('Noch ' + Math.round(player.ad.duration - player.ad.time) + ' Sekunden bis zum Video');
+					}
+				})
+				.kit_HTML5VideoPlayer({
+					debug : true,
+					analytics : 'UA-39348271-1',
+					width: 720,
+					height: 405,
+					skin : 'yt',
+					overlays : {
+						positions : [
+							{
+								id : 'bottom',
+								bottom : 0,
+								align : 'center'
+							},
+						]
+					},
+					playlist : playlist1,
+					annotateAds : true
 				});
 				
-				var api = p.player();
+				var api = p.kit_HTML5VideoPlayer();
 				//console.log(api.clip);
 			});
 		</script>

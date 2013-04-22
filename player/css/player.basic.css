@@ -1,59 +1,63 @@
-.controls-bar {
+.kit-player {
+	background-color: #000;
+}
+
+.kit-player .controls-bar {
 	position: absolute;
 	bottom: 0;
 	width: 100%;
 }
 
-.controls {
+.kit-player .controls {
 	overflow: hidden;
 }
 
-.control-timeline {
+.kit-player .control-timeline {
 	position: absolute; /* @todo remove */
 	cursor: pointer;
 }
 
-.control-timeline-loaded {
+.kit-player .control-timeline-loaded {
 	position: absolute; /* @todo remove */
 }
 
-.control-timeline-bar {
+.kit-player .control-timeline-bar {
 	position: absolute; /* @todo remove */
 }
 
-.control-button-play {
+.kit-player .control-button-play {
 	cursor: pointer;
 }
 
-.control-button-mute {
+.kit-player .control-button-mute {
 	cursor: pointer;
 }
 
-.control-volume {
+.kit-player .control-volume {
 	cursor: pointer;
 }
 
-.player .wrapper {
+.kit-player .wrapper {
 	overflow: hidden;
 	clear: both;
 	background-image: url('transparent.gif');
 }
 
-.player.is-fullscreen, .player.is-fullscreen > video, .player.is-fullscreen > .wrapper {
+.kit-player.is-fullscreen, .kit-player.is-fullscreen > video, .kit-player.is-fullscreen > .wrapper {
 	width: 100% !important;
 	height: 100% !important;
 }
 
-.player.is-playing-ad {
+.kit-player.is-playing-ad {
 	cursor: pointer;
 }
 
-.control-timeline-loaded.connect-right {
+.kit-player .control-timeline-loaded.connect-right {
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
 }
 
-.control-timeline-loaded.connect-left {
+.kit-player .control-timeline-loaded.connect-left {
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
 }
