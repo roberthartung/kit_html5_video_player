@@ -315,6 +315,7 @@
 		var div_wrapper = $('<div style="position: absolute; width: 640px; height: 280px;" class="wrapper"/>');
 		var div_controls_bar = $('<div class="controls-bar"/>');
 		var div_controls = $('<div class="controls"/>');
+		var div_contents = $('<div class="contents"><ol></ol></div>');
 		var div_overlay = $('<div class="overlay"/>');
 		var control_timeline = $('<div class="control-timeline"></div>');
 		var control_mute = $('<i class="icon-white control-button-mute icon-volume-up"></i>');
@@ -331,12 +332,14 @@
 		var control_fullscreen = $('<i class="icon-white control-fullscreen icon-resize-full"></i>');
 		var div_info_clip_title = $('<div class="info-clip-title"></div>');
 		var control_settings = $('<i class="icon-white control-settings icon-cog"></i>');
+		var indicator_loading = $('<i class="indicator-loading icon-spinner icon-spin icon-2x"></i>');
 		
 		var divCollection = {
 			div_wrapper : div_wrapper,
 			div_controls_bar : div_controls_bar,
 			div_controls : div_controls,
 			div_overlay : div_overlay,
+			div_contents : div_contents,
 			div_info_clip_title : div_info_clip_title,
 			control_timeline : control_timeline,
 			//@deprecated: control_timeline_loaded : control_timeline_loaded,
@@ -350,7 +353,8 @@
 			control_time_left : control_time_left,
 			control_time_total : control_time_total,
 			control_time_played : control_time_played,
-			control_settings : control_settings
+			control_settings : control_settings,
+			indicator_loading : indicator_loading
 		}
 		
 		/*
@@ -401,15 +405,18 @@
 			fadingControls : {
 				controlVolumeWidth : null,
 				isFading : false,
-				fadeIn : function()
+				forceFade : false,
+				fadeIn : function(e)
 				{
-					var that = this;
-					if(div_controls_bar.is(':hidden') && !that.isFading)
+					var that = (e && e.data.that) || this;
+					//console.log('fadeIn()', div_controls_bar.is(':hidden'), that.isFading);
+					if(!that.isFading && (that.forceFade || div_controls_bar.is(':hidden')))
 					{
+						that.forceFade = false;
 						div_controls_bar.show();
-						that.isFading = true;
+						that.isFading = 3;
 						div_controls_bar.animate({marginBottom:'0'}, function(){
-							that.isFading = false;
+							that.isFading--;
 							control_timeline.hide();
 							control_timeline.show();
 						});
@@ -418,68 +425,78 @@
 						{
 							control_timeline.show();
 							control_timeline.animate({marginBottom:'0'}, function(){
-								that.isFading = false;
+								that.isFading--;
 							});
 						}
 						
 						div_info_clip_title.show();
 						div_info_clip_title.animate({marginTop:0}, 500, function(){
-							that.isFading = false;
+							that.isFading--;
 						});
 					}
 				},
-				fadeOut : function()
+				fadeOut : function(e)
 				{
-					var height = div_controls_bar.outerHeight();
-					
-					if(!div_controls_bar.has('.control-timeline').length)
-					{
-						// @todo dot from timeline still visible
-						height += control_timeline.outerHeight();
+					var that = (e && e.data.that) || this;
+					//console.log('fadeOut()', that.isFading);
+					//if(!that.isFading)
+					//{
+						that.isFading = 3;
+						var height = div_controls_bar.outerHeight();
 						
-						control_timeline.delay(1000).animate({marginBottom:'-' + height + 'px'}, 500, function(){
-							control_timeline.hide();
+						if(!div_controls_bar.has('.control-timeline').length)
+						{
+							// @todo dot from timeline still visible
+							height += control_timeline.outerHeight();
+							
+							control_timeline.delay(1000).animate({marginBottom:'-' + height + 'px'}, 500, function(){
+								control_timeline.hide();
+								that.isFading--;
+							});
+						}
+						
+						div_controls_bar.delay(1000).animate({marginBottom:'-' + height + 'px'}, 500, function(){
+							div_controls_bar.hide();
+							that.isFading--;
 						});
-					}
-					
-					div_controls_bar.delay(1000).animate({marginBottom:'-' + height + 'px'}, 500, function(){
-						div_controls_bar.hide();
-					});
-					
-					var height_info = div_info_clip_title.outerHeight();
-					div_info_clip_title.delay(1000).animate({marginTop:'-' + height_info + 'px'}, 500, function(){
-						$(this).hide();
-					});
+						
+						var height_info = div_info_clip_title.outerHeight();
+						div_info_clip_title.delay(1000).animate({marginTop:'-' + height_info + 'px'}, 500, function(){
+							$(this).hide();
+							that.isFading--;
+						});
+					//}
 				},
-				cancelFade : function()
+				cancelFade : function(e)
 				{
 					// clear queue + stop animation
 					div_controls_bar.stop(true);
 					control_timeline.stop(true);
 					div_info_clip_title.stop(true);
-					this.isFading = false;
-					/*
+					
+					var that = (e && e.data.that) || this;
+					
 					control_timeline.show();
 					div_controls_bar.show();
 					div_info_clip_title.show();
-					*/
-					control_timeline.css({marginBottom:0}).show();
-					div_controls_bar.css({marginBottom:0}).show();
-					div_info_clip_title.css({marginTop:0}).show();
+					that.isFading = 0;
+					that.forceFade = true;
+					that.fadeIn();
 				},
 				init : function()
 				{
 					var that = this;
+					console.log(this);
 					that.controlVolumeWidth = control_volume.width();
 					control_volume.css('width', 0);
 					
-					div_wrapper.on('mousemove.fadingControls', this.fadeIn);
-					div_wrapper.on('mouseover.fadingControls', this.fadeIn);
-					div_wrapper.on('mouseout.fadingControls', this.fadeOut);
-					div_controls.on('mouseover.fadingControls', this.cancelFade);
-					div_controls_bar.on('mouseover.fadingControls', this.cancelFade);
-					control_timeline.on('mouseover.fadingControls', this.cancelFade);
-					div_wrapper.on('mouseover.fadingControls', this.cancelFade);
+					div_wrapper.on('mousemove.fadingControls', {that:this}, this.fadeIn);
+					div_wrapper.on('mouseover.fadingControls', {that:this}, this.fadeIn);
+					div_wrapper.on('mouseout.fadingControls', {that:this}, this.fadeOut);
+					div_controls.on('mouseover.fadingControls', {that:this}, this.cancelFade);
+					div_controls_bar.on('mouseover.fadingControls', {that:this}, this.cancelFade);
+					control_timeline.on('mouseover.fadingControls', {that:this}, this.cancelFade);
+					div_wrapper.on('mouseover.fadingControls', {that:this}, this.cancelFade);
 					
 					control_mute.on('mouseover.fadingControls', function(e)
 					{
@@ -603,12 +620,14 @@
 				features : ['timeAnnotation', 'fadingControls'],
 				tree : {
 					div_info_clip_title : {},
-					div_overlay : { },
+					div_overlay : {},
+					indicator_loading : {},
+					div_contents : {},
 					control_timeline : { control_timeline_progress : '<div><a></a></div>' },
 					div_controls_bar : {
 						div_controls : {
-							control_play : { },
-							control_mute : { },
+							control_play : {},
+							control_mute : {},
 							control_volume : { control_volume_bar : {} },
 							control_fullscreen : { },
 							control_settings : {},
@@ -850,7 +869,7 @@
 			// load a new clip
 			load : function(clip)
 			{
-				console.log('clip', clip);
+				//console.log('clip', clip);
 				adAnnotations = [];
 				if(!videoObject.paused)
 				{
@@ -958,6 +977,27 @@
 				else
 				{
 					nextAd = null;
+				}
+				
+				
+				
+				if(clip.contents && clip.contents.length > 0)
+				{
+					div_contents.find('li').remove();
+					div_contents.show();
+					var content_li_width = (1 / clip.contents.length) * 100;
+					for(var c=0;c<clip.contents.length;c++)
+					{
+						console.log(clip.contents);
+						var li_content = $('<li><a data-time="' + clip.contents[c].time + '">' + clip.contents[c].title + '</a></li>');
+						li_content.css('width', content_li_width + '%');
+						div_contents.find('ol').append(li_content);
+					}
+				}
+				else
+				{
+					div_contents.hide();
+					player.contents = [];
 				}
 				
 				player.clip = clip;
@@ -1354,6 +1394,12 @@
 			settings.fadeIn();
 		});
 		
+		div_contents.on('click', 'li a', function(e)
+		{
+			console.log($(this).attr('data-time'));
+			videoObject.currentTime = $(this).attr('data-time');
+		});
+		
 		div_wrapper.on('click', '.kit-player-settings a', function(e)
 		{
 			e.preventDefault();
@@ -1361,6 +1407,10 @@
 			
 			_resumeTime = videoObject.currentTime;
 			_waitPlay = !videoObject.paused;
+			if(_waitPlay)
+			{
+				videoObject.pause();
+			}
 			videoObject.src = player.clip.resolutions[$(this).attr('data-resolution')];
 			
 			div_wrapper.find('.kit-player-settings a.active').removeClass('active');
@@ -1840,8 +1890,6 @@
 				
 				// @TODO if we have no more post-roll ads -> check if we should loop!
 				_info('[event.ended] no more ads for this clip');
-				
-				
 			}
 			
 			_log('[event.ended]');
@@ -1853,19 +1901,30 @@
 		// ### Event.Seeking
 		video.on('seeking', function(e)
 		{
+			that.addClass('is-seeking');
 			//_log('[event.seeking]');
-			//isSeeking = true;
+			isSeeking = true;
 		});
 		
 		// ### Event.Seeked
 		video.on('seeked', function(e)
 		{
-			//isSeeking = false;
+			that.removeClass('is-seeking');
+			isSeeking = false;
 			var p = videoObject.currentTime / videoObject.duration;
 			p *= 100;
 			p = Math.round(p);
 			//_log('[event.seeked] ', videoObject.currentTime, 's ', p, '%');
 			control_timeline_progress.stop().css({width : p + '%'});
+			
+			/*
+			if(_waitPlay && _resumeTime)
+			{
+				videoObject.play();
+				_waitPlay = false;
+				_resumeTime = null;
+			}
+			*/
 		});
 		
 		/* from flowplayer:s._trackEvent(
@@ -1910,8 +1969,10 @@
 			}
 		});
 		
-		video.on('loadstart', function(e){
-			if(_waitPlay)
+		video.on('loadstart', function(e)
+		{
+			//console.log('_resumeTime', _resumeTime);
+			if(_waitPlay/* && !_resumeTime*/)
 			{
 				videoObject.play();
 				_waitPlay = false;

@@ -43,6 +43,19 @@
 	background-image: url('transparent.gif');
 }
 
+.kit-player .indicator-loading {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -12px;
+	margin-top: -14px;
+	display: none;
+}
+
+.kit-player.is-waiting .indicator-loading, .kit-player.is-seeking .indicator-loading {
+	display: inline-block;
+}
+
 .kit-player.is-fullscreen, .kit-player.is-fullscreen > video, .kit-player.is-fullscreen > .wrapper {
 	width: 100% !important;
 	height: 100% !important;

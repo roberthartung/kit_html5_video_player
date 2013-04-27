@@ -82,6 +82,37 @@
 	z-index: 2;
 }
 
+.kit-player.skin-yt .contents {
+	overflow: hidden;
+	background-color: rgba(255,255,255,.25);
+}
+
+.kit-player.skin-yt .contents ol {
+	list-style-type: none;
+	list-style-image: none;
+	margin:0;
+	padding:0;
+}
+
+.kit-player.skin-yt .contents ol li {
+	float: left;
+	text-align: center;
+}
+
+.kit-player.skin-yt .contents ol li a {
+	display: block;
+	margin: 5px;
+	background-color: rgba(50,50,50,.25);
+	border-radius: 5px;
+	cursor: pointer;
+	color: #fff;
+	text-decoration: none;
+}
+
+.kit-player.skin-yt .indicator-loading {
+	color: #f00 !important;
+}
+
 .kit-player.skin-yt .control-timeline-loaded {
 	height: 10px; /* @todo remove */
 	background-color: #fff;
