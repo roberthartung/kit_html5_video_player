@@ -149,12 +149,12 @@
 
 .kit-player.skin-yt .control-button-play {
 	float: left;
-	margin: 4px;
+	margin: 4px 9px;
 }
 
 .kit-player.skin-yt .control-button-mute {
 	float: left;
-	margin: 4px;
+	margin: 4px 9px;
 }
 
 .kit-player.skin-yt .control-info-time {
@@ -280,9 +280,6 @@
 .kit-player.skin-bubbles .control-timeline {
 	left: 20px;
 	right: 20px;
-}
-
-.kit-player.skin-bubbles .control-timeline {
 	margin: 4px;
 	background-color: rgba(100,100,100,.75);
 	padding: 7px;
@@ -294,10 +291,97 @@
 	height: 10px;
 	background-color: #ccc;
 	overflow: visible !important;
+	border-radius: 2px;
 }
 
 .kit-player.skin-bubbles .control-timeline-bar {
 	height: 10px;
 	background-color: #fff;
 	overflow: visible !important;
+}
+
+.kit-player.skin-flat .controls-bar {
+	background-color: rgba(50,50,50,.5);
+}
+
+.kit-player.skin-flat {
+	color: #fff;
+}
+
+.kit-player.skin-flat .control-button-play {
+	float: left;
+	padding: 5px;
+	background: #f9c667;
+	background: -moz-linear-gradient(top,  #f9c667 0%, #f79621 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f9c667), color-stop(100%,#f79621));
+	background: -webkit-linear-gradient(top,  #f9c667 0%,#f79621 100%);
+	background: -o-linear-gradient(top,  #f9c667 0%,#f79621 100%);
+	background: -ms-linear-gradient(top,  #f9c667 0%,#f79621 100%);
+	background: linear-gradient(to bottom,  #f9c667 0%,#f79621 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9c667', endColorstr='#f79621',GradientType=0 );
+	margin: 5px;
+}
+
+.kit-player.skin-flat .control-volume {
+	/*width: 200px;
+	height: 10px;
+	background-color: #fff;*/
+}
+
+.kit-player.skin-flat .control-fullscreen{
+	float: right;
+	padding: 5px;
+	background: #f9c667;
+	background: -moz-linear-gradient(top,  #f9c667 0%, #f79621 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f9c667), color-stop(100%,#f79621));
+	background: -webkit-linear-gradient(top,  #f9c667 0%,#f79621 100%);
+	background: -o-linear-gradient(top,  #f9c667 0%,#f79621 100%);
+	background: -ms-linear-gradient(top,  #f9c667 0%,#f79621 100%);
+	background: linear-gradient(to bottom,  #f9c667 0%,#f79621 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9c667', endColorstr='#f79621',GradientType=0 );
+	margin: 5px;
+}
+
+.kit-player.skin-flat .control-button-mute{
+	float: right;
+	padding: 5px;
+	background: #f9c667;
+	background: -moz-linear-gradient(top,  #f9c667 0%, #f79621 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f9c667), color-stop(100%,#f79621));
+	background: -webkit-linear-gradient(top,  #f9c667 0%,#f79621 100%);
+	background: -o-linear-gradient(top,  #f9c667 0%,#f79621 100%);
+	background: -ms-linear-gradient(top,  #f9c667 0%,#f79621 100%);
+	background: linear-gradient(to bottom,  #f9c667 0%,#f79621 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9c667', endColorstr='#f79621',GradientType=0 );
+	margin: 5px;
+}
+
+.kit-player.skin-flat .control-timeline {
+	height: 10px;
+	/* background-color: #f00; */
+	margin: 12px 0;
+}
+
+.kit-player.skin-flat .control-volume {
+	position: absolute;
+	height: 80px;
+	background-color: #ccc;
+}
+
+.kit-player.skin-flat .control-volume-bar {
+	background-color: #f79621;
+	width: auto;
+	height: auto;
+	position: absolute;
+	bottom: 0;
+}
+
+.kit-player.skin-flat .control-timeline-loaded {
+	background-color: #ccc;
+	height: 10px;
+}
+
+.kit-player.skin-flat .control-timeline-bar {
+	background-color: #f79621;
+	height: 10px;
 }

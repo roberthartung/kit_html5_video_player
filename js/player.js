@@ -55,11 +55,18 @@
 (function( $ )
 {
   var methods = {
-		init : function()
+		init : function(conf)
 		{
+			var conf = $.extend(
+			{
+				direction : 'horizontal'
+			}, conf);
+		
 			return this.each(function()
 			{
 				var that = $(this);
+				that.data('direction', conf.direction);
+				
 				var bar = that.find('.' + that.attr('class') + '-bar');
 				
 				var isSeeking = false;
@@ -68,8 +75,14 @@
 				{
 					var offset = that.offset();
 					// e.clientX
-					var position = e.pageX - offset.left;
-					seekFromWidth(position);
+					if(that.data('direction') == 'horizontal')
+					{
+						seekFromWidth(e.pageX - offset.left);
+					}
+					else
+					{
+						seekFromHeight(e.pageY - offset.top);
+					}
 				}
 				
 				function seekFromWidth(w)
@@ -84,6 +97,21 @@
 					var percent = w / width;
 					
 					bar.css('width', (percent * 100) + '%');
+					that.trigger('seek', [percent]);
+				}
+				
+				function seekFromHeight(h)
+				{
+					var height = that.height();
+					
+					if(h < 0)
+						h = 0;
+					else if(h > height)
+						h = height;
+					
+					var percent = 1 - h / height;
+					
+					bar.css('height', (percent * 100) + '%');
 					that.trigger('seek', [percent]);
 				}
 				
@@ -122,7 +150,13 @@
 					that.trigger('beginSeek');
 					seekFromEvent(e);
 				});
-				
+			});
+		},
+		direction : function(d)
+		{
+			return this.each(function()
+			{
+				$(this).data('direction', d);
 			});
 		},
 		seek : function(p)
@@ -137,7 +171,14 @@
 				var that = $(this);
 				var bar = that.find('.' + that.attr('class') + '-bar');
 				
-				bar.css('width', (p * 100) + '%');
+				if(that.data('direction') == 'horizontal')
+				{
+					bar.css('width', (p * 100) + '%');
+				}
+				else
+				{
+					bar.css('height', (p * 100) + '%');
+				}
 			});
 		}
 	}
@@ -148,7 +189,7 @@
 		{
 		  return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
 		}
-		else if ( typeof method === 'object' || ! method )
+		else if ( typeof method === 'object' || !method )
 		{
 		  return methods.init.apply( this, arguments );
 		}
@@ -318,6 +359,7 @@
 		var div_contents = $('<div class="contents"><ol></ol></div>');
 		var div_overlay = $('<div class="overlay"/>');
 		var control_timeline = $('<div class="control-timeline"></div>');
+		var control_timeline_elements = $('<div class="control-timeline-elements"></div>');
 		var control_mute = $('<i class="icon-white control-button-mute icon-volume-up"></i>');
 		var control_play = $('<i class="icon-white control-button-play icon-play"></i>');
 		var control_time = $('<span class="control-info-time"></span>');
@@ -354,7 +396,8 @@
 			control_time_total : control_time_total,
 			control_time_played : control_time_played,
 			control_settings : control_settings,
-			indicator_loading : indicator_loading
+			indicator_loading : indicator_loading,
+			control_timeline_elements : control_timeline_elements
 		}
 		
 		/*
@@ -362,9 +405,6 @@
 		
 		// Show seek time above timeline
 		var last = null;
-		
-		
-		
 		*/
 		
 		var features = {
@@ -565,7 +605,31 @@
 					});
 				}
 			},
-		}
+			topVolumeBar : {
+				init : function()
+				{
+					control_volume.seekSlider('direction', 'vertical');
+					control_volume.hide();
+					control_mute.on('mouseover', function(e)
+					{
+						var position = control_mute.position();
+					
+						control_volume.css({
+							bottom : control_mute.outerHeight(),
+							right : div_wrapper.width() - (position.left + control_mute.outerWidth(true)) + (control_mute.outerWidth(true) - control_mute.outerWidth()) / 2,
+							width : control_mute.outerWidth()
+						});
+						control_volume.show();
+					});
+					
+					
+				},
+				destroy : function()
+				{
+					control_volume.seekSlider('direction', 'horizontal');
+				}
+			}
+		};
 		
 		/**
 		 * skins
@@ -575,7 +639,7 @@
 			/**
 			 * skin.default
 			 */
-			default : {
+			'default' : {
 				name : 'default',
 				features : ['indentTimeline'],
 				tree : {
@@ -583,7 +647,7 @@
 					control_fullscreen : { },
 					div_controls_bar : {
 						div_controls : {
-							control_timeline : { /* control_timeline_loaded : {}, */control_timeline_progress : {} },
+							control_timeline : { control_timeline_elements : {  /* control_timeline_loaded : {}, */control_timeline_progress : {} } },
 							control_volume : { control_volume_bar : {} },
 							control_mute : { },
 							control_play : { },
@@ -623,7 +687,7 @@
 					div_overlay : {},
 					indicator_loading : {},
 					div_contents : {},
-					control_timeline : { control_timeline_progress : '<div><a></a></div>' },
+					control_timeline : { control_timeline_elements : { control_timeline_progress : '<div><a></a></div>' } },
 					div_controls_bar : {
 						div_controls : {
 							control_play : {},
@@ -637,7 +701,7 @@
 				},
 				init : function()
 				{
-					console.log('cssFloat', control_play.css('cssFloat'));
+					//console.log('cssFloat', control_play.css('cssFloat'));
 				},
 				destroy : function()
 				{
@@ -649,17 +713,17 @@
 			 */
 			 flat : {
 				name : 'flat',
-				features : [],
+				features : ['indentTimeline', 'topVolumeBar'],
 				tree : {
 					div_overlay : { },
 					div_controls_bar : {
 						div_controls : {
-							control_timeline : { control_timeline_progress : {} },
+							control_timeline : { control_timeline_elements : { control_timeline_progress : {} } },
 							control_volume : { control_volume_bar : {} },
-							control_mute : { },
+							control_fullscreen : { },
 							control_play : { },
-							control_time : { },
-							control_fullscreen : { }
+							control_mute : { },
+							control_time : { }
 						}
 					}
 				},
@@ -670,7 +734,7 @@
 				destroy : function()
 				{
 					
-				},
+				}
 			 },
 			 /**
 			 * skin.bubbles
@@ -682,7 +746,7 @@
 					div_overlay : { },
 					div_controls_bar : {
 						div_controls : {
-							control_timeline : { control_timeline_progress : {} },
+							control_timeline : { control_timeline_elements : { control_timeline_progress : {} } },
 							control_volume : { control_volume_bar : {} },
 							control_mute : { },
 							control_play : { },
@@ -698,8 +762,8 @@
 				destroy : function()
 				{
 					
-				},
-			 },
+				}
+			 }
 		}
 		
 		// Set/Get Video-Container options
@@ -834,6 +898,11 @@
 					features[this].init();
 				});
 				
+				// @fix: Chrome has problems displaying timeline after skin switching - so we force a rerender here
+				// hide().show() has no effect, so simply use hide + fadeIn here
+				div_wrapper.hide().fadeIn(1);
+				
+				/*
 				control_timeline.find('.control-timeline-loaded').each(function()
 				{
 					var left = $(this).css('left');
@@ -863,6 +932,7 @@
 					
 					$(this).css('left', left);
 				});
+				*/
 				
 				return true;
 			},
@@ -979,8 +1049,6 @@
 					nextAd = null;
 				}
 				
-				
-				
 				if(clip.contents && clip.contents.length > 0)
 				{
 					div_contents.find('li').remove();
@@ -1006,6 +1074,8 @@
 				console.log('player.clip.src', player.clip.src);
 				videoObject.src = player.clip.src;
 				videoObject.load();
+				
+				//videoObject.playbackRate = 1.5;
 				
 				return true;
 			},
@@ -1044,6 +1114,15 @@
 			}
 		};
 		
+		// Check if HTML5 engine is available
+		if(typeof videoObject.canPlayType == 'undefined')
+		{
+			that.addClass('error-unsupported');
+			that.data('player', {error:'Not supported'});
+			_error('HTML5 Video not supported in your Browser');
+			return;
+		}
+		
 		that.append(div_wrapper);
 		
 		div_overlay.hide();
@@ -1053,6 +1132,8 @@
 		// only assign the skin name to the API
 		
 		player.loadSkin(conf.skin);
+		
+		
 		
 		/*
 		$('head').eq(0)
@@ -1614,7 +1695,7 @@
 			
 			if(!player.ad)
 			{
-				control_timeline.find('.annotation-ad').remove();
+				control_timeline_elements.find('.annotation-ad').remove();
 				$(player.clip.ads).each(function()
 				{
 					var result;
@@ -1662,7 +1743,7 @@
 			}
 			else
 			{
-				control_timeline.find('.annotation-ad').remove();
+				control_timeline_elements.find('.annotation-ad').remove();
 			}
 		
 			control_time_left.html(secondsToTime(videoObject.duration - videoObject.currentTime));
@@ -1938,7 +2019,7 @@
 		// canplaythrough suspend abort emptied
 		
 		// suspend progress timeupdate
-		video.on('abort loadstart stalled loadeddata loadedmetadata seeking seeked waiting playing ended error', function(e)
+		video.on('abort loadstart stalled loadeddata loadedmetadata seeking seeked waiting playing ended error ratechange', function(e)
 		{
 			_log(e.type, 'ready:', videoObject.readyState, 'network:', videoObject.networkState, 'buffered:', videoObject.buffered.length ? videoObject.buffered.end(0) : 'undefined', 'currentTime:', videoObject.currentTime);
 			
@@ -2045,6 +2126,8 @@
 					timeupdate_delay = timeupdate_delay * .75 + ((new Date()).getTime() - timeupdate_lastTime) * .25;
 				}
 			}
+			
+			console.log('timeupdate_delay:', timeupdate_delay);
 			
 			//console.log('timeupdate_delay:', timeupdate_delay, timeupdate_lastTime, (new Date()).getTime(), (new Date()).getTime() - timeupdate_lastTime);
 			
@@ -2176,7 +2259,7 @@
 			
 			var currentPercent = (videoObject.currentTime / videoObject.duration) * 100;
 			var nextPercent = ((videoObject.currentTime + (timeupdate_delay == null ? 0.25 : timeupdate_delay / 1000)) / videoObject.duration) * 100;
-			control_timeline_progress.stop().css('width', currentPercent + '%').animate({width : nextPercent + '%'}, (timeupdate_delay == null) ? 250 : timeupdate_delay, 'linear');
+			control_timeline_progress.stop().css('width', currentPercent + '%').animate({width : nextPercent + '%'}, ((timeupdate_delay == null) ? 250 : timeupdate_delay) / videoObject.playbackRate, 'linear');
 		});
 		
 		// update buffer
@@ -2233,7 +2316,7 @@
 					}
 				}
 				
-				control_timeline.prepend(bar_loaded);
+				control_timeline_elements.prepend(bar_loaded);
 			}
 			
 			/*
@@ -2255,15 +2338,6 @@
 		that.data('player', player);
 		
 		// ########## Initialization
-		
-		// Check if HTML5 engine is available
-		if(typeof videoObject.canPlayType == 'undefined')
-		{
-			that.addClass('error-unsupported');
-			that.data('player', {error:'Not supported'});
-			_error('HTML5 Video not supported in your Browser');
-			return;
-		}
 		
 		// if we have both: width and height, we can set the width and height
 		

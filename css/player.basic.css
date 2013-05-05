@@ -2,6 +2,16 @@
 	background-color: #000;
 }
 
+.kit-player video p {
+	color: #fff;
+	margin: 50px 20px;
+}
+
+.kit-player.error-unsupported, .kit-player.error-unsupported video{
+	width: 400px;
+	height: 300px;
+}
+
 .kit-player .controls-bar {
 	position: absolute;
 	bottom: 0;
@@ -15,6 +25,11 @@
 .kit-player .control-timeline {
 	position: absolute; /* @todo remove */
 	cursor: pointer;
+}
+
+/* This is a fix for having padding on control-timeline - so we can use inner divs being positioned absolutely */
+.kit-player .control-timeline .control-timeline-elements {
+	position: relative;
 }
 
 .kit-player .control-timeline-loaded {

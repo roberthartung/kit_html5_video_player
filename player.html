@@ -40,6 +40,7 @@
 	   
 		<div style="margin: 20px auto;" class="kit-player" id="player">
 			<video preload="none" controls loop>
+				<p>Your browser does not support HTML5 video. If you are using safari you might want to <a href="http://www.apple.com/quicktime/download/" target="_blank">download QuickTime</a>. If you are using Internet Explorer please update to a newer version.</p>
 				<!--<source type='video/mp4' src='624x260.mp4'/>
 				<source type='video/webm' src="624x260.webm"/>
 				-->
@@ -52,10 +53,11 @@
 		
 		<button onclick="$('#player').data('player').loadSkin('default');">Skin: Default</button>
 		<button onclick="$('#player').data('player').loadSkin('yt');">Skin: YouTube</button>
-		<button onclick="$('#player').data('player').loadSkin('flat');">Skin: Flat</button>
 		<button onclick="$('#player').data('player').loadSkin('bubbles');">Skin: Bubbles</button>
+		<button onclick="$('#player').data('player').loadSkin('flat');">Skin: Flat</button>
 		
 			<!--
+				<video width="720" height="480" preload="none" controls src="openx-ad.ogg"></video>
 				<video preload="none" controls src="stream.php?file=openx-ad.webm&8"></video>
 				
 				<source type='video/webm; codecs="vp8"' src="624x260.webm?"/>
@@ -81,25 +83,25 @@
 					title : 'OpenX Pre-Roll',
 					position : 'pre-roll',
 					sources : [
-						{type:'video/webm', src: stream + 'media/video/openx-ad.webm?'+(new Date()).getTime()}, // ; codecs="vp8"
-						{type:'video/mp4', src: stream + 'media/video/openx-ad.mp4?'+(new Date()).getTime()}, // ; codecs="avc1",
-						{type:'video/ogg', src: stream + 'media/video/openx-ad.ogg?'+(new Date()).getTime()}
+						{type:'video/webm', src: stream + 'openx-ad.webm?'+(new Date()).getTime()}, // ; codecs="vp8"
+						{type:'video/mp4', src: stream + 'openx-ad.mp4?'+(new Date()).getTime()}, // ; codecs="avc1",
+						{type:'video/ogg', src: stream + 'openx-ad.ogg?'+(new Date()).getTime()}
 					],
-					url : 'http://www.mecaso.ch',
+					url : 'http://www.mecaso.ch'
 				},
 				{
 					title : 'Lego Pre-Roll',
 					position : 'pre-roll',
 					sources : [
-						{type:'video/webm', src: stream + 'media/video/lego.webm?'+(new Date()).getTime()}, // ; codecs="vp8"
-						{type:'video/mp4', src: stream + 'media/video/lego.mp4?'+(new Date()).getTime()}, // ; codecs="avc1",
-						{type:'video/ogg', src: stream + 'media/video/lego.ogg?'+(new Date()).getTime()}
+						{type:'video/webm', src: stream + 'lego.webm?'+(new Date()).getTime()}, // ; codecs="vp8"
+						{type:'video/mp4', src: stream + 'lego.mp4?'+(new Date()).getTime()}, // ; codecs="avc1",
+						{type:'video/ogg', src: stream + 'lego.ogg?'+(new Date()).getTime()}
 					],
-					url : 'http://www.mecaso.ch',
+					url : 'http://www.mecaso.ch'
 				},
 				{
 					position : 'bottom',
-					src : 'media/swf/ad.swf',
+					src : 'ad.swf',
 					url : 'http://www.rhcms.de',
 					type : 'swf',
 					begin : 4,
@@ -125,9 +127,9 @@
 					position : 'bottom',
 					type : 'video',
 					sources : [
-						{type:'video/webm', src: stream + 'media/video/openx-ad.webm?'+(new Date()).getTime()},
-						{type:'video/mp4', src: stream + 'media/video/openx-ad.mp4?'+(new Date()).getTime()},
-						{type:'video/ogg', src: stream + 'media/video/openx-ad.ogg?'+(new Date()).getTime()}
+						{type:'video/webm', src: stream + 'openx-ad.webm?'+(new Date()).getTime()},
+						{type:'video/mp4', src: stream + 'openx-ad.mp4?'+(new Date()).getTime()},
+						{type:'video/ogg', src: stream + 'openx-ad.ogg?'+(new Date()).getTime()}
 					],
 					begin : 15,
 					duration : 8,
@@ -139,10 +141,10 @@
 					title : 'OpenX Post-Roll',
 					position : 'post-roll',
 					sources : [
-						{type:'video/webm; codecs="vp8"', src : stream + 'media/video/openx-ad.webm?'+(new Date()).getTime()},
-						{type:'video/mp4; codecs="avc1"', src : stream + 'media/video/openx-ad.mp4?'+(new Date()).getTime()}
+						{type:'video/webm; codecs="vp8"', src : stream + 'openx-ad.webm?'+(new Date()).getTime()},
+						{type:'video/mp4; codecs="avc1"', src : stream + 'openx-ad.mp4?'+(new Date()).getTime()}
 					],
-					url : 'http://www.rhcms.de',
+					url : 'http://www.rhcms.de'
 				}
 			];
 			
@@ -150,16 +152,16 @@
 				{
 					title : 'Clip 1',
 					sources : [
-						{type:'video/mp4', src : stream + 'media/video/624x260.mp4?'+(new Date()).getTime()}, // ; codecs="avc1"
-						{type:'video/webm', src : stream + 'media/video/624x260.webm?'+(new Date()).getTime()}, // ; codecs="vp8"
-						{type:'video/ogg', src : stream + 'media/video/624x260.ogg?'+(new Date()).getTime()},
+						{type:'video/mp4', src : stream + '624x260.mp4?'+(new Date()).getTime()}, // ; codecs="avc1"
+						{type:'video/webm', src : stream + '624x260.webm?'+(new Date()).getTime()}, // ; codecs="vp8"
+						{type:'video/ogg', src : stream + '624x260.ogg?'+(new Date()).getTime()},
 					],
 					ads : ads,
 					cuepoints : [0, 2.0, 4.5]
 				},
 				{
 					title : 'Mozilla Video',
-					src : 'media/video/lego.webm',
+					src : 'lego.webm',
 					type : 'video/webm',
 					start : '50%'
 				}
@@ -168,12 +170,12 @@
 			var playlist2 = [
 				{
 					title : 'Big Buck Bunny',
-					src : 'media/video/big_buck_bunny.webm',
+					src : 'big_buck_bunny.webm',
 					type : 'video/webm',
 					ads : [
 						{
 							position : 'mid-roll',
-							src : 'media/video/superbowl2013-vw.mp4',
+							src : 'superbowl2013-vw.mp4',
 							type : 'video/mp4',
 							begin : '50.5%'
 						}
@@ -186,26 +188,26 @@
 					title : 'Big Buck Bunny',
 					sources : [
 						{type:'video/mp4', resolutions : {
-							'240p' : 'media/video/trailer_240p.mp4?'+(new Date()).getTime(),
-							'360p' : 'media/video/trailer_360p.mp4?'+(new Date()).getTime(),
-							'480p' : 'media/video/trailer_480p.mp4?'+(new Date()).getTime(),
-							'720p' : 'media/video/trailer_720p.mp4?'+(new Date()).getTime(),
-							'1080p' : 'media/video/trailer_1080p.mp4?'+(new Date()).getTime()
+							'240p' : 'trailer_240p.mp4?'+(new Date()).getTime(),
+							'360p' : 'trailer_360p.mp4?'+(new Date()).getTime(),
+							'480p' : 'trailer_480p.mp4?'+(new Date()).getTime(),
+							'720p' : 'trailer_720p.mp4?'+(new Date()).getTime(),
+							'1080p' : 'trailer_1080p.mp4?'+(new Date()).getTime()
 						}},
 						{type:'video/webm', resolutions : {
-							'240p' : 'media/video/trailer_240p.webm?'+(new Date()).getTime(),
-							'360p' : 'media/video/trailer_360p.webm?'+(new Date()).getTime(),
-							'480p' : 'media/video/trailer_480p.webm?'+(new Date()).getTime(),
-							'720p' : 'media/video/trailer_720p.webm?'+(new Date()).getTime(),
-							'1080p' : 'media/video/trailer_1080p.webm?'+(new Date()).getTime()
+							'240p' : 'trailer_240p.webm?'+(new Date()).getTime(),
+							'360p' : 'trailer_360p.webm?'+(new Date()).getTime(),
+							'480p' : 'trailer_480p.webm?'+(new Date()).getTime(),
+							'720p' : 'trailer_720p.webm?'+(new Date()).getTime(),
+							'1080p' : 'trailer_1080p.webm?'+(new Date()).getTime()
 						}},
 						{type:'video/ogg', resolutions : {
-							'240p' : 'media/video/trailer_240p.ogg?'+(new Date()).getTime(),
-							'360p' : 'media/video/trailer_360p.ogg?'+(new Date()).getTime(),
-							'480p' : 'media/video/trailer_480p.ogg?'+(new Date()).getTime(),
-							'720p' : 'media/video/trailer_720p.ogg?'+(new Date()).getTime(),
-							'1080p' : 'media/video/trailer_1080p.ogg?'+(new Date()).getTime()
-						}},
+							'240p' : 'trailer_240p.ogg?'+(new Date()).getTime(),
+							'360p' : 'trailer_360p.ogg?'+(new Date()).getTime(),
+							'480p' : 'trailer_480p.ogg?'+(new Date()).getTime(),
+							'720p' : 'trailer_720p.ogg?'+(new Date()).getTime(),
+							'1080p' : 'trailer_1080p.ogg?'+(new Date()).getTime()
+						}}
 					],
 					contents : [
 						{
@@ -243,8 +245,7 @@
 				});
 				*/
 				
-				var p = $('#player')
-				.bind('init', function(e, api)
+				var p = $('#player').bind('init', function(e, api)
 				{
 					var ad_info = $('<span class="small ad-info-timeleft"></span>');
 					$('.player').find('.control-volume').after(ad_info);
