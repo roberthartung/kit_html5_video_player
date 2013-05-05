@@ -526,7 +526,7 @@
 				init : function()
 				{
 					var that = this;
-					console.log(this);
+					//console.log(this);
 					that.controlVolumeWidth = control_volume.width();
 					control_volume.css('width', 0);
 					
@@ -1056,7 +1056,7 @@
 					var content_li_width = (1 / clip.contents.length) * 100;
 					for(var c=0;c<clip.contents.length;c++)
 					{
-						console.log(clip.contents);
+						//console.log(clip.contents);
 						var li_content = $('<li><a data-time="' + clip.contents[c].time + '">' + clip.contents[c].title + '</a></li>');
 						li_content.css('width', content_li_width + '%');
 						div_contents.find('ol').append(li_content);
@@ -1070,8 +1070,8 @@
 				
 				player.clip = clip;
 				that.trigger('load', [player]);
-				console.log('player.clip', player.clip);
-				console.log('player.clip.src', player.clip.src);
+				//console.log('player.clip', player.clip);
+				//console.log('player.clip.src', player.clip.src);
 				videoObject.src = player.clip.src;
 				videoObject.load();
 				
@@ -1477,7 +1477,7 @@
 		
 		div_contents.on('click', 'li a', function(e)
 		{
-			console.log($(this).attr('data-time'));
+			//console.log($(this).attr('data-time'));
 			videoObject.currentTime = $(this).attr('data-time');
 		});
 		
@@ -2127,7 +2127,7 @@
 				}
 			}
 			
-			console.log('timeupdate_delay:', timeupdate_delay);
+			//console.log('timeupdate_delay:', timeupdate_delay);
 			
 			//console.log('timeupdate_delay:', timeupdate_delay, timeupdate_lastTime, (new Date()).getTime(), (new Date()).getTime() - timeupdate_lastTime);
 			
