@@ -1517,9 +1517,10 @@
 				{
 					videoObject.play();
 				}
+				// We're not in an ad and we have a pre roll
 				else
 				{
-					_error('Unexpected');
+					//_error('Unexpected State in click event');
 				}
 			}
 			else
@@ -2211,12 +2212,12 @@
 									var adObject = $('<div/>');
 									adObject.attr('id', id);
 									div_overlay.append(adObject);
-									swfobject.embedSWF(_ad.src, id, _ad.width, _ad.height, "9.0.0", "expressInstall.swf");
+									swfobject.embedSWF(_ad.src, id, position_conf.width, position_conf.height, "9.0.0", "expressInstall.swf");
 								break;
 								default :
 									if(_ad.type.match(/^video\/(.*)$/g))
 									{
-										var video = $('<video autoplay width="' + _ad.width + '" height="' + _ad.height + '"></video>')
+										var video = $('<video autoplay width="' + position_conf.width + '" height="' + position_conf.height + '"></video>')
 										
 										if(_ad.src)
 										{
@@ -2236,14 +2237,14 @@
 							div_overlay.css(position_conf.css);
 							div_overlay.css(
 								 {
-									width : _ad.width,
-									height : _ad.height
+									width : position_conf.width,
+									height : position_conf.height
 								}
 							);
 							
 							if(typeof position_conf.css.left != 'undefined')
 							{
-								div_overlay.css('marginLeft', -(_ad.width / 2));
+								div_overlay.css('marginLeft', -(position_conf.width / 2));
 							}
 							div_overlay.show();
 							
