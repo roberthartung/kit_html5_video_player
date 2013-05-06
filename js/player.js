@@ -1510,10 +1510,11 @@
 			e.stopPropagation();
 			if(videoObject.paused)
 			{
+				videoObject.play();
 				//_playNextAd('pre-roll');
 				
 				// @todo check state here
-				if(player.ad || !_playNextAd('pre-roll'))
+				/*if(player.ad || !_playNextAd('pre-roll'))
 				{
 					videoObject.play();
 				}
@@ -1522,6 +1523,7 @@
 				{
 					//_error('Unexpected State in click event');
 				}
+				*/
 			}
 			else
 			{
@@ -1782,6 +1784,19 @@
 		
 		// ### Event.Play
 		
+		// _playNextAd('pre-roll') removed from control_play.click because iPhone users won't click on the play button, but on the inline play button from iOS
+		// therefore we have to check for the next ad here
+		video.on('play', function(e)
+		{
+			//console.log('play', videoObject.currentTime, player.ad);
+			
+			if(!videoObject.currentTime && !player.ad)
+			{
+				//console.log('check Next Ad');
+				_playNextAd('pre-roll');
+			}
+		});
+		
 		video.on('play', function(e)
 		{
 			if(videoObject.currentTime)
@@ -1849,6 +1864,8 @@
 		{
 			_info('[event.ended]');
 			hasEnded = true;
+			//alert('ended: ' + );
+			// @todo ended does not work as event name in opera 
 			that.trigger('ended', [player]);
 			//that.trigger('ad.finish', [player, player.ad]);
 			
@@ -2018,9 +2035,8 @@
 		*/
 		
 		// canplaythrough suspend abort emptied
-		
 		// suspend progress timeupdate
-		video.on('abort loadstart stalled loadeddata loadedmetadata seeking seeked waiting playing ended error ratechange', function(e)
+		video.on('play abort loadstart stalled loadeddata loadedmetadata seeking seeked waiting playing ended error ratechange', function(e)
 		{
 			_log(e.type, 'ready:', videoObject.readyState, 'network:', videoObject.networkState, 'buffered:', videoObject.buffered.length ? videoObject.buffered.end(0) : 'undefined', 'currentTime:', videoObject.currentTime);
 			
@@ -2202,7 +2218,6 @@
 					else
 					{
 						var position_conf = overlay_positions[_ad.position];
-						console.log(position_conf);
 						
 						if(typeof position_conf == 'object')
 						{

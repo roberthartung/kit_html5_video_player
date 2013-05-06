@@ -105,10 +105,8 @@
 					url : 'http://www.rhcms.de',
 					type : 'swf',
 					begin : 4,
-					duration : 3,
+					duration : 3
 					//end : '80%',
-					width : 468,
-					height : 60
 				},
 				/*
 				{
@@ -132,10 +130,8 @@
 						{type:'video/ogg', src: stream + 'openx-ad.ogg?'+(new Date()).getTime()}
 					],
 					begin : 15,
-					duration : 8,
+					duration : 8
 					//end : '80%',
-					width : 468,
-					height : 60
 				},
 				{
 					title : 'OpenX Post-Roll',
@@ -252,7 +248,7 @@
 				})
 				.bind('load', function(e, api)
 				{
-					console.log('[event.load]', api.ad);
+					//console.log('[event.load]', api.ad);
 					if(api.ad && api.skin == 'yt')
 					{
 						$('.player').find('.ad-info-timeleft').show();
@@ -270,6 +266,8 @@
 					{
 						//api.showTimeline();
 					}
+					
+					return true;
 				})
 				// video stops playing
 				.bind('beforeseek', function(e, player)
@@ -327,13 +325,15 @@
 					analytics : 'UA-39348271-1',
 					width: 720,
 					height: 405,
-					skin : 'yt',
+					skin : 'flat',
 					overlays : {
 						positions : [
 							{
 								id : 'bottom',
 								bottom : 0,
-								align : 'center'
+								align : 'center',
+								width : 468,
+								height : 90
 							},
 						]
 					},
