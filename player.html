@@ -83,9 +83,9 @@
 					title : 'OpenX Pre-Roll',
 					position : 'pre-roll',
 					sources : [
-						{type:'video/webm', src: stream + 'openx-ad.webm?'+(new Date()).getTime()}, // ; codecs="vp8"
-						{type:'video/mp4', src: stream + 'openx-ad.mp4?'+(new Date()).getTime()}, // ; codecs="avc1",
-						{type:'video/ogg', src: stream + 'openx-ad.ogg?'+(new Date()).getTime()}
+						{type:'video/webm', src: stream + 'media/video/openx-ad.webm?'+(new Date()).getTime()}, // ; codecs="vp8"
+						{type:'video/mp4', src: stream + 'media/video/openx-ad.mp4?'+(new Date()).getTime()}, // ; codecs="avc1",
+						{type:'video/ogg', src: stream + 'media/video/openx-ad.ogg?'+(new Date()).getTime()}
 					],
 					url : 'http://www.mecaso.ch'
 				},
@@ -93,15 +93,15 @@
 					title : 'Lego Pre-Roll',
 					position : 'pre-roll',
 					sources : [
-						{type:'video/webm', src: stream + 'lego.webm?'+(new Date()).getTime()}, // ; codecs="vp8"
-						{type:'video/mp4', src: stream + 'lego.mp4?'+(new Date()).getTime()}, // ; codecs="avc1",
-						{type:'video/ogg', src: stream + 'lego.ogg?'+(new Date()).getTime()}
+						{type:'video/webm', src: stream + 'media/video/lego.webm?'+(new Date()).getTime()}, // ; codecs="vp8"
+						{type:'video/mp4', src: stream + 'media/video/lego.mp4?'+(new Date()).getTime()}, // ; codecs="avc1",
+						{type:'video/ogg', src: stream + 'media/video/lego.ogg?'+(new Date()).getTime()}
 					],
 					url : 'http://www.mecaso.ch'
 				},
 				{
 					position : 'bottom',
-					src : 'ad.swf',
+					src : 'media/swf/ad.swf',
 					url : 'http://www.rhcms.de',
 					type : 'swf',
 					begin : 4,
@@ -125,9 +125,9 @@
 					position : 'bottom',
 					type : 'video',
 					sources : [
-						{type:'video/webm', src: stream + 'openx-ad.webm?'+(new Date()).getTime()},
-						{type:'video/mp4', src: stream + 'openx-ad.mp4?'+(new Date()).getTime()},
-						{type:'video/ogg', src: stream + 'openx-ad.ogg?'+(new Date()).getTime()}
+						{type:'video/webm', src: stream + 'media/video/openx-ad.webm?'+(new Date()).getTime()},
+						{type:'video/mp4', src: stream + 'media/video/openx-ad.mp4?'+(new Date()).getTime()},
+						{type:'video/ogg', src: stream + 'media/video/openx-ad.ogg?'+(new Date()).getTime()}
 					],
 					begin : 15,
 					duration : 8
@@ -137,8 +137,8 @@
 					title : 'OpenX Post-Roll',
 					position : 'post-roll',
 					sources : [
-						{type:'video/webm; codecs="vp8"', src : stream + 'openx-ad.webm?'+(new Date()).getTime()},
-						{type:'video/mp4; codecs="avc1"', src : stream + 'openx-ad.mp4?'+(new Date()).getTime()}
+						{type:'video/webm; codecs="vp8"', src : stream + 'media/video/openx-ad.webm?'+(new Date()).getTime()},
+						{type:'video/mp4; codecs="avc1"', src : stream + 'media/video/openx-ad.mp4?'+(new Date()).getTime()}
 					],
 					url : 'http://www.rhcms.de'
 				}
@@ -148,9 +148,9 @@
 				{
 					title : 'Clip 1',
 					sources : [
-						{type:'video/mp4', src : stream + '624x260.mp4?'+(new Date()).getTime()}, // ; codecs="avc1"
-						{type:'video/webm', src : stream + '624x260.webm?'+(new Date()).getTime()}, // ; codecs="vp8"
-						{type:'video/ogg', src : stream + '624x260.ogg?'+(new Date()).getTime()},
+						{type:'video/mp4', src : stream + 'media/video/624x260.mp4?'+(new Date()).getTime()}, // ; codecs="avc1"
+						{type:'video/webm', src : stream + 'media/video/624x260.webm?'+(new Date()).getTime()}, // ; codecs="vp8"
+						{type:'video/ogg', src : stream + 'media/video/624x260.ogg?'+(new Date()).getTime()},
 					],
 					ads : ads,
 					cuepoints : [0, 2.0, 4.5]
@@ -166,12 +166,12 @@
 			var playlist2 = [
 				{
 					title : 'Big Buck Bunny',
-					src : 'big_buck_bunny.webm',
+					src : 'media/video/big_buck_bunny.webm',
 					type : 'video/webm',
 					ads : [
 						{
 							position : 'mid-roll',
-							src : 'superbowl2013-vw.mp4',
+							src : 'media/video/superbowl2013-vw.mp4',
 							type : 'video/mp4',
 							begin : '50.5%'
 						}
@@ -184,25 +184,25 @@
 					title : 'Big Buck Bunny',
 					sources : [
 						{type:'video/mp4', resolutions : {
-							'240p' : 'trailer_240p.mp4?'+(new Date()).getTime(),
-							'360p' : 'trailer_360p.mp4?'+(new Date()).getTime(),
-							'480p' : 'trailer_480p.mp4?'+(new Date()).getTime(),
-							'720p' : 'trailer_720p.mp4?'+(new Date()).getTime(),
-							'1080p' : 'trailer_1080p.mp4?'+(new Date()).getTime()
+							'240p' : 'media/video/trailer_240p.mp4?'+(new Date()).getTime(),
+							'360p' : 'media/video/trailer_360p.mp4?'+(new Date()).getTime(),
+							'480p' : 'media/video/trailer_480p.mp4?'+(new Date()).getTime(),
+							'720p' : 'media/video/trailer_720p.mp4?'+(new Date()).getTime(),
+							'1080p' : 'media/video/trailer_1080p.mp4?'+(new Date()).getTime()
 						}},
 						{type:'video/webm', resolutions : {
-							'240p' : 'trailer_240p.webm?'+(new Date()).getTime(),
-							'360p' : 'trailer_360p.webm?'+(new Date()).getTime(),
-							'480p' : 'trailer_480p.webm?'+(new Date()).getTime(),
-							'720p' : 'trailer_720p.webm?'+(new Date()).getTime(),
-							'1080p' : 'trailer_1080p.webm?'+(new Date()).getTime()
+							'240p' : 'media/video/trailer_240p.webm?'+(new Date()).getTime(),
+							'360p' : 'media/video/trailer_360p.webm?'+(new Date()).getTime(),
+							'480p' : 'media/video/trailer_480p.webm?'+(new Date()).getTime(),
+							'720p' : 'media/video/trailer_720p.webm?'+(new Date()).getTime(),
+							'1080p' : 'media/video/trailer_1080p.webm?'+(new Date()).getTime()
 						}},
 						{type:'video/ogg', resolutions : {
-							'240p' : 'trailer_240p.ogg?'+(new Date()).getTime(),
-							'360p' : 'trailer_360p.ogg?'+(new Date()).getTime(),
-							'480p' : 'trailer_480p.ogg?'+(new Date()).getTime(),
-							'720p' : 'trailer_720p.ogg?'+(new Date()).getTime(),
-							'1080p' : 'trailer_1080p.ogg?'+(new Date()).getTime()
+							'240p' : 'media/video/trailer_240p.ogg?'+(new Date()).getTime(),
+							'360p' : 'media/video/trailer_360p.ogg?'+(new Date()).getTime(),
+							'480p' : 'media/video/trailer_480p.ogg?'+(new Date()).getTime(),
+							'720p' : 'media/video/trailer_720p.ogg?'+(new Date()).getTime(),
+							'1080p' : 'media/video/trailer_1080p.ogg?'+(new Date()).getTime()
 						}}
 					],
 					contents : [
