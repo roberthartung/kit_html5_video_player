@@ -280,7 +280,7 @@
 		if(_addDebugLine.apply(this, arguments))
 			return;
 		
-		if(typeof console != 'undefined' && conf.debug)
+		if(typeof console != 'undefined' && conf.debug && console.log && console.log.apply)
 		{
 			console.log.apply(console, arguments);
 		}
@@ -291,7 +291,7 @@
 		if(_addDebugLine.apply(this, arguments))
 			return;
 		
-		if(typeof console != 'undefined' && conf.debug)
+		if(typeof console != 'undefined' && conf.debug && console.info && console.info.apply)
 		{
 			console.info.apply(console, arguments);
 		}
@@ -304,7 +304,7 @@
 		
 		if(typeof console != 'undefined')
 		{
-			if(typeof console.error == 'function')
+			if(typeof console.error == 'function' && console.error && console.error.apply)
 			{
 				console.error.apply(console, arguments);
 			}
@@ -1081,7 +1081,7 @@
 			},
 			addOverlayPosition : function(pos)
 			{
-				var position = {css:{}};
+				var position = {css:{},width:pos.width,height:pos.height};
 			
 				if(typeof pos.bottom != 'undefined')
 				{
@@ -2201,12 +2201,14 @@
 					}
 					else
 					{
-						var position_conf = overlay_positions[_ad.position]
+						var position_conf = overlay_positions[_ad.position];
+						console.log(position_conf);
 						
-						if(typeof overlay_positions[_ad.position] == 'object')
+						if(typeof position_conf == 'object')
 						{
 							switch(_ad.type)
 							{
+								case 'application/x-shockwave-flash' :
 								case 'swf' :
 									var id = 'overlay-' + (new Date()).getTime();
 									var adObject = $('<div/>');
@@ -2228,6 +2230,8 @@
 											var src = getSrc(_ad.sources);
 											video.attr('src', src.src);
 										}
+										
+										video.get(0).volume = 0;
 										
 										div_overlay.append(video);
 									}
