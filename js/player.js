@@ -561,12 +561,12 @@
 				destroy : function()
 				{
 					control_volume.css('width', '');
-					div_wrapper.off('mousemove.fadingControls').off('mouseover.fadingControls').off('mouseout.fadingControls').off('mouseover.fadingControls');
-					div_controls.off('mouseover.fadingControls');
-					div_controls_bar.off('mouseover.fadingControls');
-					control_timeline.off('mouseover.fadingControls');
-					control_mute.off('mouseover.fadingControls').off('mouseout.fadingControls');
-					control_volume.off('mouseover.fadingControls').off('mouseout.fadingControls');
+					div_wrapper.off('.fadingControls');
+					div_controls.off('.fadingControls');
+					div_controls_bar.off('.fadingControls');
+					control_timeline.off('.fadingControls');
+					control_mute.off('.fadingControls');
+					control_volume.off('.fadingControls');
 					this.cancelFade();
 				}
 			},
@@ -610,10 +610,9 @@
 				{
 					control_volume.seekSlider('direction', 'vertical');
 					control_volume.hide();
-					control_mute.on('mouseover', function(e)
+					control_mute.on("mouseover.topVolumeBar", function(e)
 					{
 						var position = control_mute.position();
-					
 						control_volume.css({
 							bottom : control_mute.outerHeight(),
 							right : div_wrapper.width() - (position.left + control_mute.outerWidth(true)) + (control_mute.outerWidth(true) - control_mute.outerWidth()) / 2,
@@ -622,11 +621,25 @@
 						control_volume.show();
 					});
 					
-					
+					control_mute.on("mouseout.topVolumeBar", function(e)
+					{
+						control_volume.hide();
+				 	});
+				 	
+				 	control_volume.on("mouseover.topVolumeBar", function(e){
+				 		$(this).show();
+				 	});
+				 	
+				 	control_volume.on("mouseout.topVolumeBar", function(e){
+				 		$(this).hide();
+				 	});
 				},
 				destroy : function()
 				{
+					control_volume.show();
 					control_volume.seekSlider('direction', 'horizontal');
+					control_mute.off('.topVolumeBar');
+					control_volume.off('.topVolumeBar');
 				}
 			}
 		};
@@ -1314,13 +1327,12 @@
 		
 		function _playNextAd(position)
 		{
-			if(nextAd != null)
-				_log('_playNextAd(' + position + ')', nextAd, player.clip.ads[nextAd].position);
-			
 			if(nextAd != null && player.clip.ads[nextAd].position == position)
 			{
+				_log('_playNextAd(' + position + ')', nextAd, player.clip.ads[nextAd].position);
 				player.ad = player.clip.ads[nextAd];
 				that.trigger('load', [player]);
+				//videoObject.pause();
 				videoObject.src = player.ad.src;
 				videoObject.load();
 				_waitPlay = true;
@@ -1514,10 +1526,14 @@
 				//_playNextAd('pre-roll');
 				
 				// @todo check state here
-				/*if(player.ad || !_playNextAd('pre-roll'))
+				/*
+				if(player.ad || !_playNextAd('pre-roll'))
 				{
 					videoObject.play();
+					//_waitPlay = true;
 				}
+				
+				videoObject.play();
 				// We're not in an ad and we have a pre roll
 				else
 				{
@@ -1786,19 +1802,31 @@
 		
 		// _playNextAd('pre-roll') removed from control_play.click because iPhone users won't click on the play button, but on the inline play button from iOS
 		// therefore we have to check for the next ad here
-		video.on('play', function(e)
-		{
-			//console.log('play', videoObject.currentTime, player.ad);
-			
-			if(!videoObject.currentTime && !player.ad)
-			{
-				//console.log('check Next Ad');
-				_playNextAd('pre-roll');
-			}
-		});
 		
 		video.on('play', function(e)
 		{
+			//console.log('play', videoObject.currentTime, player.ad);
+			if(!videoObject.currentTime && !player.ad)
+			{
+				if(!_playNextAd('pre-roll'))
+				{
+					//player.playing = false;
+					//_waitPlay = true;
+					//player.waiting = true;
+					videoObject.play();
+				}			
+			}
+			else
+			{
+				
+			}
+		});
+		
+		
+		video.on('play', function(e)
+		{
+			_info('[event.play]');
+			player.playing = true;
 			if(videoObject.currentTime)
 			{
 				that.trigger('resume', [player]);
@@ -1807,7 +1835,6 @@
 			{
 				that.trigger('play', [player]);
 			}
-			player.playing = true;
 			// Switch to pause icon when in play mode
 			control_play.removeClass('icon-play').addClass('icon-pause');
 		});
@@ -2036,14 +2063,17 @@
 		
 		// canplaythrough suspend abort emptied
 		// suspend progress timeupdate
-		video.on('play abort loadstart stalled loadeddata loadedmetadata seeking seeked waiting playing ended error ratechange', function(e)
+		video.on('play abort loadstart stalled loadeddata loadedmetadata seeking seeked waiting playing ended ratechange', function(e)
 		{
-			_log(e.type, 'ready:', videoObject.readyState, 'network:', videoObject.networkState, 'buffered:', videoObject.buffered.length ? videoObject.buffered.end(0) : 'undefined', 'currentTime:', videoObject.currentTime);
-			
-			if(e.type == 'error')
-			{
-				_error('error:', videoObject.error.code);
-			}
+			//_log(e.type, 'ready:', videoObject.readyState, 'network:', videoObject.networkState, 'buffered:', videoObject.buffered.length ? videoObject.buffered.end(0) : 'undefined', 'currentTime:', videoObject.currentTime);
+			// , 'ready:', videoObject.readyState, 'network:', videoObject.networkState, 'buffered:', videoObject.buffered.length ? videoObject.buffered.end(0) : 'undefined',
+			_log(e.type, 'currentTime:', videoObject.currentTime);
+		});
+		
+		video.on('error', function(e)
+		{
+			//_log(e.type, 'ready:', videoObject.readyState, 'network:', videoObject.networkState, 'buffered:', videoObject.buffered.length ? videoObject.buffered.end(0) : 'undefined', 'currentTime:', videoObject.currentTime);
+			_error('error:', videoObject.error.code, videoObject.src);
 		});
 		
 		video.on('loadeddata', function(e)
