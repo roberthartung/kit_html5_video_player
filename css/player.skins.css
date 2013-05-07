@@ -79,7 +79,6 @@
 	left:0;
 	right:0;
 	bottom: 30px;
-	z-index: 2;
 }
 
 .kit-player.skin-yt .contents {
@@ -121,7 +120,6 @@
 .kit-player.skin-yt .control-timeline-bar {
 	height: 10px; /* @todo remove */
 	background-color: #d00;
-	overflow: visible !important;
 }
 
 .kit-player.skin-yt .kit-player-timeline-caret {
@@ -305,8 +303,7 @@
 	color: #fff;
 }
 
-.kit-player.skin-flat .control-button-play {
-	float: left;
+.kit-player.skin-flat .control-button-play, .kit-player.skin-flat .control-button-mute, .kit-player.skin-flat .control-settings {
 	padding: 5px;
 	background: #f9c667;
 	background: -moz-linear-gradient(top,  #f9c667 0%, #f79621 100%);
@@ -317,6 +314,14 @@
 	background: linear-gradient(to bottom,  #f9c667 0%,#f79621 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9c667', endColorstr='#f79621',GradientType=0 );
 	margin: 5px;
+}
+
+.kit-player.skin-flat .control-button-play {
+	float: left;
+}
+
+.kit-player.skin-flat .control-settings {
+	float: right;
 }
 
 .kit-player.skin-flat .control-volume {

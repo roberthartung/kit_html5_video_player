@@ -98,3 +98,13 @@
 	margin-left: 100%;
 	position: absolute;
 }
+
+/* jQuery's animate forces an overflow hidden */
+.kit-player .control-timeline-bar {
+	overflow: visible !important;
+}
+
+/* Needed for smooth scrolling of the caret */
+.kit-player .control-timeline {
+	z-index: 2;
+}

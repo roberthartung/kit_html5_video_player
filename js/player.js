@@ -737,6 +737,7 @@
 						div_controls : {
 							control_timeline : { control_timeline_elements : { control_timeline_progress : { control_timeline_caret : '<i class=" icon-angle-left"></i><i class=" icon-angle-right"></i>' } } },
 							control_volume : { control_volume_bar : {} },
+							control_settings : {},
 							control_fullscreen : { },
 							control_play : { },
 							control_mute : { },
