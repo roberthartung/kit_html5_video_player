@@ -59,13 +59,13 @@
 		{
 			var conf = $.extend(
 			{
-				direction : 'horizontal'
+				orientation : 'horizontal'
 			}, conf);
 		
 			return this.each(function()
 			{
 				var that = $(this);
-				that.data('direction', conf.direction);
+				that.data('orientation', conf.orientation);
 				
 				var bar = that.find('.' + that.attr('class') + '-bar');
 				
@@ -75,7 +75,7 @@
 				{
 					var offset = that.offset();
 					// e.clientX
-					if(that.data('direction') == 'horizontal')
+					if(that.data('orientation') == 'horizontal')
 					{
 						seekFromWidth(e.pageX - offset.left);
 					}
@@ -152,11 +152,11 @@
 				});
 			});
 		},
-		direction : function(d)
+		orientation : function(d)
 		{
 			return this.each(function()
 			{
-				$(this).data('direction', d);
+				$(this).data('orientation', d);
 			});
 		},
 		seek : function(p)
@@ -171,7 +171,7 @@
 				var that = $(this);
 				var bar = that.find('.' + that.attr('class') + '-bar');
 				
-				if(that.data('direction') == 'horizontal')
+				if(that.data('orientation') == 'horizontal')
 				{
 					bar.css('width', (p * 100) + '%');
 				}
@@ -369,6 +369,8 @@
 		var control_volume = $('<div class="control-volume"></div>');
 		var control_volume_bar = $('<div class="control-volume-bar"></div>');
 		var control_timeline_progress = $('<div class="control-timeline-bar"></div>');
+		var control_timeline_caret = $('<div class="kit-player-timeline-caret"><a></a></div>');
+		var control_volume_caret = $('<div class="kit-player-volume-caret"><a></a></div>');
 		// @deprecated: var control_timeline_loaded = $('<div class="control-timeline-loaded"></div>');
 		//var control_volume_bar = control_timeline.find('.control-volume-bar');
 		var control_fullscreen = $('<i class="icon-white control-fullscreen icon-resize-full"></i>');
@@ -397,7 +399,9 @@
 			control_time_played : control_time_played,
 			control_settings : control_settings,
 			indicator_loading : indicator_loading,
-			control_timeline_elements : control_timeline_elements
+			control_timeline_elements : control_timeline_elements,
+			control_timeline_caret : control_timeline_caret,
+			control_volume_caret : control_volume_caret
 		}
 		
 		/*
@@ -608,7 +612,7 @@
 			topVolumeBar : {
 				init : function()
 				{
-					control_volume.seekSlider('direction', 'vertical');
+					control_volume.seekSlider('orientation', 'vertical');
 					control_volume.hide();
 					control_mute.on("mouseover.topVolumeBar", function(e)
 					{
@@ -637,7 +641,7 @@
 				destroy : function()
 				{
 					control_volume.show();
-					control_volume.seekSlider('direction', 'horizontal');
+					control_volume.seekSlider('orientation', 'horizontal');
 					control_mute.off('.topVolumeBar');
 					control_volume.off('.topVolumeBar');
 				}
@@ -700,7 +704,7 @@
 					div_overlay : {},
 					indicator_loading : {},
 					div_contents : {},
-					control_timeline : { control_timeline_elements : { control_timeline_progress : '<div><a></a></div>' } },
+					control_timeline : { control_timeline_elements : { control_timeline_progress : { control_timeline_caret : {} } } }, // '<div><a></a></div>'
 					div_controls_bar : {
 						div_controls : {
 							control_play : {},
@@ -731,7 +735,7 @@
 					div_overlay : { },
 					div_controls_bar : {
 						div_controls : {
-							control_timeline : { control_timeline_elements : { control_timeline_progress : {} } },
+							control_timeline : { control_timeline_elements : { control_timeline_progress : { control_timeline_caret : '<i class=" icon-angle-left"></i><i class=" icon-angle-right"></i>' } } },
 							control_volume : { control_volume_bar : {} },
 							control_fullscreen : { },
 							control_play : { },
@@ -759,7 +763,7 @@
 					div_overlay : { },
 					div_controls_bar : {
 						div_controls : {
-							control_timeline : { control_timeline_elements : { control_timeline_progress : {} } },
+							control_timeline : { control_timeline_elements : { control_timeline_progress : { control_timeline_caret : {} } } },
 							control_volume : { control_volume_bar : {} },
 							control_mute : { },
 							control_play : { },
@@ -813,7 +817,10 @@
 				
 				if(typeof tree[name] === 'string')
 				{
-					_elem.append(tree[name]);
+					// this inserts the new DOM element to the very inner child element instead of appending it to the first element
+					// this is needed for the control_timeline_caret to insert icons etc
+					_elem.data('children', $(tree[name]));
+					_elem.find('*:not(:has("*"))').append(_elem.data('children'));
 					continue;
 				}
 				
@@ -835,17 +842,18 @@
 					{
 						_removeTree(_elem, tree[name]);
 					}
+					// we inserted a string
 					else
 					{
-						_elem.children().detach();
+						_elem.find(_elem.data('children')).detach();
 					}
 					
-					obj.find(_elem).detach()
+					obj.find(_elem).detach();
 				}
 				// name was a string that was appended
 				else
 				{
-					obj.children().first().detach()
+					obj.children().first().detach();
 				}
 			}
 		}
@@ -1143,6 +1151,10 @@
 		// Skin configuration
 		
 		// only assign the skin name to the API
+		
+		// has to be done before the skin is loaded
+		control_timeline.seekSlider();
+		control_volume.seekSlider();
 		
 		player.loadSkin(conf.skin);
 		
@@ -1616,7 +1628,6 @@
 		
 		// ### Timeline
 		control_timeline
-			.seekSlider()
 			.on('beginSeek', function(e)
 			{
 				control_timeline_progress.stop();
@@ -1655,7 +1666,6 @@
 		// ### Volume Slider
 		
 		control_volume
-			.seekSlider()
 			.on('beginSeek', function(e)
 			{
 				control_volume_bar.stop();

@@ -124,14 +124,11 @@
 	overflow: visible !important;
 }
 
-.kit-player.skin-yt .control-timeline-bar > div {
-	margin-left: 100%;
+.kit-player.skin-yt .kit-player-timeline-caret {
 	height: 10px;
-	position: absolute;
 }
 
-.kit-player.skin-yt .control-timeline-bar > div > a {
-	position: absolute;
+.kit-player.skin-yt .kit-player-timeline-caret > a {
 	margin-top: -4px;
 	border-radius: 10px;
 	border: 7px solid #fff;
@@ -359,7 +356,7 @@
 .kit-player.skin-flat .control-timeline {
 	height: 10px;
 	/* background-color: #f00; */
-	margin: 12px 0;
+	margin: 12px 15px;
 }
 
 .kit-player.skin-flat .control-volume {
@@ -384,4 +381,41 @@
 .kit-player.skin-flat .control-timeline-bar {
 	background-color: #f79621;
 	height: 10px;
+}
+
+.kit-player.skin-flat .kit-player-timeline-caret > a {
+	/*margin-top: -4px;
+	border-radius: 10px;
+	border: 7px solid #fff;
+	*/
+	/*
+	width: 5px;
+	height: 5px;
+	*/
+	margin-left: -13px;
+	background-color:#333;
+	width: 20px;
+	line-height: 0;
+	padding: 3px;
+	text-align: center;
+	margin-top: -4px;
+	text-decoration: none;
+	border-radius: 5px;
+	background: #7d7e7d;
+	background: -moz-linear-gradient(top,  #7d7e7d 0%, #0e0e0e 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7d7e7d), color-stop(100%,#0e0e0e));
+	background: -webkit-linear-gradient(top,  #7d7e7d 0%,#0e0e0e 100%);
+	background: -o-linear-gradient(top,  #7d7e7d 0%,#0e0e0e 100%);
+	background: -ms-linear-gradient(top,  #7d7e7d 0%,#0e0e0e 100%);
+	background: linear-gradient(to bottom,  #7d7e7d 0%,#0e0e0e 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#0e0e0e',GradientType=0 );
+}
+
+.kit-player.skin-flat .kit-player-timeline-caret > a > i { 
+	color: #fff;
+	font-size: 10px;
+}
+
+.kit-player.skin-flat .kit-player-timeline-caret > a > i + i {
+	margin-left: 5px;
 }

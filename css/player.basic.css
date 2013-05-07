@@ -89,3 +89,12 @@
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
 }
+
+.kit-player-timeline-caret > a {
+	position: absolute;
+}
+
+.kit-player-timeline-caret {
+	margin-left: 100%;
+	position: absolute;
+}
