@@ -18,11 +18,15 @@
 			  <source src="http://techslides.com/demos/sample-videos/small.ogv" type="video/ogg"/> 
 			  <source src="http://techslides.com/demos/sample-videos/small.mp4" type="video/mp4"/>
 			  <source src="http://techslides.com/demos/sample-videos/small.3gp" type="video/3gp"/>
+			  <track kind="subtitles" label="German subtitles" src="sintel_en.vtt" srclang="de" default="default"></track>
 			</video>
 		</div>
 		
 		<script>
-			var p = $('#player').kit_HTML5VideoPlayer();
+			console.log($('video').get(0).textTracks);
+			$('video').get(0).src = 'http://techslides.com/demos/sample-videos/small.mp4';
+			console.log($('video').get(0).textTracks);
+			//var p = $('#player').kit_HTML5VideoPlayer();
 		</script>
 	</body>
 </html>

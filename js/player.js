@@ -649,6 +649,35 @@
 		};
 		
 		/**
+		 * icon sets
+		 * 
+		 * maps internal icons to CSS classes for each icon set
+		 */
+		
+		var iconSets = {
+			'bootstrap' : {
+				play 			: 'icon-play',
+				pause			: 'icon-pause',
+				muted 			: 'icon-volume-off',
+				unmuted 		: 'icon-volume-up',
+				fullscreen 		: 'icon-resize-full',
+				resize 			: 'icon-resize-small',
+				settings 		: 'icon-cog',
+				dot				: 'icon-circle'
+			},
+			'fontawesome' : {
+				play 			: 'icon-play',
+				pause			: 'icon-pause',
+				muted 			: 'icon-volume-off',
+				unmuted 		: 'icon-volume-up',
+				fullscreen 		: 'icon-resize-full',
+				resize 			: 'icon-resize-small',
+				settings 		: 'icon-cog',
+				dot				: 'icon-circle'
+			}
+		}
+		
+		/**
 		 * skins
 		 */
 		
@@ -735,7 +764,7 @@
 					div_overlay : { },
 					div_controls_bar : {
 						div_controls : {
-							control_timeline : { control_timeline_elements : { control_timeline_progress : { control_timeline_caret : '<i class=" icon-angle-left"></i><i class=" icon-angle-right"></i>' } } },
+							control_timeline : { control_timeline_elements : { control_timeline_progress : { control_timeline_caret : '<i class="icon-angle-left"></i><i class="icon-angle-right"></i>' } } },
 							control_volume : { control_volume_bar : {} },
 							control_settings : {},
 							control_fullscreen : { },
@@ -872,6 +901,7 @@
 			// Current Clip that is actually played (not full clip object)
 			clip : null,
 			skin : null,
+			colorScheme : null,
 			ad : false,
 			overlay : false,
 			fullscreen : false,
@@ -883,6 +913,16 @@
 				clipIndex = 0;
 				conf.playlist = pl;
 				player.load(conf.playlist[clipIndex]);
+			},
+			setColorScheme : function(scheme)
+			{
+				if(player.colorScheme != null)
+				{
+					that.removeClass('cs-' + player.colorScheme);
+				}
+			
+				that.addClass('cs-' + scheme);
+				player.colorScheme = scheme;
 			},
 			loadSkin : function(_skinName)
 			{
@@ -967,6 +1007,8 @@
 				{
 					videoObject.pause();
 				}
+				
+				control_settings.addClass('disabled');
 			
 				if(clip.src && clip.type && videoObject.canPlayType(clip.type) != '')
 				{
@@ -1463,7 +1505,6 @@
 		// document.fullscreenEnabled
 		
 		// ### settings
-		
 		control_settings.on('click', function(e)
 		{
 			if(!div_wrapper.has('.kit-player-settings').length)
@@ -1498,7 +1539,9 @@
 			
 			settings.css({
 				bottom : $(this).outerHeight(true) + 'px',
-				left : pos.left - settings.outerWidth(true)/2 + 'px'
+				right : that.width() - pos.left - control_settings.outerWidth() - (control_settings.outerWidth(true) - control_settings.outerWidth()) / 2
+				/*,
+				left : pos.left - settings.outerWidth(true)/2 + 'px'*/
 			});
 			
 			settings.fadeIn();
@@ -2426,6 +2469,12 @@
 			videoObject.load()
 			player.clip = {src : videoObject.currentSrc}
 		}
+		
+		/*
+		videoObject.textTracks[0].mode = TextTrack.SHOWING;
+		
+		console.log(videoObject.textTracks[0]);
+		*/
 		
 		// Check if clip was loaded
 		if(player.clip != null)
