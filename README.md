@@ -3,11 +3,13 @@ kit_html5_video_player
 
 Kit HTML5 Video Player is a powerful tool to provide HTML5 Videos on your website. The player does not provide a flash fallback.
 
-### Requirements
+Requirements
+------------
 
 Kit HTML5 Video uses a set of external libraries. For basic usage kit requires jquery. For optimal skin optic you should also include bootstrap and fontawesome vector icons. But these libs are not required. If you don't want to use either bootstrap or fontawesome vector icons, you have to add icons to the player yourself manually.
 
-### Usage
+Usage
+-----
 
 Include Javascript and CSS files:
 
@@ -17,7 +19,8 @@ Include Javascript and CSS files:
 	<link rel="stylesheet" type="text/css" href="css/player.skins.css"/>
 ```
 
-### Init player from sources
+Init player from sources
+------------------------
 
 ```html
 	<div id="player">
@@ -38,10 +41,10 @@ Include Javascript and CSS files:
 	</script>
 ```
 
-### Clip Object
+Clip Object
+-----------
 
 Single Source
---------------
 
 ```javascript
 	var clipObject = {
@@ -51,8 +54,7 @@ Single Source
 	};
 ```
 
-Multiple Sources
---------------
+### Multiple Sources
 
 ```javascript
 	var clipObject = {
@@ -64,8 +66,8 @@ Multiple Sources
 	};
 ```
 
-Multiple Sources with resolutions
---------------
+### Multiple Sources with resolutions
+
 
 ```javascript
 	var clipObject = {
@@ -77,7 +79,8 @@ Multiple Sources with resolutions
 	};
 ```
 
-### Playlist
+Playlist
+--------
 
 ```html
 	<div id="player"><video controls></video></div>
@@ -91,4 +94,14 @@ Multiple Sources with resolutions
 
 		var api = p.kit_HTML5VideoPlayer();
 	</script>
+```
+
+Config Options
+--------------
+
+```
+	skin				Skin of the player
+		yt|default|flat|bubbles
+	
+	
 ```
