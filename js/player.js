@@ -220,29 +220,29 @@
 	
   $.fn.kit_HTML5VideoPlayer = function(conf)
   {
-	var conf = $.extend(
-	{
-		width : null,
-		height : null,
-		debug : false,
-      'controls'         : {
-		play	:	true,
-		mute	:	true
-	  },
-	  info : {
-		time : {
-			show_current : true
-		}
-	  },
-	  playlist : [],
-	  clip : null,
-	  playing : false,
-	  defaults : {
-		volume : .75
-	  },
-	  skin : 'default',
-	  indicateAds : false
-    }, conf);
+		var conf = $.extend(
+			{
+				width : null,
+				height : null,
+				debug : false,
+    		'controls'         : {
+					play	:	true,
+					mute	:	true
+			  },
+			  info : {
+					time : {
+						show_current : true
+					}
+			  },
+			  playlist : [],
+			  clip : null,
+			  playing : false,
+			  defaults : {
+					volume : .75
+			  },
+			  skin : 'default',
+			  indicateAds : false
+	    }, conf);
 	
 	function _addDebugLine()
 	{
@@ -1149,6 +1149,11 @@
 		
 		div_overlay.hide();
 		
+		if(!that.hasClass('kit-player'))
+		{
+			that.addClass('kit-player');
+		}
+		
 		// Skin configuration
 		
 		// only assign the skin name to the API
@@ -1158,7 +1163,6 @@
 		control_volume.seekSlider();
 		
 		player.loadSkin(conf.skin);
-		
 		
 		
 		/*
@@ -2415,6 +2419,12 @@
 		{
 			// Load Clip via API (forces a reset of all variables)
 			player.load(conf.clip);
+		}
+		// If the <video> has <source> elements
+		else if(video.find('source').length > 0)
+		{
+			videoObject.load()
+			player.clip = {src : videoObject.currentSrc}
 		}
 		
 		// Check if clip was loaded

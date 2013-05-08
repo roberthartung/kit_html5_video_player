@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+	<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf8" />
+		<meta name="author" content="Robert Hartung" />
+		<title>kit HTML5 Video Player - Demo: Example from source</title>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+		<script src="js/player.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="css/player.basic.css"/>
+    <link rel="stylesheet" type="text/css" href="css/player.skins.css"/>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
+	</head>
+	
+	<body>
+		<div id="player">
+			<video controls>
+			  <source src="http://techslides.com/demos/sample-videos/small.webm" type="video/webm"/> 
+			  <source src="http://techslides.com/demos/sample-videos/small.ogv" type="video/ogg"/> 
+			  <source src="http://techslides.com/demos/sample-videos/small.mp4" type="video/mp4"/>
+			  <source src="http://techslides.com/demos/sample-videos/small.3gp" type="video/3gp"/>
+			</video>
+		</div>
+		
+		<script>
+			var p = $('#player').kit_HTML5VideoPlayer();
+		</script>
+	</body>
+</html>
