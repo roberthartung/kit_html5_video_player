@@ -241,7 +241,8 @@
 					volume : .75
 			  },
 			  skin : 'default',
-			  indicateAds : false
+			  indicateAds : false,
+			  colorScheme : 'white'
 	    }, conf);
 	
 	function _addDebugLine()
@@ -1206,6 +1207,8 @@
 		
 		player.loadSkin(conf.skin);
 		
+		player.setColorScheme(conf.colorScheme);
+		
 		
 		/*
 		$('head').eq(0)
@@ -1844,8 +1847,9 @@
 				player.waiting = false;
 				that.removeClass('waiting');
 				// fix for timeupdate events missing in opera browser
-				videoObject.pause();
-				videoObject.play();
+				// @new seems not to be needed anymore
+				//videoObject.pause();
+				//videoObject.play();
 			}
 		});
 		
@@ -2121,11 +2125,17 @@
 		
 		// canplaythrough suspend abort emptied
 		// suspend progress timeupdate
-		video.on('play abort loadstart stalled loadeddata loadedmetadata seeking seeked waiting playing ended ratechange', function(e)
+		video.on('play abort loadstart stalled loadeddata loadedmetadata seeking seeked waiting ended ratechange', function(e)
 		{
 			//_log(e.type, 'ready:', videoObject.readyState, 'network:', videoObject.networkState, 'buffered:', videoObject.buffered.length ? videoObject.buffered.end(0) : 'undefined', 'currentTime:', videoObject.currentTime);
 			// , 'ready:', videoObject.readyState, 'network:', videoObject.networkState, 'buffered:', videoObject.buffered.length ? videoObject.buffered.end(0) : 'undefined',
 			_log(e.type, 'currentTime:', videoObject.currentTime);
+		});
+		
+		video.on('playing', function(e)
+		{
+			//_log(e.type, 'ready:', videoObject.readyState, 'network:', videoObject.networkState, 'buffered:', videoObject.buffered.length ? videoObject.buffered.end(0) : 'undefined', 'currentTime:', videoObject.currentTime);
+			_log('[event.playing] paused: ', videoObject.paused);
 		});
 		
 		video.on('error', function(e)
