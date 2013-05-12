@@ -234,6 +234,8 @@
 						show_current : true
 					}
 			  },
+			  autoplay : false,
+			  loop : false,
 			  playlist : [],
 			  clip : null,
 			  playing : false,
@@ -613,6 +615,7 @@
 			topVolumeBar : {
 				init : function()
 				{
+					control_volume_bar.css('width', '100%');
 					control_volume.seekSlider('orientation', 'vertical');
 					control_volume.hide();
 					control_mute.on("mouseover.topVolumeBar", function(e)
@@ -641,6 +644,7 @@
 				},
 				destroy : function()
 				{
+					control_volume_bar.css('width', 'auto');
 					control_volume.show();
 					control_volume.seekSlider('orientation', 'horizontal');
 					control_mute.off('.topVolumeBar');
@@ -816,8 +820,8 @@
 		
 		// Set/Get Video-Container options
 		video.css({position: 'absolute'});
-		video_loop = video.hasAttr('loop');
-		video_autoplay = video.hasAttr('autoplay');
+		video_loop = video.hasAttr('loop') || conf.loop;
+		video_autoplay = video.hasAttr('autoplay') || conf.autoplay;
 		video_controls = video.hasAttr('controls');
 		if(video_controls)
 		{
@@ -1380,8 +1384,9 @@
 			}
 		}
 		
-		var _waitPlay;
-		var _resumeTime;
+		var _waitPlay = false;
+		var _resumeTime = null;
+		var _waitLoad = false;
 		
 		/**
 		 * call handler for check if we have to play an ad
@@ -1394,12 +1399,12 @@
 				_log('_playNextAd(' + position + ')', nextAd, player.clip.ads[nextAd].position);
 				player.ad = player.clip.ads[nextAd];
 				that.trigger('load', [player]);
-				//videoObject.pause();
 				videoObject.src = player.ad.src;
 				videoObject.load();
 				_waitPlay = true;
-				
+				_waitLoad = true;
 				that.addClass('is-playing-ad');
+				
 				_gotoNextAd();
 				return true;
 			}
@@ -1711,7 +1716,9 @@
 			.on('endSeek', function(e)
 			{
 				if(wasPlaying)
+				{
 					videoObject.play();
+				}
 			});
 		
 		// ### Volume Slider
@@ -1838,21 +1845,6 @@
 			_info('[event.durationchange] duration = ', videoObject.duration);
 		});
 		
-		// ### event.canplay @TODO
-		video.on('canplay', function(e)
-		{
-			//_info('[event.canplay]');
-			if(player.waiting)
-			{
-				player.waiting = false;
-				that.removeClass('waiting');
-				// fix for timeupdate events missing in opera browser
-				// @new seems not to be needed anymore
-				//videoObject.pause();
-				//videoObject.play();
-			}
-		});
-		
 		// ### event.emptied: Reset UI
 		video.on('emptied', function(e)
 		{
@@ -1865,18 +1857,14 @@
 		// _playNextAd('pre-roll') removed from control_play.click because iPhone users won't click on the play button, but on the inline play button from iOS
 		// therefore we have to check for the next ad here
 		
-		video.on('play', function(e)
+		video.on('playing', function(e)
 		{
-			//console.log('play', videoObject.currentTime, player.ad);
-			if(!videoObject.currentTime && !player.ad)
+			if(!player.ad) // removed !videoObject.currentTime because user could seek in the video before playing and skip the ad 
 			{
 				if(!_playNextAd('pre-roll'))
 				{
-					//player.playing = false;
-					//_waitPlay = true;
-					//player.waiting = true;
 					videoObject.play();
-				}			
+				}	
 			}
 			else
 			{
@@ -1884,11 +1872,8 @@
 			}
 		});
 		
-		
 		video.on('play', function(e)
 		{
-			_info('[event.play]');
-			player.playing = true;
 			if(videoObject.currentTime)
 			{
 				that.trigger('resume', [player]);
@@ -1905,8 +1890,6 @@
 		
 		video.on('pause', function(e)
 		{
-			player.playing = false;
-			
 			that.trigger('pause', [player]);
 			// Switch to play icon when in pause mode
 			control_play.removeClass('icon-pause').addClass('icon-play');
@@ -1953,7 +1936,6 @@
 		{
 			_info('[event.ended]');
 			hasEnded = true;
-			//alert('ended: ' + );
 			// @todo ended does not work as event name in opera 
 			that.trigger('ended', [player]);
 			//that.trigger('ad.finish', [player, player.ad]);
@@ -1975,11 +1957,11 @@
 				// the ad played was a mid-roll, resume the clip
 				if(_ad_position == 'mid-roll')
 				{
-					// @todo resume clip
 					that.trigger('load', [player]);
 					videoObject.src = player.clip.src;
 					videoObject.load();
-					videoObject.play();
+
+					_waitLoad = true;
 					_waitPlay = true;
 				}
 				else if(_ad_position == 'pre-roll')
@@ -1990,7 +1972,7 @@
 						videoObject.src = player.clip.src;
 						// necessary for chrome to play clip
 						videoObject.load();
-						videoObject.play();
+						_waitLoad = true;
 						_waitPlay = true;
 					}
 				}
@@ -2014,7 +1996,8 @@
 				// we got 
 				if(_playNextAd('post-roll'))
 				{
-					player.waiting = true;
+					// @todo add: _waitPlay = true;
+					//player.waiting = true;
 					//videoObject.play();
 				}
 				else
@@ -2125,17 +2108,30 @@
 		
 		// canplaythrough suspend abort emptied
 		// suspend progress timeupdate
+		/*
 		video.on('play abort loadstart stalled loadeddata loadedmetadata seeking seeked waiting ended ratechange', function(e)
 		{
 			//_log(e.type, 'ready:', videoObject.readyState, 'network:', videoObject.networkState, 'buffered:', videoObject.buffered.length ? videoObject.buffered.end(0) : 'undefined', 'currentTime:', videoObject.currentTime);
 			// , 'ready:', videoObject.readyState, 'network:', videoObject.networkState, 'buffered:', videoObject.buffered.length ? videoObject.buffered.end(0) : 'undefined',
 			_log(e.type, 'currentTime:', videoObject.currentTime);
 		});
+		*/
 		
+		/*
 		video.on('playing', function(e)
 		{
 			//_log(e.type, 'ready:', videoObject.readyState, 'network:', videoObject.networkState, 'buffered:', videoObject.buffered.length ? videoObject.buffered.end(0) : 'undefined', 'currentTime:', videoObject.currentTime);
 			_log('[event.playing] paused: ', videoObject.paused);
+		});
+		*/
+		
+		video.on('loadstart progress suspend abort error emptied stalled play pause loadedmetadata loadeddata waiting playing canplay canplaythrough seeking seeked ended ratechange durationchange volumechange', function(e){
+			_info(e.type);
+		});
+		
+		video.on('loadstart', function(e)
+		{
+			that.addClass('is-loading');
 		});
 		
 		video.on('error', function(e)
@@ -2148,6 +2144,8 @@
 		{
 			timeupdate_delay = null;
 			timeupdate_lastTime = null;
+		
+			that.removeClass('is-loading');
 		
 			if(_resumeTime)
 			{
@@ -2165,43 +2163,19 @@
 			}
 		});
 		
-		video.on('loadstart', function(e)
-		{
-			//console.log('_resumeTime', _resumeTime);
-			if(_waitPlay/* && !_resumeTime*/)
-			{
-				videoObject.play();
-				_waitPlay = false;
-			}
-		});
-		
 		video.on('volumechange', function(e)
 		{
 			_info('[event.volumechange]', videoObject.volume);
 			_checkMuted();
 		});
 		
-		// Waiting
-		video.on('waiting', function(e)
-		{
-			_info('[event.waiting]');
-			if(!player.waiting)
-			{
-				videoObject.pause();
-				videoObject.play();
-			}
-			player.waiting = true;
-			that.addClass('waiting');
-		});
-		
 		// Can play
 		video.on('canplay', function(e)
 		{
-			if(player.waiting)
+			if(_waitPlay)
 			{
-				that.removeClass('waiting');
-				player.waiting = false;
-				//_play();
+				_waitPlay = false;
+				videoObject.play();
 			}
 		});
 		
