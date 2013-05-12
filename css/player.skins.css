@@ -399,10 +399,6 @@
 
 /* disabled buttons */
 
-.kit-player.cs-orange .control-settings.disabled {
-	color: #666;
-}
-
 .kit-player.cs-orange .control-timeline-bar {
 	background-color: #fff;
 }
