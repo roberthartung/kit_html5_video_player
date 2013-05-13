@@ -153,6 +153,7 @@
 			var playlist1 = [
 				{
 					title : 'Clip 1',
+					poster : 'media/video/624x260.jpg',
 					sources : [
 						{type:'video/mp4', src : stream + 'media/video/624x260.mp4?'+(new Date()).getTime()}, // ; codecs="avc1"
 						{type:'video/webm', src : stream + 'media/video/624x260.webm?'+(new Date()).getTime()}, // ; codecs="vp8"
@@ -263,14 +264,16 @@
 				})
 				.bind('load', function(e, api)
 				{
-					//console.log('[event.load]', api.ad);
-					if(api.ad && api.skin == 'yt')
+					console.log('[event.load]', api.ad);
+					if(api.ad) // && api.skin == 'yt'
 					{
-						$('.player').find('.ad-info-timeleft').show();
+						api.hideTimeline();
+						$('#player').find('.ad-info-timeleft').show();
 					}
 					else
 					{
-						$('.player').find('.ad-info-timeleft').hide();
+						api.showTimeline();
+						$('#player').find('.ad-info-timeleft').hide();
 					}
 				})
 				.bind('ended', function(e, api)

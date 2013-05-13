@@ -578,7 +578,7 @@
 				}
 			},
 			indentTimeline : {
-				init : function()
+				render : function()
 				{
 					var that = this;
 					var left = 0;
@@ -586,6 +586,7 @@
 					control_timeline.siblings().each(function()
 					{
 						$this = $(this);
+						//console.log($this.get(0).className, $this.css('cssFloat'), $this.outerWidth(true));
 						switch($this.css('cssFloat'))
 						{
 							case 'left' :
@@ -604,6 +605,11 @@
 						right : right + controlMargin
 					});
 				},
+				init : function()
+				{
+					this.render();
+					
+				},
 				destroy : function()
 				{
 					control_timeline.css({
@@ -613,9 +619,14 @@
 				}
 			},
 			topVolumeBar : {
+				isActive : false,
 				init : function()
 				{
-					control_volume_bar.css('width', '100%');
+					var that = this;
+					control_volume.css({
+						width : control_mute.outerWidth()
+					});
+					control_volume_bar.css('width', control_volume.outerWidth() - (control_volume_bar.outerWidth(true) - control_volume_bar.outerWidth(false)));
 					control_volume.seekSlider('orientation', 'vertical');
 					control_volume.hide();
 					control_mute.on("mouseover.topVolumeBar", function(e)
@@ -623,14 +634,15 @@
 						var position = control_mute.position();
 						control_volume.css({
 							bottom : control_mute.outerHeight(),
-							right : div_wrapper.width() - (position.left + control_mute.outerWidth(true)) + (control_mute.outerWidth(true) - control_mute.outerWidth()) / 2,
-							width : control_mute.outerWidth()
+							right : div_wrapper.width() - (position.left + control_mute.outerWidth(true)) + (control_mute.outerWidth(true) - control_mute.outerWidth()) / 2
 						});
 						control_volume.show();
 					});
 					
 					control_mute.on("mouseout.topVolumeBar", function(e)
 					{
+						if(that.isActive)
+							return;
 						control_volume.hide();
 				 	});
 				 	
@@ -638,9 +650,23 @@
 				 		$(this).show();
 				 	});
 				 	
-				 	control_volume.on("mouseout.topVolumeBar", function(e){
+				 	control_volume.on("mouseout.topVolumeBar", function(e)
+					{
+						if(that.isActive)
+							return;
+							
 				 		$(this).hide();
 				 	});
+					
+					control_volume.on('mousedown.topVolumeBar', function(e)
+					{
+						that.isActive = true;
+						$(document).on('mouseup.topVolumeBar', function(e)
+						{
+							that.isActive = false;
+							$(document).off('mouseup.topVolumeBar');
+						});
+					});
 				},
 				destroy : function()
 				{
@@ -775,7 +801,8 @@
 							control_fullscreen : { },
 							control_play : { },
 							control_mute : { },
-							control_time : { }
+							control_time_played : { },
+							control_time_left : { }
 						}
 					}
 				},
@@ -1137,6 +1164,12 @@
 					player.contents = [];
 				}
 				
+				if(clip.poster)
+				{
+					that.addClass('is-poster');
+					div_wrapper.css('backgroundImage', "url(" + clip.poster + ")");
+				}
+				
 				player.clip = clip;
 				that.trigger('load', [player]);
 				//console.log('player.clip', player.clip);
@@ -1384,6 +1417,30 @@
 			}
 		}
 		
+		function _play()
+		{
+			if(_waitPlay)
+			{		
+				_waitPlay = false;
+				videoObject.play();
+				
+				if(that.hasClass('is-poster'))
+				{
+					that.removeClass('is-poster');
+					div_wrapper.css('backgroundImage', 'none');
+				}
+			}
+		}
+		
+		function _changeSrc(src)
+		{
+			that.trigger('load', [player]);
+			videoObject.src = player.ad.src;
+			videoObject.load();
+			_waitPlay = true;
+			_waitLoad = true;
+		}
+		
 		var _waitPlay = false;
 		var _resumeTime = null;
 		var _waitLoad = false;
@@ -1398,11 +1455,7 @@
 			{
 				_log('_playNextAd(' + position + ')', nextAd, player.clip.ads[nextAd].position);
 				player.ad = player.clip.ads[nextAd];
-				that.trigger('load', [player]);
-				videoObject.src = player.ad.src;
-				videoObject.load();
-				_waitPlay = true;
-				_waitLoad = true;
+				_changeSrc(player.ad.src);
 				that.addClass('is-playing-ad');
 				
 				_gotoNextAd();
@@ -1835,6 +1888,7 @@
 		
 			control_time_left.html(secondsToTime(videoObject.duration - videoObject.currentTime));
 			control_time_played.html(secondsToTime(0));
+			features.indentTimeline.render();
 			control_time_total.html(secondsToTime(videoObject.duration));
 			
 			if(!control_time.has('.control-info-time-total') && !control_time.has('.control-info-time-left') && !timeShowCurrent)
@@ -2153,7 +2207,7 @@
 				{
 					videoObject.currentTime = _resumeTime;
 					_resumeTime = null;
-					_waitPlay = false;
+					_waitPlay = true;
 				}
 			}
 			// needed for switching playlists - this will reset the bar correctly
@@ -2172,11 +2226,7 @@
 		// Can play
 		video.on('canplay', function(e)
 		{
-			if(_waitPlay)
-			{
-				_waitPlay = false;
-				videoObject.play();
-			}
+			_play();
 		});
 		
 		// ### event.timeupdate --> Update bar + info time
@@ -2189,6 +2239,7 @@
 				// control_time_total.val(videoObject.duration);
 				control_time_left.html(secondsToTime(videoObject.duration - videoObject.currentTime));
 				control_time_played.html(secondsToTime(videoObject.currentTime));
+				features.indentTimeline.render();
 			}
 			else if(timeShowCurrent)
 			{

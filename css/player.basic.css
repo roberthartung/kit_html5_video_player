@@ -108,3 +108,10 @@
 .kit-player .control-timeline {
 	z-index: 2;
 }
+
+.kit-player.is-poster .wrapper {
+	background-color: #000;
+	background-repeat: no-repeat;
+	background-size: 100%;
+	background-position: center center;
+}

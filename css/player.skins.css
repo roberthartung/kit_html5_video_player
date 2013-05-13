@@ -339,15 +339,15 @@
 .kit-player.skin-flat .control-volume {
 	position: absolute;
 	height: 80px;
-	background-color: #ccc;
+	background-color: #333;
 }
 
 .kit-player.skin-flat .control-volume-bar {
 	background-color: #f79621;
-	width: auto;
 	height: auto;
 	position: absolute;
 	bottom: 0;
+	margin: 0 8px;
 }
 
 .kit-player.skin-flat .control-timeline-loaded {
@@ -382,17 +382,32 @@
 
 .kit-player.skin-flat .kit-player-timeline-caret > a > i { 
 	color: #fff;
-	font-size: 10px;
 }
 
 .kit-player.skin-flat .kit-player-timeline-caret > a > i + i {
 	margin-left: 5px;
 }
 
+.kit-player.skin-flat .control-info-time-played {
+	float: left;
+	font-size: 10px;
+	margin: 7px 4px;
+}
+
+.kit-player.skin-flat .control-info-time-left {
+	float: right;
+	font-size: 10px;
+	margin: 7px 4px;
+}
+
 /* colorscheme : white (none) */
 
 .kit-player .control-settings.disabled {
 	color: #666;
+}
+
+.kit-player .control-timeline-bar {
+	background-color: #fff;
 }
 
 /* colorscheme : orange */
@@ -437,4 +452,8 @@
 	background: -ms-linear-gradient(top,  #a90329 0%,#8f0222 44%,#6d0019 100%); /* IE10+ */
 	background: linear-gradient(to bottom,  #a90329 0%,#8f0222 44%,#6d0019 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a90329', endColorstr='#6d0019',GradientType=0 ); /* IE6-9 */
+}
+
+.kit-player.cs-orange i[class^="control-"]:hover, .kit-player.cs-orange i[class*=" control-"]:hover {
+	color: #f9c667;
 }
