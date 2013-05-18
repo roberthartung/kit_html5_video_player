@@ -1175,7 +1175,7 @@
 				//console.log('player.clip', player.clip);
 				//console.log('player.clip.src', player.clip.src);
 				videoObject.src = player.clip.src;
-				videoObject.load();
+				//videoObject.load();
 				
 				//videoObject.playbackRate = 1.5;
 				
@@ -1509,7 +1509,8 @@
 		{
 			if(!_playNextAd('pre-roll'))
 			{
-				videoObject.play();
+				_waitPlay = true;
+				//videoObject.play();
 			}
 		}
 		
@@ -1964,12 +1965,14 @@
 					if(video_loop)
 					{
 						player.load(conf.playlist[clipIndex]);
+						_waitLoad = true;
 						_initialPlay();
 					}
 				}
 				else
 				{
 					player.load(conf.playlist[clipIndex]);
+					_waitLoad = true;
 					_initialPlay();
 				}
 			}
@@ -1979,6 +1982,7 @@
 				if(video_loop)
 				{
 					player.load(conf.clip);
+					_waitLoad = true;
 					_initialPlay();
 				}
 			}
@@ -2013,7 +2017,7 @@
 				{
 					that.trigger('load', [player]);
 					videoObject.src = player.clip.src;
-					videoObject.load();
+					//videoObject.load();
 
 					_waitLoad = true;
 					_waitPlay = true;
@@ -2025,7 +2029,7 @@
 						that.trigger('load', [player]);
 						videoObject.src = player.clip.src;
 						// necessary for chrome to play clip
-						videoObject.load();
+						//videoObject.load();
 						_waitLoad = true;
 						_waitPlay = true;
 					}
@@ -2507,8 +2511,8 @@
 		// If the <video> has <source> elements
 		else if(video.find('source').length > 0)
 		{
-			videoObject.load()
-			player.clip = {src : videoObject.currentSrc}
+			videoObject.load();
+			player.clip = {src : videoObject.currentSrc};
 		}
 		
 		/*
