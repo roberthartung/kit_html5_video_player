@@ -2352,6 +2352,7 @@
 									var adObject = $('<div/>');
 									adObject.attr('id', id);
 									div_overlay.append(adObject);
+									div_overlay.prepend($('<a href="#url" target="_blank"></a>').css({width:position_conf.width,height:position_conf.height, display : 'block',position : 'absolute', zIndex : 5}));
 									swfobject.embedSWF(_ad.src, id, position_conf.width, position_conf.height, "9.0.0", "expressInstall.swf");
 								break;
 								default :
@@ -2368,6 +2369,11 @@
 											var src = getSrc(_ad.sources);
 											video.attr('src', src.src);
 										}
+										
+										video.on('click', function()
+										{
+											window.open('#url');
+										});
 										
 										video.get(0).volume = 0;
 										
@@ -2588,14 +2594,17 @@
 				
 				if(!value)
 				{
+					_info("[trackEvent] (" + category + ", " + action + ", " + label + ")");
 					tracker._trackEvent(category, action, label);
 				}
 				else if(typeof implicit == 'undefined')
 				{
+					_info("[trackEvent] (" + category + ", " + action + ", " + label + ", " + parseInt(value) + ")");
 					tracker._trackEvent(category, action, label, parseInt(value));
 				}
 				else
 				{
+					_info("[trackEvent] (" + category + ", " + action + ", " + label + ", " + parseInt(value) + ", " + (implicit ? true : false) + ")");
 					tracker._trackEvent(category, action, label, parseInt(value), implicit ? true : false);
 				}
 				
