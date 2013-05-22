@@ -4,49 +4,49 @@
 	color: #fff;
 }
 
-.kit-player.skin-default .controls {
+.kit-player.skin-default .khp-controls {
 	background-color: rgba(255,255,255,.5);
 	padding: 2px;
 	margin: 5px;
 	border-radius: 5px;
 }
 
-.kit-player.skin-default .control-timeline {
+.kit-player.skin-default .khp-control-timeline {
 	height: 10px;
 	background-color: rgba(255,255,255,.25);
 	border-radius: 5px;
 	margin: 5px 5px;
 }
 
-.kit-player.skin-default .control-timeline-loaded {
+.kit-player.skin-default .khp-control-timeline-loaded {
 	height: 10px; /* @todo remove */
 	background-color: #fff;
 	border-radius: 5px;
 }
 
-.kit-player.skin-default .control-timeline-bar {
+.kit-player.skin-default .khp-control-timeline-bar {
 	height: 10px; /* @todo remove */
 	background-color: rgba(255,0,0,.25);
 	border-radius: 5px;
 }
 
-.kit-player.skin-default .control-button-play {
+.kit-player.skin-default .khp-control-button-play {
 	float: left;
 	margin: 2px;
 }
 
-.kit-player.skin-default .control-button-mute {
+.kit-player.skin-default .khp-control-button-mute {
 	float: right;
 	margin: 2px;
 }
 
-.kit-player.skin-default .control-info-time {
+.kit-player.skin-default .khp-control-info-time {
 	float: right;
 	color: #fff;
 	font-size: 10px;
 }
 
-.kit-player.skin-default .control-volume {
+.kit-player.skin-default .khp-control-volume {
 	float: right;
 	width: 100px;
 	height: 10px;
@@ -55,13 +55,13 @@
 	background-color: #fff;
 }
 
-.kit-player.skin-default .control-volume-bar {
+.kit-player.skin-default .khp-control-volume-bar {
 	background-color: rgba(255,0,0,.25);
 	height: 10px; /* @todo remove */
 	border-radius: 5px;
 }
 
-.kit-player.skin-default .control-fullscreen {
+.kit-player.skin-default .khp-control-fullscreen {
 	top: 5px;
 	right: 5px;
 	position: absolute;
@@ -73,7 +73,7 @@
 	color: #fff;
 }
 
-.kit-player.skin-yt .control-timeline {
+.kit-player.skin-yt .khp-control-timeline {
 	height: 10px;
 	background-color: rgba(255,255,255,.25);
 	left:0;
@@ -81,24 +81,24 @@
 	bottom: 30px;
 }
 
-.kit-player.skin-yt .contents {
+.kit-player.skin-yt .khp-contents {
 	overflow: hidden;
 	background-color: rgba(255,255,255,.25);
 }
 
-.kit-player.skin-yt .contents ol {
+.kit-player.skin-yt .khp-contents ol {
 	list-style-type: none;
 	list-style-image: none;
 	margin:0;
 	padding:0;
 }
 
-.kit-player.skin-yt .contents ol li {
+.kit-player.skin-yt .khp-contents ol li {
 	float: left;
 	text-align: center;
 }
 
-.kit-player.skin-yt .contents ol li a {
+.kit-player.skin-yt .khp-contents ol li a {
 	display: block;
 	margin: 5px;
 	background-color: rgba(50,50,50,.25);
@@ -108,25 +108,25 @@
 	text-decoration: none;
 }
 
-.kit-player.skin-yt .indicator-loading {
+.kit-player.skin-yt .khp-indicator-loading {
 	color: #f00 !important;
 }
 
-.kit-player.skin-yt .control-timeline-loaded {
+.kit-player.skin-yt .khp-control-timeline-loaded {
 	height: 10px; /* @todo remove */
 	background-color: #fff;
 }
 
-.kit-player.skin-yt .control-timeline-bar {
+.kit-player.skin-yt .khp-control-timeline-bar {
 	height: 10px; /* @todo remove */
 	background-color: #d00;
 }
 
-.kit-player.skin-yt .kit-player-timeline-caret {
+.kit-player.skin-yt .khp-timeline-caret {
 	height: 10px;
 }
 
-.kit-player.skin-yt .kit-player-timeline-caret > a {
+.kit-player.skin-yt .khp-timeline-caret > a {
 	margin-top: -4px;
 	border-radius: 10px;
 	border: 7px solid #fff;
@@ -136,35 +136,35 @@
 	background-color:#ccc;
 }
 
-.kit-player.skin-yt .controls-bar {
+.kit-player.skin-yt .khp-controls-bar {
 	background-color: #000;
 	z-index: 1;
 	padding-top: 5px;
 }
 
-.kit-player.skin-yt .control-button-play {
+.kit-player.skin-yt .khp-control-button-play {
 	float: left;
 	margin: 4px 9px;
 }
 
-.kit-player.skin-yt .control-button-mute {
+.kit-player.skin-yt .khp-control-button-mute {
 	float: left;
 	margin: 4px 9px;
 }
 
-.kit-player.skin-yt .control-info-time {
+.kit-player.skin-yt .khp-control-info-time {
 	float: right;
 	color: #fff;
 	font-size: 10px;
 	margin: 2px;
 }
 
-.kit-player.skin-yt .control-settings {
+.kit-player.skin-yt .khp-control-settings {
 	float: right;
 	margin: 4px;
 }
 
-.kit-player.skin-yt .control-volume {
+.kit-player.skin-yt .khp-control-volume {
 	float: left;
 	width: 100px;
 	height: 6px;
@@ -172,18 +172,18 @@
 	background-color: #fff;
 }
 
-.kit-player.skin-yt .control-volume-bar {
+.kit-player.skin-yt .khp-control-volume-bar {
 	/*background-color: rgba(255,0,0,.25);*/
 	background-color: #d00;
 	height: 6px;
 }
 
-.kit-player.skin-yt .control-fullscreen {
+.kit-player.skin-yt .khp-control-fullscreen {
 	float: right;
 	margin: 4px;
 }
 
-.kit-player .kit-player-settings {
+.kit-player .khp-settings {
 	position: absolute;
 	color: #fff;
 	background-color: #333;
@@ -191,46 +191,46 @@
 	font-size: .8em;
 }
 
-.kit-player .kit-player-settings a {
+.kit-player .khp-settings a {
 	display: block;
 	color: #fff;
 	padding: 2px 4px;
 	white-space: no-wrap;
 }
 
-.kit-player .kit-player-settings a  i {
+.kit-player .khp-settings a  i {
 	font-size: .75em;
 }
 
-.kit-player .kit-player-settings a:hover  {
+.kit-player .khp-settings a:hover  {
 	text-decoration: none;
 	background-color: #666;
 }
 
-.kit-player.skin-yt.is-playing-ad  .control-timeline, .kit-player.skin-yt.is-playing-ad  .control-timeline-bar, .kit-player.skin-yt.is-playing-ad  .control-timeline-loaded, .kit-player.skin-yt.is-playing-ad .annotation-ad {
+.kit-player.skin-yt.is-playing-ad  .khp-control-timeline, .kit-player.skin-yt.is-playing-ad  .khp-control-timeline-bar, .kit-player.skin-yt.is-playing-ad  .khp-control-timeline-loaded, .kit-player.skin-yt.is-playing-ad .khp-annotation-ad {
 	height: 5px;
 }
 
-.kit-player.skin-yt.is-playing-ad  .control-timeline-bar {
+.kit-player.skin-yt.is-playing-ad  .khp-control-timeline-bar {
 	background-color: #ffd700;
 }
 
-.kit-player.skin-yt.is-playing-ad  .control-timeline-bar a {
+.kit-player.skin-yt.is-playing-ad  .khp-control-timeline-bar a {
 	display: none;
 }
 
-.kit-player.skin-yt i[class*='icon-']:hover, .kit-player .kit-player-settings a.active i {
+.kit-player.skin-yt i[class*='icon-']:hover, .kit-player .khp-settings a.active i {
 	color: #f00;
 }
 
-.kit-player .annotation-ad {
+.kit-player .khp-annotation-ad {
 	width: 5px;
 	background-color: #ffd700;
 	position: absolute;
 	height: 10px;
 }
 
-.kit-player .info-clip-title {
+.kit-player .khp-info-clip-title {
 	background-color: rgba(0,0,0,.5);
 	color: #fff;
 	padding: 10px;
@@ -244,7 +244,7 @@
 	color: #fff;
 }
 
-.kit-player.skin-bubbles .control-button-play {
+.kit-player.skin-bubbles .khp-control-button-play {
 	float: left;
 	margin: 4px;
 	background-color: rgba(100,100,100,.75);
@@ -252,7 +252,7 @@
 	border-radius: 5px;
 }
 
-.kit-player.skin-bubbles .control-button-mute {
+.kit-player.skin-bubbles .khp-control-button-mute {
 	float: left;
 	margin: 4px;
 	background-color: rgba(100,100,100,.75);
@@ -264,7 +264,7 @@
 	margin-left: 0 !important;
 }
 
-.kit-player.skin-bubbles .control-fullscreen {
+.kit-player.skin-bubbles .khp-control-fullscreen {
 	float: right;
 	margin: 4px;
 	background-color: rgba(100,100,100,.75);
@@ -272,7 +272,7 @@
 	border-radius: 5px;
 }
 
-.kit-player.skin-bubbles .control-timeline {
+.kit-player.skin-bubbles .khp-control-timeline {
 	left: 20px;
 	right: 20px;
 	margin: 4px;
@@ -282,20 +282,20 @@
 	height: 10px;
 }
 
-.kit-player.skin-bubbles .control-timeline-loaded {
+.kit-player.skin-bubbles .khp-control-timeline-loaded {
 	height: 10px;
 	background-color: #ccc;
 	overflow: visible !important;
 	border-radius: 2px;
 }
 
-.kit-player.skin-bubbles .control-timeline-bar {
+.kit-player.skin-bubbles .khp-control-timeline-bar {
 	height: 10px;
 	background-color: #fff;
 	overflow: visible !important;
 }
 
-.kit-player.skin-flat .controls-bar {
+.kit-player.skin-flat .khp-controls-bar {
 	background-color: rgba(50,50,50,.5);
 }
 
@@ -303,46 +303,52 @@
 	color: #fff;
 }
 
-.kit-player.skin-flat .control-button-play, .kit-player.skin-flat .control-button-mute, .kit-player.skin-flat .control-settings, .kit-player.skin-flat .control-fullscreen {
+.kit-player.skin-flat .khp-control-button-play, .kit-player.skin-flat .khp-control-button-mute, .kit-player.skin-flat .khp-control-settings, .kit-player.skin-flat .khp-control-fullscreen {
 	padding: 5px;
 	margin: 5px;
 }
 
-.kit-player.skin-flat .control-button-play {
+.kit-player.skin-flat .khp-control-button-play {
 	float: left;
 }
 
-.kit-player.skin-flat .control-settings {
+.kit-player.skin-flat .khp-control-settings {
 	float: right;
 }
 
-.kit-player.skin-flat .control-volume {
+.kit-player.skin-flat .khp-control-volume {
 	/*width: 200px;
 	height: 10px;
 	background-color: #fff;*/
 }
 
-.kit-player.skin-flat .control-fullscreen{
+.kit-player.skin-flat .khp-control-fullscreen{
 	float: right;
 }
 
-.kit-player.skin-flat .control-button-mute{
+.kit-player.skin-flat .khp-control-button-mute{
 	float: right;
 }
 
-.kit-player.skin-flat .control-timeline {
+.kit-player.skin-flat .khp-control-timeline {
 	height: 10px;
 	/* background-color: #f00; */
 	margin: 12px 15px;
 }
 
-.kit-player.skin-flat .control-volume {
+.kit-player.skin-flat .khp-info-ad-timeleft {
+	font-size: 11px;
+	margin: 7px 10px;
+}
+
+
+.kit-player.skin-flat .khp-control-volume {
 	position: absolute;
 	height: 80px;
 	background-color: #333;
 }
 
-.kit-player.skin-flat .control-volume-bar {
+.kit-player.skin-flat .khp-control-volume-bar {
 	background-color: #f79621;
 	height: auto;
 	position: absolute;
@@ -350,16 +356,16 @@
 	margin: 0 8px;
 }
 
-.kit-player.skin-flat .control-timeline-loaded {
+.kit-player.skin-flat .khp-control-timeline-loaded {
 	background-color: #ccc;
 	height: 10px;
 }
 
-.kit-player.skin-flat .control-timeline-bar {
+.kit-player.skin-flat .khp-control-timeline-bar {
 	height: 10px;
 }
 
-.kit-player.skin-flat .kit-player-timeline-caret > a {
+.kit-player.skin-flat .khp-timeline-caret > a {
 	/*margin-top: -4px;
 	border-radius: 10px;
 	border: 7px solid #fff;
@@ -380,21 +386,21 @@
 	
 }
 
-.kit-player.skin-flat .kit-player-timeline-caret > a > i { 
+.kit-player.skin-flat .khp-timeline-caret > a > i { 
 	color: #fff;
 }
 
-.kit-player.skin-flat .kit-player-timeline-caret > a > i + i {
+.kit-player.skin-flat .khp-timeline-caret > a > i + i {
 	margin-left: 5px;
 }
 
-.kit-player.skin-flat .control-info-time-played {
+.kit-player.skin-flat .khp-control-info-time-played {
 	float: left;
 	font-size: 10px;
 	margin: 7px 4px;
 }
 
-.kit-player.skin-flat .control-info-time-left {
+.kit-player.skin-flat .khp-control-info-time-left {
 	float: right;
 	font-size: 10px;
 	margin: 7px 4px;
@@ -402,11 +408,11 @@
 
 /* colorscheme : white (none) */
 
-.kit-player .control-settings.disabled {
+.kit-player .khp-control-settings.disabled {
 	color: #666;
 }
 
-.kit-player .control-timeline-bar {
+.kit-player .khp-control-timeline-bar {
 	background-color: #fff;
 }
 
@@ -414,12 +420,12 @@
 
 /* disabled buttons */
 
-.kit-player.cs-orange .control-timeline-bar {
+.kit-player.cs-orange .khp-control-timeline-bar {
 	background-color: #fff;
 }
 
 /* gray/black caret */
-.kit-player.cs-orange .kit-player-timeline-caret > a {
+.kit-player.cs-orange .khp-timeline-caret > a {
 	background: #7d7e7d;
 	background: -moz-linear-gradient(top,  #7d7e7d 0%, #0e0e0e 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7d7e7d), color-stop(100%,#0e0e0e));
@@ -432,7 +438,7 @@
 
 /* controls */
 
-.kit-player.cs-orange .control-timeline-bar {
+.kit-player.cs-orange .khp-control-timeline-bar {
 	background: #f9c667;
 	background: -moz-linear-gradient(top,  #f9c667 0%, #f79621 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f9c667), color-stop(100%,#f79621));
@@ -443,7 +449,7 @@
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9c667', endColorstr='#f79621',GradientType=0 );
 }
 
-.kit-player.cs-red .kit-player-timeline-cared > a, .kit-player.cs-red .control-timeline-bar {
+.kit-player.cs-red .khp-timeline-cared > a, .kit-player.cs-red .khp-control-timeline-bar {
 	background: #a90329; /* Old browsers */
 	background: -moz-linear-gradient(top,  #a90329 0%, #8f0222 44%, #6d0019 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a90329), color-stop(44%,#8f0222), color-stop(100%,#6d0019)); /* Chrome,Safari4+ */

@@ -12,53 +12,57 @@
 	height: 300px;
 }
 
-.kit-player .controls-bar {
+.kit-player .khp-controls-bar {
 	position: absolute;
 	bottom: 0;
 	width: 100%;
 }
 
-.kit-player .controls {
+.kit-player .khp-controls {
 	overflow: hidden;
 }
 
-.kit-player .control-timeline {
+.kit-player .khp-control-timeline {
 	position: absolute; /* @todo remove */
 	cursor: pointer;
+}
+
+.kit-player .khp-info-ad-timeleft {
+	position: absolute;
 }
 
 /* This is a fix for having padding on control-timeline - so we can use inner divs being positioned absolutely */
-.kit-player .control-timeline .control-timeline-elements {
+.kit-player .khp-control-timeline .khp-control-timeline-elements {
 	position: relative;
 }
 
-.kit-player .control-timeline-loaded {
+.kit-player .khp-control-timeline-loaded {
 	position: absolute; /* @todo remove */
 }
 
-.kit-player .control-timeline-bar {
+.kit-player .khp-control-timeline-bar {
 	position: absolute; /* @todo remove */
 }
 
-.kit-player .control-button-play {
+.kit-player .khp-control-button-play {
 	cursor: pointer;
 }
 
-.kit-player .control-button-mute {
+.kit-player .khp-control-button-mute {
 	cursor: pointer;
 }
 
-.kit-player .control-volume {
+.kit-player .khp-control-volume {
 	cursor: pointer;
 }
 
-.kit-player .wrapper {
+.kit-player .khp-wrapper {
 	overflow: hidden;
 	clear: both;
 	background-image: url('transparent.gif');
 }
 
-.kit-player .indicator-loading {
+.kit-player .khp-indicator-loading {
 	position: absolute;
 	left: 50%;
 	top: 50%;
@@ -67,11 +71,11 @@
 	display: none;
 }
 
-.kit-player.is-waiting .indicator-loading, .kit-player.is-seeking .indicator-loading {
+.kit-player.is-waiting .khp-indicator-loading, .kit-player.is-seeking .khp-indicator-loading {
 	display: inline-block;
 }
 
-.kit-player.is-fullscreen, .kit-player.is-fullscreen > video, .kit-player.is-fullscreen > .wrapper {
+.kit-player.is-fullscreen, .kit-player.is-fullscreen > video, .kit-player.is-fullscreen > .khp-wrapper {
 	width: 100% !important;
 	height: 100% !important;
 }
@@ -80,36 +84,36 @@
 	cursor: pointer;
 }
 
-.kit-player .control-timeline-loaded.connect-right {
+.kit-player .khp-control-timeline-loaded.connect-right {
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
 }
 
-.kit-player .control-timeline-loaded.connect-left {
+.kit-player .khp-control-timeline-loaded.connect-left {
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
 }
 
-.kit-player-timeline-caret > a {
+.khp-timeline-caret > a {
 	position: absolute;
 }
 
-.kit-player-timeline-caret {
+.khp-timeline-caret {
 	margin-left: 100%;
 	position: absolute;
 }
 
 /* jQuery's animate forces an overflow hidden */
-.kit-player .control-timeline-bar {
+.kit-player .khp-control-timeline-bar {
 	overflow: visible !important;
 }
 
 /* Needed for smooth scrolling of the caret */
-.kit-player .control-timeline {
+.kit-player .khp-control-timeline {
 	z-index: 2;
 }
 
-.kit-player.is-poster .wrapper {
+.kit-player.is-poster .khp-wrapper {
 	background-color: #000;
 	background-repeat: no-repeat;
 	background-size: 100%;
