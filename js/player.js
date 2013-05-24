@@ -442,6 +442,7 @@
 		control_fullscreen.addClass('icon-resize-full icon-white');
 		control_settings.addClass('icon-white icon-cog');
 		indicator_loading.addClass('icon-spinner icon-spin icon-2x');
+		div_info_ad_timeleft.hide();
 		
 		var divCollection = {
 			div_wrapper : div_wrapper,

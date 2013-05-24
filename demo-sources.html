@@ -13,7 +13,7 @@
 	
 	<body>
 		<div id="player">
-			<video controls>
+			<video preload="metadata" controls>
 			  <source src="http://techslides.com/demos/sample-videos/small.webm" type="video/webm"/> 
 			  <source src="http://techslides.com/demos/sample-videos/small.ogv" type="video/ogg"/> 
 			  <source src="http://techslides.com/demos/sample-videos/small.mp4" type="video/mp4"/>
@@ -23,10 +23,10 @@
 		</div>
 		
 		<script>
-			console.log($('video').get(0).textTracks);
-			$('video').get(0).src = 'http://techslides.com/demos/sample-videos/small.mp4';
-			console.log($('video').get(0).textTracks);
-			//var p = $('#player').kit_HTML5VideoPlayer();
+			//console.log($('video').get(0).textTracks);
+			//$('video').get(0).src = 'http://techslides.com/demos/sample-videos/small.mp4';
+			//console.log($('video').get(0).textTracks);
+			var p = $('#player').kit_HTML5VideoPlayer({skin:'flat',debug:true});
 		</script>
 	</body>
 </html>

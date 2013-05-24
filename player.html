@@ -246,6 +246,165 @@
 				}
 			];
 			
+			var playlist = [
+								{
+			title : 'TooBigToFail',
+			sources : [
+																		{
+						type:'video/mp4', resolutions : {
+													'240p' : '//media.streaming.mecaso.ch/2013/05/34/774.mp4',
+																			}
+					},
+										{
+						type:'video/webm', resolutions : {
+													'240p' : '//media.streaming.mecaso.ch/2013/05/34/775.webm',
+																			}
+					},
+										{
+						type:'video/ogg', resolutions : {
+													'240p' : '//media.streaming.mecaso.ch/2013/05/34/776.ogg',
+									}
+				}
+			],
+			ads : [
+										{
+					title : 'Marvels The Avengers 10 Second Super Bowl Spot Teaser.mp4',
+					position : 'pre-roll',
+																									sources : [
+																										{
+								type:'video/mp4', resolutions : {
+																			'360p' : '//media.streaming.mecaso.ch/2013/04/23/391.mp4',
+																		'240p' : '//media.streaming.mecaso.ch/2013/04/23/392.mp4',
+																											}
+							},
+														{
+								type:'video/webm', resolutions : {
+																			'360p' : '//media.streaming.mecaso.ch/2013/04/23/393.webm',
+																		'240p' : '//media.streaming.mecaso.ch/2013/04/23/394.webm',
+																											}
+							},
+														{
+								type:'video/ogg', resolutions : {
+																			'360p' : '//media.streaming.mecaso.ch/2013/04/23/395.ogg',
+																		'240p' : '//media.streaming.mecaso.ch/2013/04/23/396.ogg',
+													}
+						}
+					],
+										url : 'http://www.mecaso.ch',
+				},
+							{
+					title : 'Joop Homme Wild -- TV-Spot HD 10 Sekunden.mp4',
+					position : 'post-roll',
+																									sources : [
+																										{
+								type:'video/mp4', resolutions : {
+																			'480p' : '//media.streaming.mecaso.ch/2013/04/24/430.mp4',
+																		'360p' : '//media.streaming.mecaso.ch/2013/04/24/431.mp4',
+																		'240p' : '//media.streaming.mecaso.ch/2013/04/24/432.mp4',
+																											}
+							},
+														{
+								type:'video/webm', resolutions : {
+																			'480p' : '//media.streaming.mecaso.ch/2013/04/24/433.webm',
+																		'360p' : '//media.streaming.mecaso.ch/2013/04/24/434.webm',
+																		'240p' : '//media.streaming.mecaso.ch/2013/04/24/435.webm',
+																											}
+							},
+														{
+								type:'video/ogg', resolutions : {
+																			'480p' : '//media.streaming.mecaso.ch/2013/04/24/436.ogg',
+																		'360p' : '//media.streaming.mecaso.ch/2013/04/24/437.ogg',
+																		'240p' : '//media.streaming.mecaso.ch/2013/04/24/438.ogg',
+													}
+						}
+					],
+										url : 'http://www.mecaso.ch',
+				},
+						]
+		},
+								{
+			title : 'Wildlife',
+			sources : [
+																		{
+						type:'video/mp4', resolutions : {
+													'720p' : '//media.streaming.mecaso.ch/2013/05/33/751.mp4',
+												'480p' : '//media.streaming.mecaso.ch/2013/05/33/752.mp4',
+												'360p' : '//media.streaming.mecaso.ch/2013/05/33/753.mp4',
+												'240p' : '//media.streaming.mecaso.ch/2013/05/33/754.mp4',
+																			}
+					},
+										{
+						type:'video/webm', resolutions : {
+													'720p' : '//media.streaming.mecaso.ch/2013/05/33/755.webm',
+												'480p' : '//media.streaming.mecaso.ch/2013/05/33/756.webm',
+												'360p' : '//media.streaming.mecaso.ch/2013/05/33/757.webm',
+												'240p' : '//media.streaming.mecaso.ch/2013/05/33/758.webm',
+																			}
+					},
+										{
+						type:'video/ogg', resolutions : {
+													'720p' : '//media.streaming.mecaso.ch/2013/05/33/759.ogg',
+												'480p' : '//media.streaming.mecaso.ch/2013/05/33/760.ogg',
+												'360p' : '//media.streaming.mecaso.ch/2013/05/33/761.ogg',
+												'240p' : '//media.streaming.mecaso.ch/2013/05/33/762.ogg',
+									}
+				}
+			],
+			ads : [
+									]
+		},
+			]
+	
+	var conf = {
+					debug : true,
+					analytics : 'UA-39348271-1',
+					width: 720,
+					height: 405,
+					skin : 'flat',
+					overlays : {
+						positions : [
+							{
+								id : 'bottom',
+								bottom : 0,
+								align : 'center',
+								width : 468,
+								height : 90
+							},
+						]
+					},
+					playlist : playlist1,
+					annotateAds : true
+				};
+	
+	var conf2 = {
+		/*
+		clip : {
+			src : '//media.streaming.mecaso.ch/2013/04/26/517.webm',
+			type : 'video/webm'
+		},
+		*/
+		skin : 'flat',
+		autoplay : 1,
+		mute : 0,
+		colorScheme : 'orange',
+		width : 600,
+		height : 300,
+		playlist : playlist,
+		debug : true,
+		overlays : {
+			positions : [
+				{
+					id : 'bottom-468x60',
+					bottom : 0,
+					align : 'center',
+					width : 468,
+					height : 60
+				},
+			]
+		},
+		annotateAds : true
+	};
+			
 			$(function()
 			{
 				$('#debug').val('');
@@ -360,7 +519,7 @@
 					playlist : playlist1,
 					annotateAds : true
 				});
-				
+				// .kit_HTML5VideoPlayer(conf2);
 				var api = p.kit_HTML5VideoPlayer();
 				//console.log(api.clip);
 			});
