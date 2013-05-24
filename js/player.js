@@ -225,48 +225,63 @@
 				width : null,
 				height : null,
 				debug : false,
-    		'controls'         : {
+				'controls'         : {
 					play	:	true,
 					mute	:	true
-			  },
-			  info : {
+				},
+				info : {
 					time : {
 						show_current : true
 					}
-			  },
-			  autoplay : false,
-			  loop : false,
-			  playlist : [],
-			  clip : null,
-			  playing : false,
-			  defaults : {
+				},
+				autoplay : false,
+				loop : false,
+				playlist : [],
+				clip : null,
+				playing : false,
+				defaults : {
 					volume : .75
-			  },
-			  skin : 'default',
-			  indicateAds : false,
-			  colorScheme : 'white'
+				},
+				skin : 'default',
+				indicateAds : false,
+				colorScheme : 'white',
+				iconSet : 'bootstrap'
 	    }, conf);
 	
 	function _addDebugLine()
 	{
 		if($('#debug').length)
 		{
-			var old = $('#debug').text();
-			$('#debug').text('');
+			//var old = $('#debug').html();
+			//$('#debug').html('');
 			
-			$(arguments).each(function(k,v)
+			var args = Array.prototype.slice.call(arguments);
+			var type = args.pop();
+			
+			var show = $('.debug-filter[value="'+type+'"]').is(':checked');
+			
+			var line = $('<div class="' + type + '">[' + type + '\t] </div>');
+			
+			$(args).each(function(k,v)
 			{
 				if(typeof v == 'string')
 				{
-					$('#debug').text($('#debug').text() + (""+v) + ((""+v).length <= 4 ? "\t" : "") + ((""+v).length < 8 ? "\t" : "") + ((""+v).length < 12 ? "\t" : "") + ((""+v).length < 16 ? "\t" : "") + "\t");
+					line.append((""+v) + ((""+v).length <= 4 ? "\t" : "") + ((""+v).length < 8 ? "\t" : "") + ((""+v).length < 12 ? "\t" : "") + ((""+v).length < 16 ? "\t" : "") + "\t");
 				}
 				else
 				{
-					$('#debug').text($('#debug').text() + (""+v) + ((""+v).length <= 4 ? "\t" : "") + "\t");
+					line.append((""+v) + ((""+v).length <= 4 ? "\t" : "") + "\t");
 				}
+				
+				
 			});
 			
-			 $('#debug').text($('#debug').text() + "\n" + old);
+			if(!show)
+				line.hide();
+			
+			$('#debug').prepend(line);
+			
+			//$('#debug').html($('#debug').html() + + old);
 			
 			//$('#debug').text($('#debug').text() + "\n");
 			/*
@@ -280,7 +295,10 @@
 	
 	function _log()
 	{
-		if(_addDebugLine.apply(this, arguments))
+		var args = Array.prototype.slice.call(arguments);
+		args.push('log');
+	
+		if(_addDebugLine.apply(this, args))
 			return;
 		
 		if(typeof console != 'undefined' && conf.debug && console.log && console.log.apply)
@@ -291,7 +309,10 @@
 	
 	function _info()
 	{
-		if(_addDebugLine.apply(this, arguments))
+		var args = Array.prototype.slice.call(arguments);
+		args.push('info');
+	
+		if(_addDebugLine.apply(this, args))
 			return;
 		
 		if(typeof console != 'undefined' && conf.debug && console.info && console.info.apply)
@@ -300,14 +321,45 @@
 		}
 	}
 	
+	function _debug()
+	{
+		var args = Array.prototype.slice.call(arguments);
+		args.push('debug');
+	
+		if(_addDebugLine.apply(this, args))
+			return;
+		
+		if(typeof console != 'undefined' && conf.debug && console.debug && console.debug.apply)
+		{
+			console.debug.apply(console, arguments);
+		}
+	}
+	
+	function _warn()
+	{
+		var args = Array.prototype.slice.call(arguments);
+		args.push('warn');
+	
+		if(_addDebugLine.apply(this, args))
+			return;
+		
+		if(typeof console != 'undefined' && conf.debug && console.warn && console.warn.apply)
+		{
+			console.warn.apply(console, arguments);
+		}
+	}
+	
 	function _error()
 	{
-		if(_addDebugLine.apply(this, arguments))
+		var args = Array.prototype.slice.call(arguments);
+		args.push('error');
+		
+		if(_addDebugLine.apply(this, args))
 			return;
 		
 		if(typeof console != 'undefined')
 		{
-			if(typeof console.error == 'function' && console.error && console.error.apply)
+			if(typeof console.error == 'function' && conf.debug && console.error && console.error.apply)
 			{
 				console.error.apply(console, arguments);
 			}
@@ -317,6 +369,8 @@
 			}
 		}
 	}
+	
+	/* debug error info log warn */
 	
 	return this.data('player') || this.each(function()
 	{
@@ -339,7 +393,7 @@
 		var hasEnded = false;
 		var wasPlaying = false;
 		var clipIndex = null;
-		var volume = conf.defaults.volume; // @TODO read from local storage?
+		var volume = conf.defaults.volume;
 		var nextAd = null;
 		var overlay_positions = {};
 		var adAnnotations = [];
@@ -352,34 +406,42 @@
 				volume = conf.defaults.volume;
 			}
 		}
+
 		
 		var cuePointIndex = null;
 		
 		// Controls
-		var div_wrapper = $('<div style="position: absolute; width: 640px; height: 280px;" class="wrapper"/>');
-		var div_controls_bar = $('<div class="controls-bar"/>');
-		var div_controls = $('<div class="controls"/>');
-		var div_contents = $('<div class="contents"><ol></ol></div>');
-		var div_overlay = $('<div class="overlay"/>');
-		var control_timeline = $('<div class="control-timeline"></div>');
-		var control_timeline_elements = $('<div class="control-timeline-elements"></div>');
-		var control_mute = $('<i class="icon-white control-button-mute icon-volume-up"></i>');
-		var control_play = $('<i class="icon-white control-button-play icon-play"></i>');
-		var control_time = $('<span class="control-info-time"></span>');
-		var control_time_left = $('<span class="control-info-time-left"></span>');
-		var control_time_total = $('<span class="control-info-time-total"></span>');
-		var control_time_played = $('<span class="control-info-time-played"></span>');
-		var control_volume = $('<div class="control-volume"></div>');
-		var control_volume_bar = $('<div class="control-volume-bar"></div>');
-		var control_timeline_progress = $('<div class="control-timeline-bar"></div>');
-		var control_timeline_caret = $('<div class="kit-player-timeline-caret"><a></a></div>');
-		var control_volume_caret = $('<div class="kit-player-volume-caret"><a></a></div>');
+		var div_wrapper = $('<div style="position: absolute; width: 640px; height: 280px;" class="khp-wrapper"/>');
+		var div_controls_bar = $('<div class="khp-controls-bar"/>');
+		var div_controls = $('<div class="khp-controls"/>');
+		var div_contents = $('<div class="khp-contents"><ol></ol></div>');
+		var div_overlay = $('<div class="khp-overlay"/>');
+		var control_timeline = $('<div class="khp-control-timeline"></div>');
+		var control_timeline_elements = $('<div class="khp-control-timeline-elements"></div>');
+		var control_mute = $('<i class="khp-control-button-mute"></i>');
+		var control_play = $('<i class="khp-control-button-play"></i>');
+		var control_time = $('<span class="khp-control-info-time"></span>');
+		var control_time_left = $('<span class="khp-control-info-time-left"></span>');
+		var control_time_total = $('<span class="khp-control-info-time-total"></span>');
+		var control_time_played = $('<span class="khp-control-info-time-played"></span>');
+		var control_volume = $('<div class="khp-control-volume"></div>');
+		var control_volume_bar = $('<div class="khp-control-volume-bar"></div>');
+		var control_timeline_progress = $('<div class="khp-control-timeline-bar"></div>');
+		var control_timeline_caret = $('<div class="khp-timeline-caret"><a></a></div>');
+		var control_volume_caret = $('<div class="khp-volume-caret"><a></a></div>');
 		// @deprecated: var control_timeline_loaded = $('<div class="control-timeline-loaded"></div>');
 		//var control_volume_bar = control_timeline.find('.control-volume-bar');
-		var control_fullscreen = $('<i class="icon-white control-fullscreen icon-resize-full"></i>');
-		var div_info_clip_title = $('<div class="info-clip-title"></div>');
-		var control_settings = $('<i class="icon-white control-settings icon-cog"></i>');
-		var indicator_loading = $('<i class="indicator-loading icon-spinner icon-spin icon-2x"></i>');
+		var control_fullscreen = $('<i class="khp-control-fullscreen "></i>');
+		var div_info_clip_title = $('<div class="khp-info-clip-title"></div>');
+		var control_settings = $('<i class="khp-control-settings"></i>');
+		var indicator_loading = $('<i class="khp-indicator-loading"></i>');
+		var div_info_ad_timeleft = $('<div class="khp-info-ad-timeleft"></div>');
+		
+		control_mute.addClass('icon-volume-up icon-white');
+		control_play.addClass('icon-play icon-white');
+		control_fullscreen.addClass('icon-resize-full icon-white');
+		control_settings.addClass('icon-white icon-cog');
+		indicator_loading.addClass('icon-spinner icon-spin icon-2x');
 		
 		var divCollection = {
 			div_wrapper : div_wrapper,
@@ -388,6 +450,7 @@
 			div_overlay : div_overlay,
 			div_contents : div_contents,
 			div_info_clip_title : div_info_clip_title,
+			div_info_ad_timeleft : div_info_ad_timeleft,
 			control_timeline : control_timeline,
 			//@deprecated: control_timeline_loaded : control_timeline_loaded,
 			control_timeline_progress : control_timeline_progress,
@@ -456,7 +519,6 @@
 				fadeIn : function(e)
 				{
 					var that = (e && e.data.that) || this;
-					//console.log('fadeIn()', div_controls_bar.is(':hidden'), that.isFading);
 					if(!that.isFading && (that.forceFade || div_controls_bar.is(':hidden')))
 					{
 						that.forceFade = false;
@@ -485,7 +547,6 @@
 				fadeOut : function(e)
 				{
 					var that = (e && e.data.that) || this;
-					//console.log('fadeOut()', that.isFading);
 					//if(!that.isFading)
 					//{
 						that.isFading = 3;
@@ -533,7 +594,6 @@
 				init : function()
 				{
 					var that = this;
-					//console.log(this);
 					that.controlVolumeWidth = control_volume.width();
 					control_volume.css('width', 0);
 					
@@ -586,7 +646,6 @@
 					control_timeline.siblings().each(function()
 					{
 						$this = $(this);
-						//console.log($this.get(0).className, $this.css('cssFloat'), $this.outerWidth(true));
 						switch($this.css('cssFloat'))
 						{
 							case 'left' :
@@ -599,11 +658,13 @@
 					});
 					
 					var controlMargin = (div_controls.outerWidth(true) - div_controls.innerWidth()) / 2;
-				
-					control_timeline.css({
+					var css = {
 						left : left + controlMargin,
 						right : right + controlMargin
-					});
+					};
+					
+					control_timeline.css(css);
+					div_info_ad_timeleft.css(css);
 				},
 				init : function()
 				{
@@ -694,7 +755,9 @@
 				fullscreen 		: 'icon-resize-full',
 				resize 			: 'icon-resize-small',
 				settings 		: 'icon-cog',
-				dot				: 'icon-circle'
+				dot				: 'icon-circle',
+				arrow_left		: 'icon-angle-left',
+				arrow_right		: 'icon-angle-right'
 			},
 			'fontawesome' : {
 				play 			: 'icon-play',
@@ -704,7 +767,9 @@
 				fullscreen 		: 'icon-resize-full',
 				resize 			: 'icon-resize-small',
 				settings 		: 'icon-cog',
-				dot				: 'icon-circle'
+				dot				: 'icon-circle',
+				arrow_left		: 'icon-angle-left',
+				arrow_right		: 'icon-angle-right'
 			}
 		}
 		
@@ -778,7 +843,7 @@
 				},
 				init : function()
 				{
-					//console.log('cssFloat', control_play.css('cssFloat'));
+					
 				},
 				destroy : function()
 				{
@@ -796,6 +861,7 @@
 					div_controls_bar : {
 						div_controls : {
 							control_timeline : { control_timeline_elements : { control_timeline_progress : { control_timeline_caret : '<i class="icon-angle-left"></i><i class="icon-angle-right"></i>' } } },
+							div_info_ad_timeleft : {},
 							control_volume : { control_volume_bar : {} },
 							control_settings : {},
 							control_fullscreen : { },
@@ -924,6 +990,10 @@
 		
 		var skin = null;
 		
+		var iconSet = typeof conf.iconSet == 'string' ? iconSets[conf.iconSet] : conf.iconSet;
+		
+		// console.log(iconSet);
+		
 		/**
 		 * Player object and API for the user
 		 */
@@ -1033,7 +1103,6 @@
 			// load a new clip
 			load : function(clip)
 			{
-				//console.log('clip', clip);
 				adAnnotations = [];
 				if(!videoObject.paused)
 				{
@@ -1041,6 +1110,7 @@
 				}
 				
 				control_settings.addClass('disabled');
+				div_info_ad_timeleft.hide();
 			
 				if(clip.src && clip.type && videoObject.canPlayType(clip.type) != '')
 				{
@@ -1094,7 +1164,7 @@
 				}
 				
 				div_info_clip_title.html(clip.title);
-				div_wrapper.find('.kit-player-settings').remove();
+				div_wrapper.find('.khp-settings').remove();
 				
 				// Check for cuepoints
 				if(typeof clip.cuepoints == 'object' && clip.cuepoints.length > 0)
@@ -1152,7 +1222,6 @@
 					var content_li_width = (1 / clip.contents.length) * 100;
 					for(var c=0;c<clip.contents.length;c++)
 					{
-						//console.log(clip.contents);
 						var li_content = $('<li><a data-time="' + clip.contents[c].time + '">' + clip.contents[c].title + '</a></li>');
 						li_content.css('width', content_li_width + '%');
 						div_contents.find('ol').append(li_content);
@@ -1172,8 +1241,6 @@
 				
 				player.clip = clip;
 				that.trigger('load', [player]);
-				//console.log('player.clip', player.clip);
-				//console.log('player.clip.src', player.clip.src);
 				videoObject.src = player.clip.src;
 				//videoObject.load();
 				
@@ -1234,27 +1301,13 @@
 			that.addClass('kit-player');
 		}
 		
-		// Skin configuration
-		
-		// only assign the skin name to the API
-		
 		// has to be done before the skin is loaded
 		control_timeline.seekSlider();
 		control_volume.seekSlider();
 		
+		// Player Configuration
 		player.loadSkin(conf.skin);
-		
 		player.setColorScheme(conf.colorScheme);
-		
-		
-		/*
-		$('head').eq(0)
-			.prepend($('<link rel="stylesheet" href="' + _script_path_css + 'player.skin.' + conf.skin + '.css" type="text/css"/>').on('readystatechange', function()
-			{
-				console.log('statechange');
-			}))
-			.prepend('<link rel="stylesheet" href="' + _script_path_css + 'player.basic.css" type="text/css"/>');
-		*/
 		
 		// ############ Helper Functions
 		
@@ -1367,7 +1420,7 @@
 		
 		function secondsToTime(s, forceHours)
 		{
-			s = Math.round(s);
+			s = Math.ceil(s);
 			
 			var forceHours = forceHours || false;
 			
@@ -1423,6 +1476,7 @@
 			{		
 				_waitPlay = false;
 				videoObject.play();
+				that.trigger('play', [player]);
 				
 				if(that.hasClass('is-poster'))
 				{
@@ -1456,6 +1510,7 @@
 				_log('_playNextAd(' + position + ')', nextAd, player.clip.ads[nextAd].position);
 				player.ad = player.clip.ads[nextAd];
 				_changeSrc(player.ad.src);
+				div_info_ad_timeleft.show();
 				that.addClass('is-playing-ad');
 				
 				_gotoNextAd();
@@ -1468,6 +1523,7 @@
 		function _finishAd()
 		{
 			player.ad = false;
+			div_info_ad_timeleft.hide();
 			that.removeClass('is-playing-ad');
 		}
 		
@@ -1536,7 +1592,7 @@
 		{
 			if(conf.debug)
 			{
-				_info('applying width and height from video resolution');
+				//_info('applying width and height from video resolution');
 			}
 		}
 		
@@ -1566,12 +1622,13 @@
 		// document.fullscreenElement
 		// document.fullscreenEnabled
 		
-		// ### settings
+		// ### control.settings
 		control_settings.on('click', function(e)
 		{
-			if(!div_wrapper.has('.kit-player-settings').length)
+			var settings;
+			if(!div_wrapper.has('.khp-settings').length)
 			{
-				var settings = $('<div class="kit-player-settings"></div>');
+				settings = $('<div class="khp-settings"></div>');
 				settings.hide();
 				
 				for(var resolution in player.clip.resolutions)
@@ -1588,7 +1645,7 @@
 			}
 			else
 			{
-				var settings = div_wrapper.find('.kit-player-settings');
+				settings = div_wrapper.find('.khp-settings');
 			}
 			
 			if(!settings.is(':hidden'))
@@ -1611,11 +1668,10 @@
 		
 		div_contents.on('click', 'li a', function(e)
 		{
-			//console.log($(this).attr('data-time'));
 			videoObject.currentTime = $(this).attr('data-time');
 		});
 		
-		div_wrapper.on('click', '.kit-player-settings a', function(e)
+		div_wrapper.on('click', '.khp-settings a', function(e)
 		{
 			e.preventDefault();
 			e.stopPropagation();
@@ -1628,10 +1684,10 @@
 			}
 			videoObject.src = player.clip.resolutions[$(this).attr('data-resolution')];
 			
-			div_wrapper.find('.kit-player-settings a.active').removeClass('active');
+			div_wrapper.find('.khp-settings a.active').removeClass('active');
 			$(this).addClass('active');
 			
-			div_wrapper.find('.kit-player-settings').hide();
+			div_wrapper.find('.khp-settings').hide();
 			
 			return false;
 		});
@@ -1836,7 +1892,7 @@
 			
 			if(!player.ad)
 			{
-				control_timeline_elements.find('.annotation-ad').remove();
+				control_timeline_elements.find('.khp-annotation-ad').remove();
 				$(player.clip.ads).each(function()
 				{
 					var result;
@@ -1874,7 +1930,7 @@
 				
 				$(adAnnotations).each(function()
 				{
-					var annotation = $('<div class="annotation-ad"></div>').css('left', (this.begin / videoObject.duration) * 100 + '%');
+					var annotation = $('<div class="khp-annotation-ad"></div>').css('left', (this.begin / videoObject.duration) * 100 + '%');
 					
 					if(this.position != 'mid-roll')
 						annotation.css('width', ((this.end - this.begin) / videoObject.duration) * 100 + '%')
@@ -1884,7 +1940,7 @@
 			}
 			else
 			{
-				control_timeline_elements.find('.annotation-ad').remove();
+				control_timeline_elements.find('.khp-annotation-ad').remove();
 			}
 		
 			control_time_left.html(secondsToTime(videoObject.duration - videoObject.currentTime));
@@ -1897,7 +1953,7 @@
 				control_time.html(secondsToTime(videoObject.duration));
 			}
 		
-			_info('[event.durationchange] duration = ', videoObject.duration);
+			_log('[event.durationchange] duration = ', videoObject.duration);
 		});
 		
 		// ### event.emptied: Reset UI
@@ -1905,6 +1961,7 @@
 		{
 			//_info('[event.emptied]');
 			control_timeline.seekSlider('seek', 0);
+			control_play.removeClass('icon-pause').addClass('icon-play');
 		});
 		
 		// ### Event.Play
@@ -1992,7 +2049,7 @@
 		
 		video.on('ended', function(e)
 		{
-			_info('[event.ended]');
+			_log('[event.ended]');
 			hasEnded = true;
 			// @todo ended does not work as event name in opera 
 			that.trigger('ended', [player]);
@@ -2184,7 +2241,7 @@
 		*/
 		
 		video.on('loadstart progress suspend abort error emptied stalled play pause loadedmetadata loadeddata waiting playing canplay canplaythrough seeking seeked ended ratechange durationchange volumechange', function(e){
-			_info(e.type);
+			_log(e.type);
 		});
 		
 		video.on('loadstart', function(e)
@@ -2223,7 +2280,7 @@
 		
 		video.on('volumechange', function(e)
 		{
-			_info('[event.volumechange]', videoObject.volume);
+			_log('[event.volumechange]', videoObject.volume);
 			_checkMuted();
 		});
 		
@@ -2259,6 +2316,8 @@
 			if(isSeeking)
 				return;
 			
+			div_info_ad_timeleft.html('WERBUNG - Clip folgt in ' + secondsToTime(videoObject.duration - videoObject.currentTime));
+			
 			if(timeupdate_lastTime != null)
 			{
 				if(timeupdate_delay == null)
@@ -2270,8 +2329,6 @@
 					timeupdate_delay = timeupdate_delay * .75 + ((new Date()).getTime() - timeupdate_lastTime) * .25;
 				}
 			}
-			
-			//console.log('timeupdate_delay:', timeupdate_delay);
 			
 			//console.log('timeupdate_delay:', timeupdate_delay, timeupdate_lastTime, (new Date()).getTime(), (new Date()).getTime() - timeupdate_lastTime);
 			
@@ -2524,19 +2581,11 @@
 		// Check if clip was loaded
 		if(player.clip != null)
 		{
-			// we got a clip
-			if(conf.debug)
-			{
-				//console.info('[init] loading clip ', player.clip.src, ' (' + player.clip.type + ')');
-			}
+			_info('[init] loading clip ', player.clip.src, ' (' + player.clip.type + ')');
 		}
 		else
 		{
-			if(conf.debug)
-			{
-				//console.error('[init] no valid clip found');
-			}
-			
+			_error('[init] no valid clip found');
 			return;
 		}
 		
@@ -2549,7 +2598,15 @@
 			}
 		}
 		
-		_setVolume(volume);
+		if(conf.muted)
+		{
+			// dont use _setVolume because this would override the user's volume
+			videoObject.volume = 0;
+		}
+		else
+		{
+			_setVolume(volume);
+		}
 		
 		that.trigger('init', [player]);
 		
@@ -2598,17 +2655,17 @@
 				
 				if(!value)
 				{
-					_info("[trackEvent] (" + category + ", " + action + ", " + label + ")");
+					_debug("[trackEvent] (" + category + ", " + action + ", " + label + ")");
 					tracker._trackEvent(category, action, label);
 				}
 				else if(typeof implicit == 'undefined')
 				{
-					_info("[trackEvent] (" + category + ", " + action + ", " + label + ", " + parseInt(value) + ")");
+					_debug("[trackEvent] (" + category + ", " + action + ", " + label + ", " + parseInt(value) + ")");
 					tracker._trackEvent(category, action, label, parseInt(value));
 				}
 				else
 				{
-					_info("[trackEvent] (" + category + ", " + action + ", " + label + ", " + parseInt(value) + ", " + (implicit ? true : false) + ")");
+					_debug("[trackEvent] (" + category + ", " + action + ", " + label + ", " + parseInt(value) + ", " + (implicit ? true : false) + ")");
 					tracker._trackEvent(category, action, label, parseInt(value), implicit ? true : false);
 				}
 				

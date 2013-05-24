@@ -40,7 +40,7 @@
 	   
 		<div style="margin: 20px auto;" class="kit-player" id="player">
 			<video preload="metadata" controls loop>
-				<track kind="subtitles" label="German subtitles" src="sintel_en.vtt" srclang="de" default="default"></track>
+				<!--<track kind="subtitles" label="German subtitles" src="sintel_en.vtt" srclang="de" default="default"></track>-->
 				<p>Your browser does not support HTML5 video. If you are using safari you might want to <a href="http://www.apple.com/quicktime/download/" target="_blank">download QuickTime</a>. If you are using Internet Explorer please update to a newer version.</p>
 				<!--<source type='video/mp4' src='624x260.mp4'/>
 				<source type='video/webm' src="624x260.webm"/>
@@ -189,7 +189,7 @@
 							position : 'mid-roll',
 							src : 'media/video/superbowl2013-vw.mp4',
 							type : 'video/mp4',
-							begin : '50.5%'
+							begin : '50.0%'
 						}
 					]
 				}
@@ -264,7 +264,7 @@
 				})
 				.bind('load', function(e, api)
 				{
-					console.log('[event.load]', api.ad);
+					//console.log('[event.load]', api.ad);
 					if(api.ad) // && api.skin == 'yt'
 					{
 						api.hideTimeline();
@@ -344,6 +344,8 @@
 					width: 720,
 					height: 405,
 					skin : 'flat',
+					muted : 1,
+					iconSet : 'bootstrap',
 					overlays : {
 						positions : [
 							{
@@ -362,8 +364,29 @@
 				var api = p.kit_HTML5VideoPlayer();
 				//console.log(api.clip);
 			});
+			
+			$(document).on('click', 'input[class="debug-filter"]', function(e)
+			{
+				if(this.checked)
+				{
+					$('#debug div.'+this.value).show();
+				}
+				else
+				{
+					$('#debug div.'+this.value).hide();
+				}
+			});
 		</script>
 		
+		<div style="background-color: #f5f5f5; border: 1px solid #ccc; border: 1px solid rgba(0,0,0,0.15); width: 1200px; margin: 0 auto; padding: 5px; border-bottom-width:0;">
+			<input type="checkbox" class="debug-filter" value="error" checked="checked"/> <span>Error</span>
+			<input type="checkbox" class="debug-filter" value="warn" checked="checked"/> <span>Warn<span>
+			<input type="checkbox" class="debug-filter" value="info" checked="checked"/> <span>Info</span>
+			<input type="checkbox" class="debug-filter" value="log"/> <span>Log</span>
+			<input type="checkbox" class="debug-filter" value="debug"/> <span>Debug</span>
+			
+			
+		</div>
 		<pre id="debug" style="width: 1200px; margin: 0 auto !important; display: block; height: 400px; overflow: auto;"></pre>
 		<input type="checkbox" id="autoscroll" value="1" checked/> <label for="autoscroll">Autoscroll</label>
 	</body>
