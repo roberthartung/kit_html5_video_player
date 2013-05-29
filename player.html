@@ -38,7 +38,7 @@
 			//_gaq.push(['_trackPageview']);
 	   </script>
 	   
-		<div style="margin: 20px auto;" class="kit-player" id="player">
+		<div style="margin: 20px auto; width: 700px;" class="kit-player" id="player">
 			<video preload="metadata" controls loop>
 				<!--<track kind="subtitles" label="German subtitles" src="sintel_en.vtt" srclang="de" default="default"></track>-->
 				<p>Your browser does not support HTML5 video. If you are using safari you might want to <a href="http://www.apple.com/quicktime/download/" target="_blank">download QuickTime</a>. If you are using Internet Explorer please update to a newer version.</p>
@@ -51,6 +51,7 @@
 		<button onclick="$('#player').data('player').loadPlaylist(playlist1);">Load Playlist 1</button>
 		<button onclick="$('#player').data('player').loadPlaylist(playlist2);">Load Playlist 2</button>
 		<button onclick="$('#player').data('player').loadPlaylist(playlist3);">Load Playlist 3</button>
+		<button onclick="$('#player').data('player').loadPlaylist(playlist_mecaso);">Load Mecaso Playlist</button>
 		
 		<button onclick="$('#player').data('player').loadSkin('default');">Skin: Default</button>
 		<button onclick="$('#player').data('player').loadSkin('yt');">Skin: YouTube</button>
@@ -149,6 +150,39 @@
 					url : 'http://www.rhcms.de'
 				}
 			];
+			
+			var playlist_mecaso = [
+				{
+					title : 'Big Buck Bunny',
+					sources : [
+						{type:'video/mp4', resolutions : {
+							'240p' : 'media/video/trailer_240p.mp4?'+(new Date()).getTime(),
+							'360p' : 'media/video/trailer_360p.mp4?'+(new Date()).getTime(),
+							'480p' : 'media/video/trailer_480p.mp4?'+(new Date()).getTime(),
+							'720p' : 'media/video/trailer_720p.mp4?'+(new Date()).getTime(),
+							'1080p' : 'media/video/trailer_1080p.mp4?'+(new Date()).getTime()
+						}},
+						{type:'video/webm', resolutions : {
+							'240p' : 'media/video/trailer_240p.webm?'+(new Date()).getTime(),
+							'360p' : 'media/video/trailer_360p.webm?'+(new Date()).getTime(),
+							'480p' : 'media/video/trailer_480p.webm?'+(new Date()).getTime(),
+							'720p' : 'media/video/trailer_720p.webm?'+(new Date()).getTime(),
+							'1080p' : 'media/video/trailer_1080p.webm?'+(new Date()).getTime()
+						}},
+						{type:'video/ogg', resolutions : {
+							'240p' : 'media/video/trailer_240p.ogg?'+(new Date()).getTime(),
+							'360p' : 'media/video/trailer_360p.ogg?'+(new Date()).getTime(),
+							'480p' : 'media/video/trailer_480p.ogg?'+(new Date()).getTime(),
+							'720p' : 'media/video/trailer_720p.ogg?'+(new Date()).getTime(),
+							'1080p' : 'media/video/trailer_1080p.ogg?'+(new Date()).getTime()
+						}}
+					],
+					ads : [
+						{src : 'media/video/Pre_TCM-Swiss_V6.mp4', type : 'video/mp4', position : 'pre-roll'},
+						{src : 'media/video/Post_TCM-Swiss_V1.mp4', type : 'video/mp4', position : 'post-roll'}
+					]
+				}
+			]
 			
 			var playlist1 = [
 				{
@@ -504,8 +538,10 @@
 				.kit_HTML5VideoPlayer({
 					debug : true,
 					analytics : 'UA-39348271-1',
-					width: 720,
-					height: 405,
+					width: '50%',
+					ratio : 9/16,
+					//forceClipRatio : true,
+					//ratio : 3/4,
 					skin : 'flat',
 					muted : 1,
 					iconSet : 'bootstrap',

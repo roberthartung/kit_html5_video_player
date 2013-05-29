@@ -247,7 +247,9 @@
 			colorScheme : 'white',
 			iconSet : 'bootstrap',
 			initialUnmuteByMouseOver : false,
-			muteOnScroll : false
+			muteOnScroll : false,
+			ratio : 9/16,
+			forceClipRatio : false
     }, conf);
 		
 		function _addDebugLine()
@@ -413,7 +415,8 @@
 		var cuePointIndex = null;
 		
 		// Controls
-		var div_wrapper = $('<div style="position: absolute; width: 640px; height: 280px;" class="khp-wrapper"/>');
+		var div_wrapper = $('<div class="khp-wrapper"/>'); /*  style="position: absolute;" width: 640px; height: 280px; */
+		var div_ratio = $('<div class="khp-ratio"/>');
 		var div_controls_bar = $('<div class="khp-controls-bar"/>');
 		var div_controls = $('<div class="khp-controls"/>');
 		var div_contents = $('<div class="khp-contents"><ol></ol></div>');
@@ -861,17 +864,18 @@
 				features : ['indentTimeline', 'topVolumeBar'],
 				tree : {
 					div_overlay : { },
+					indicator_loading : {},
 					div_controls_bar : {
 						div_controls : {
 							control_timeline : { control_timeline_elements : { control_timeline_progress : { control_timeline_caret : '<i class="icon-angle-left"></i><i class="icon-angle-right"></i>' } } },
 							div_info_ad_timeleft : {},
 							control_volume : { control_volume_bar : {} },
-							control_settings : {},
 							control_fullscreen : { },
 							control_play : { },
 							control_mute : { },
+							control_settings : {},
 							control_time_played : { },
-							control_time_left : { }
+							control_time_left : { },
 						}
 					}
 				},
@@ -915,7 +919,7 @@
 		}
 		
 		// Set/Get Video-Container options
-		video.css({position: 'absolute'});
+		//video.css({position: 'absolute'});
 		video_loop = video.hasAttr('loop') || conf.loop;
 		video_autoplay = video.hasAttr('autoplay') || conf.autoplay;
 		video_controls = video.hasAttr('controls');
@@ -992,7 +996,6 @@
 		// API + Player Object
 		
 		var skin = null;
-		
 		var iconSet = typeof conf.iconSet == 'string' ? iconSets[conf.iconSet] : conf.iconSet;
 		
 		// console.log(iconSet);
@@ -1011,6 +1014,7 @@
 			overlay : false,
 			fullscreen : false,
 			waiting : false,
+			ratio : conf.ratio,
 			// ##### Functions
 			// load a new playlist
 			loadPlaylist : function(pl)
@@ -1018,6 +1022,12 @@
 				clipIndex = 0;
 				conf.playlist = pl;
 				player.load(conf.playlist[clipIndex]);
+			},
+			setRatio : function(r)
+			{
+				player.ratio = r;
+				div_ratio.css({paddingTop : r * 100 + '%'});
+				_info('ratio:', r);
 			},
 			setColorScheme : function(scheme)
 			{
@@ -1295,6 +1305,7 @@
 			return;
 		}
 		
+		that.append(div_ratio);
 		that.append(div_wrapper);
 		
 		div_overlay.hide();
@@ -1401,14 +1412,31 @@
 		
 		function setSize()
 		{
+			//console.log(width, height, height/width);
+		
+			/*
+			that.css({
+				width : w + '%',
+				paddingTop : height/width * w + '%',
+				position : 'relative'
+			});
+			*/
+			
+			/*
 			that.css({
 				width : width,
 				height : height
 			});
 			
 			div_wrapper.css({
-				width : width,
+				width :width ,
 				height : height
+			});
+			*/
+			
+			div_ratio.css({
+				width : '100%',
+				paddingTop : height/width * 100 + '%'
 			});
 		}
 		
@@ -1583,13 +1611,18 @@
 		
 		// If width and height have been set in configuration
 		// force width and height for the player as well
-		if(width && height)
+		if(width)
 		{
-			setSize();
-			video.css({
-				width : width,
-				height : height
-			});
+			that.css({width:width});
+			
+			if(height)
+			{
+				player.setRatio(height/width);
+			}
+			else
+			{
+				player.setRatio(player.ratio);
+			}
 		}
 		else
 		{
@@ -1865,8 +1898,19 @@
 		
 		// ### Loaded Meta Data
 		
+		
 		video.on('loadedmetadata', function(e)
 		{
+			player.clip.ratio = videoObject.videoHeight / videoObject.videoWidth;
+			
+			_info('clip.ratio = ' + player.clip.ratio);
+			
+			if(conf.forceClipRatio)
+			{
+				player.setRatio(player.clip.ratio);
+			}
+		
+			/*
 			if(width == null)
 			{
 				 width = video.outerWidth();
@@ -1876,12 +1920,14 @@
 			{
 				height = video.outerHeight();
 			}
+			*/
 			
-			videoObject.width = width;
-			videoObject.height = height;
+			//videoObject.width = width;
+			//videoObject.height = height;
 			
-			setSize();
+			//setSize();
 		});
+		
 		
 		// ### Duration Change
 		
@@ -2324,23 +2370,10 @@
 			if(isSeeking)
 				return;
 			
-			div_info_ad_timeleft.html('WERBUNG - Clip folgt in ' + secondsToTime(videoObject.duration - videoObject.currentTime));
-			
-			if(timeupdate_lastTime != null)
+			if(player.ad)
 			{
-				if(timeupdate_delay == null)
-				{
-					timeupdate_delay = (new Date()).getTime() - timeupdate_lastTime;
-				}
-				else
-				{
-					timeupdate_delay = timeupdate_delay * .75 + ((new Date()).getTime() - timeupdate_lastTime) * .25;
-				}
+				div_info_ad_timeleft.html('WERBUNG - Clip folgt in ' + secondsToTime(videoObject.duration - videoObject.currentTime));
 			}
-			
-			//console.log('timeupdate_delay:', timeupdate_delay, timeupdate_lastTime, (new Date()).getTime(), (new Date()).getTime() - timeupdate_lastTime);
-			
-			timeupdate_lastTime = (new Date()).getTime();
 			
 			that.trigger('timeupdate', [player]);
 			
@@ -2475,6 +2508,27 @@
 				}
 			}
 			
+			/*
+			control_timeline_progress.css('width', (videoObject.currentTime / videoObject.duration) * 100 + '%');
+			return;
+			*/
+			
+			if(timeupdate_lastTime != null)
+			{
+				if(timeupdate_delay == null)
+				{
+					timeupdate_delay = (new Date()).getTime() - timeupdate_lastTime;
+				}
+				else
+				{
+					timeupdate_delay = timeupdate_delay * .75 + ((new Date()).getTime() - timeupdate_lastTime) * .25;
+				}
+			}
+			
+			//console.log('timeupdate_delay:', timeupdate_delay, timeupdate_lastTime, (new Date()).getTime(), (new Date()).getTime() - timeupdate_lastTime);
+			
+			timeupdate_lastTime = (new Date()).getTime();
+			
 			var currentPercent = (videoObject.currentTime / videoObject.duration) * 100;
 			var nextPercent = ((videoObject.currentTime + (timeupdate_delay == null ? 0.25 : timeupdate_delay / 1000)) / videoObject.duration) * 100;
 			control_timeline_progress.stop().css('width', currentPercent + '%').animate({width : nextPercent + '%'}, ((timeupdate_delay == null) ? 250 : timeupdate_delay) / videoObject.playbackRate, 'linear');
@@ -2483,7 +2537,7 @@
 		// update buffer
 		video.on('progress loadeddata buffered', function(e)
 		{
-			control_timeline.find('.control-timeline-loaded').remove();
+			control_timeline.find('.khp-control-timeline-loaded').remove();
 			
 			if(!videoObject.buffered.length)
 				return;
@@ -2496,7 +2550,7 @@
 				var start = videoObject.buffered.start(b);
 				var end = videoObject.buffered.end(b);
 				
-				var bar_loaded = $('<div class="control-timeline-loaded"></div>');
+				var bar_loaded = $('<div class="khp-control-timeline-loaded"></div>');
 				bar_loaded.css({
 					position : 'absolute',
 					left : (start / videoObject.duration) * 100 + '%',
@@ -2635,8 +2689,6 @@
 			
 			$(window).on('scroll.muteOnScroll', function(e)
 			{
-				console.log('scroll', mutedByScrolling);
-				
 				if($(window).scrollTop() >= (that.offset().top + that.height() / 2))
 				{
 					if(mutedByScrolling == false)
