@@ -221,155 +221,157 @@
   $.fn.kit_HTML5VideoPlayer = function(conf)
   {
 		var conf = $.extend(
-			{
-				width : null,
-				height : null,
-				debug : false,
-				'controls'         : {
-					play	:	true,
-					mute	:	true
-				},
-				info : {
-					time : {
-						show_current : true
-					}
-				},
-				autoplay : false,
-				loop : false,
-				playlist : [],
-				clip : null,
-				playing : false,
-				defaults : {
-					volume : .75
-				},
-				skin : 'default',
-				indicateAds : false,
-				colorScheme : 'white',
-				iconSet : 'bootstrap'
-	    }, conf);
-	
-	function _addDebugLine()
-	{
-		if($('#debug').length)
 		{
-			//var old = $('#debug').html();
-			//$('#debug').html('');
-			
-			var args = Array.prototype.slice.call(arguments);
-			var type = args.pop();
-			
-			var show = $('.debug-filter[value="'+type+'"]').is(':checked');
-			
-			var line = $('<div class="' + type + '">[' + type + '\t] </div>');
-			
-			$(args).each(function(k,v)
+			width : null,
+			height : null,
+			debug : false,
+			'controls'         : {
+				play	:	true,
+				mute	:	true
+			},
+			info : {
+				time : {
+					show_current : true
+				}
+			},
+			autoplay : false,
+			loop : false,
+			playlist : [],
+			clip : null,
+			playing : false,
+			defaults : {
+				volume : .75
+			},
+			skin : 'default',
+			indicateAds : false,
+			colorScheme : 'white',
+			iconSet : 'bootstrap',
+			initialUnmuteByMouseOver : false,
+			muteOnScroll : false
+    }, conf);
+		
+		function _addDebugLine()
+		{
+			if($('#debug').length)
 			{
-				if(typeof v == 'string')
+				//var old = $('#debug').html();
+				//$('#debug').html('');
+				
+				var args = Array.prototype.slice.call(arguments);
+				var type = args.pop();
+				
+				var show = $('.debug-filter[value="'+type+'"]').is(':checked');
+				
+				var line = $('<div class="' + type + '">[' + type + '\t] </div>');
+				
+				$(args).each(function(k,v)
 				{
-					line.append((""+v) + ((""+v).length <= 4 ? "\t" : "") + ((""+v).length < 8 ? "\t" : "") + ((""+v).length < 12 ? "\t" : "") + ((""+v).length < 16 ? "\t" : "") + "\t");
+					if(typeof v == 'string')
+					{
+						line.append((""+v) + ((""+v).length <= 4 ? "\t" : "") + ((""+v).length < 8 ? "\t" : "") + ((""+v).length < 12 ? "\t" : "") + ((""+v).length < 16 ? "\t" : "") + "\t");
+					}
+					else
+					{
+						line.append((""+v) + ((""+v).length <= 4 ? "\t" : "") + "\t");
+					}
+					
+					
+				});
+				
+				if(!show)
+					line.hide();
+				
+				$('#debug').prepend(line);
+				
+				//$('#debug').html($('#debug').html() + + old);
+				
+				//$('#debug').text($('#debug').text() + "\n");
+				/*
+				if(!$('#autoscroll').length || $('#autoscroll').is(':checked'))
+					$('#debug').get(0).scrollTop = $('#debug').get(0).scrollHeight - $('#debug').get(0).offsetHeight;
+					*/
+				return true;
+			}	
+			return false;
+		}
+		
+		function _log()
+		{
+			var args = Array.prototype.slice.call(arguments);
+			args.push('log');
+		
+			if(_addDebugLine.apply(this, args))
+				return;
+			
+			if(typeof console != 'undefined' && conf.debug && console.log && console.log.apply)
+			{
+				console.log.apply(console, arguments);
+			}
+		}
+		
+		function _info()
+		{
+			var args = Array.prototype.slice.call(arguments);
+			args.push('info');
+		
+			if(_addDebugLine.apply(this, args))
+				return;
+			
+			if(typeof console != 'undefined' && conf.debug && console.info && console.info.apply)
+			{
+				console.info.apply(console, arguments);
+			}
+		}
+		
+		function _debug()
+		{
+			var args = Array.prototype.slice.call(arguments);
+			args.push('debug');
+		
+			if(_addDebugLine.apply(this, args))
+				return;
+			
+			if(typeof console != 'undefined' && conf.debug && console.debug && console.debug.apply)
+			{
+				console.debug.apply(console, arguments);
+			}
+		}
+		
+		function _warn()
+		{
+			var args = Array.prototype.slice.call(arguments);
+			args.push('warn');
+		
+			if(_addDebugLine.apply(this, args))
+				return;
+			
+			if(typeof console != 'undefined' && conf.debug && console.warn && console.warn.apply)
+			{
+				console.warn.apply(console, arguments);
+			}
+		}
+		
+		function _error()
+		{
+			var args = Array.prototype.slice.call(arguments);
+			args.push('error');
+			
+			if(_addDebugLine.apply(this, args))
+				return;
+			
+			if(typeof console != 'undefined')
+			{
+				if(typeof console.error == 'function' && conf.debug && console.error && console.error.apply)
+				{
+					console.error.apply(console, arguments);
 				}
 				else
 				{
-					line.append((""+v) + ((""+v).length <= 4 ? "\t" : "") + "\t");
+					//alert(arguments[0]);
 				}
-				
-				
-			});
-			
-			if(!show)
-				line.hide();
-			
-			$('#debug').prepend(line);
-			
-			//$('#debug').html($('#debug').html() + + old);
-			
-			//$('#debug').text($('#debug').text() + "\n");
-			/*
-			if(!$('#autoscroll').length || $('#autoscroll').is(':checked'))
-				$('#debug').get(0).scrollTop = $('#debug').get(0).scrollHeight - $('#debug').get(0).offsetHeight;
-				*/
-			return true;
-		}	
-		return false;
-	}
-	
-	function _log()
-	{
-		var args = Array.prototype.slice.call(arguments);
-		args.push('log');
-	
-		if(_addDebugLine.apply(this, args))
-			return;
-		
-		if(typeof console != 'undefined' && conf.debug && console.log && console.log.apply)
-		{
-			console.log.apply(console, arguments);
-		}
-	}
-	
-	function _info()
-	{
-		var args = Array.prototype.slice.call(arguments);
-		args.push('info');
-	
-		if(_addDebugLine.apply(this, args))
-			return;
-		
-		if(typeof console != 'undefined' && conf.debug && console.info && console.info.apply)
-		{
-			console.info.apply(console, arguments);
-		}
-	}
-	
-	function _debug()
-	{
-		var args = Array.prototype.slice.call(arguments);
-		args.push('debug');
-	
-		if(_addDebugLine.apply(this, args))
-			return;
-		
-		if(typeof console != 'undefined' && conf.debug && console.debug && console.debug.apply)
-		{
-			console.debug.apply(console, arguments);
-		}
-	}
-	
-	function _warn()
-	{
-		var args = Array.prototype.slice.call(arguments);
-		args.push('warn');
-	
-		if(_addDebugLine.apply(this, args))
-			return;
-		
-		if(typeof console != 'undefined' && conf.debug && console.warn && console.warn.apply)
-		{
-			console.warn.apply(console, arguments);
-		}
-	}
-	
-	function _error()
-	{
-		var args = Array.prototype.slice.call(arguments);
-		args.push('error');
-		
-		if(_addDebugLine.apply(this, args))
-			return;
-		
-		if(typeof console != 'undefined')
-		{
-			if(typeof console.error == 'function' && conf.debug && console.error && console.error.apply)
-			{
-				console.error.apply(console, arguments);
-			}
-			else
-			{
-				//alert(arguments[0]);
 			}
 		}
-	}
-	
+		
 	/* debug error info log warn */
 	
 	return this.data('player') || this.each(function()
@@ -1701,6 +1703,11 @@
 			e.stopPropagation();
 			if(videoObject.paused)
 			{
+				if(that.hasClass('is-poster'))
+				{
+					that.removeClass('is-poster');
+					div_wrapper.css('backgroundImage', 'none');
+				}
 				videoObject.play();
 				//_playNextAd('pre-roll');
 				
@@ -2603,10 +2610,48 @@
 		{
 			// dont use _setVolume because this would override the user's volume
 			videoObject.volume = 0;
+			/*
+			initialUnmuteByMouseOver : false,
+			 : false
+			*/
+			
+			if(conf.initialUnmuteByMouseOver)
+			{
+				that.on('mouseover.initialUnmuteByMouseOver', function(e)
+				{
+					videoObject.volume = volume;
+					that.off('mouseover.initialUnmuteByMouseOver');
+				});
+			}
 		}
 		else
 		{
 			_setVolume(volume);
+		}
+		
+		if(conf.muteOnScroll)
+		{
+			var mutedByScrolling = false;
+			
+			$(window).on('scroll.muteOnScroll', function(e)
+			{
+				console.log('scroll', mutedByScrolling);
+				
+				if($(window).scrollTop() >= (that.offset().top + that.height() / 2))
+				{
+					if(mutedByScrolling == false)
+					{
+						volume = videoObject.volume;
+						videoObject.volume = 0;
+						mutedByScrolling = true;
+					}
+				}
+				else if(mutedByScrolling)
+				{
+					mutedByScrolling = false;
+					videoObject.volume = volume;
+				}
+			});
 		}
 		
 		that.trigger('init', [player]);

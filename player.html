@@ -356,25 +356,27 @@
 			]
 	
 	var conf = {
-					debug : true,
-					analytics : 'UA-39348271-1',
-					width: 720,
-					height: 405,
-					skin : 'flat',
-					overlays : {
-						positions : [
-							{
-								id : 'bottom',
-								bottom : 0,
-								align : 'center',
-								width : 468,
-								height : 90
-							},
-						]
-					},
-					playlist : playlist1,
-					annotateAds : true
-				};
+		debug : true,
+		analytics : 'UA-39348271-1',
+		width: 720,
+		height: 405,
+		skin : 'flat',
+		overlays : {
+			positions : [
+				{
+					id : 'bottom',
+					bottom : 0,
+					align : 'center',
+					width : 468,
+					height : 90
+				},
+			]
+		},
+		playlist : playlist1,
+		annotateAds : true,
+		initialUnmuteByMouseOver : true,
+		muteOnScroll : true
+	};
 	
 	var conf2 = {
 		/*
@@ -402,7 +404,9 @@
 				},
 			]
 		},
-		annotateAds : true
+		annotateAds : true,
+		initialUnmuteByMouseOver : true,
+		muteOnScroll : true
 	};
 			
 			$(function()
@@ -517,7 +521,9 @@
 						]
 					},
 					playlist : playlist1,
-					annotateAds : true
+					annotateAds : true,
+					initialUnmuteByMouseOver : true,
+					muteOnScroll : true
 				});
 				// .kit_HTML5VideoPlayer(conf2);
 				var api = p.kit_HTML5VideoPlayer();
