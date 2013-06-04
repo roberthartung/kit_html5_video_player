@@ -1558,6 +1558,9 @@
 			that.removeClass('is-playing-ad');
 		}
 		
+		var old_width;
+		var old_height;
+		
 		function requestFullscreen(e)
 		{
 			if(!player.fullscreen)
@@ -1574,6 +1577,24 @@
 				{
 				  that.get(0).webkitRequestFullscreen();
 				}
+				else
+				{
+					var old_width = that.width();
+					var old_height = that.height();
+					that.addClass('is-pseudo-fullscreen');
+					//that.wrap('<div style="background-color: #000; position: absolute; left: 0; top: 0; width: '+$(document).width()+'px; height: '+$(document).height()+'px;"></div>');
+					that.css({width : $(window).width(), height : $(window).height()});
+					player.fullscreen = true;
+					if($('meta[name="viewport"]').length == 0)
+					{
+						$('head').append('<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0;"/>');
+					}
+					
+					$(window).on('resize.fullscreen orientationchange.fullscreen', function()
+					{
+						that.css({width : $(window).width(), height : $(window).height()});
+					});
+				}
 			}
 			else
 			{
@@ -1588,6 +1609,14 @@
 				else if (document.webkitCancelFullScreen)
 				{
 				  document.webkitCancelFullScreen();
+				}
+				else
+				{
+					that.css({width:old_width, height:old_height});
+					that.removeClass('is-pseudo-fullscreen');
+					//that.unwrap();
+					player.fullscreen = false;
+					$(window).off('resize.fullscreen orientationchange.fullscreen');
 				}
 			}
 		}

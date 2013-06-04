@@ -88,6 +88,10 @@
 	height: 100% !important;
 }
 
+.kit-player.is-pseudo-fullscreen {
+	position: fixed !important;
+}
+
 .kit-player.is-playing-ad {
 	cursor: pointer;
 }
