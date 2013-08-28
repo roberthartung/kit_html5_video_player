@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="css/player.basic.css" type="text/css">
+		<link rel="stylesheet" href="css/player.skins.css" type="text/css">
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<!--<link rel="stylesheet" href="css/elusive-webfont.css" type="text/css">-->
+		<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/player.js"></script>
+		<script type="text/javascript" src="js/swfobject.js"></script>
+		<style>
+			.button:hover {
+				background-color: #f00 !important;
+				display: block;
+			}
+			
+			.waiting .wrapper {
+				background-image: url(img/waiting.gif);
+				background-repeat: no-repeat;
+				background-position: center center;
+			}
+			
+			pre { -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; }
+			
+			.ad-info-timeleft {
+				color: #fff;
+				font-size: 10px;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<script type="text/javascript">
+			var _gaq = _gaq || [];
+			//_gaq.push(['_setAccount', 'UA-39348271-1']);
+			//_gaq.push(['_trackPageview']);
+	   </script>
+	   
+		<div style="margin: 20px auto;" class="kit-player" id="player">
+			<video preload="none" controls loop>
+				<p>Your browser does not support HTML5 video. If you are using safari you might want to <a href="http://www.apple.com/quicktime/download/" target="_blank">download QuickTime</a>. If you are using Internet Explorer please update to a newer version.</p>
+				<!--<source type='video/mp4' src='624x260.mp4'/>
+				<source type='video/webm' src="624x260.webm"/>
+				-->
+			</video>
+		</div>
+		
+		<button onclick="$('#player').data('player').loadPlaylist(playlist1);">Load Playlist 1</button>
+		<button onclick="$('#player').data('player').loadPlaylist(playlist2);">Load Playlist 2</button>
+		<button onclick="$('#player').data('player').loadPlaylist(playlist3);">Load Playlist 3</button>
+		
+		<button onclick="$('#player').data('player').loadSkin('default');">Skin: Default</button>
+		<button onclick="$('#player').data('player').loadSkin('yt');">Skin: YouTube</button>
+		<button onclick="$('#player').data('player').loadSkin('bubbles');">Skin: Bubbles</button>
+		<button onclick="$('#player').data('player').loadSkin('flat');">Skin: Flat</button>
+		
+			<!--
+				<video width="720" height="480" preload="none" controls src="openx-ad.ogg"></video>
+				<video preload="none" controls src="stream.php?file=openx-ad.webm&8"></video>
+				
+				<source type='video/webm; codecs="vp8"' src="624x260.webm?"/>
+				<source type='video/mp4; codecs="avc1"' src='624x260.mp4?'/>
+			-->
+				<!--<track src="jellies.srt" kind="subtitle" srclang="de-DE" label="German" default="enabled" />-->
+		
+		<!--
+		<div id="slider-test" class="slidertest" style="height: 10px; width: 500px; background-color: #000; position: absolute;">
+			<div class="slidertest-bar" style="width:20%; height: 10px; background-color: #c00; position: absolute;">
+				<div style="margin-left: 100%; height: 10px; position: absolute;">
+					<a class="button" style=" position: absolute; margin-top: -4px; border-radius: 10px; border: 7px solid #fff; width: 5px; height: 5px;margin-left: -11px; background-color:#ccc;"></a>
+				</div>
+			</div>
+		</div>
+		-->
+		
+		<script type="text/javascript">
+			var stream = ''; // stream.php?file=
+			
+			var ads = [
+				{
+					title : 'OpenX Pre-Roll',
+					position : 'pre-roll',
+					sources : [
+						{type:'video/webm', src: stream + 'media/video/openx-ad.webm?'+(new Date()).getTime()}, // ; codecs="vp8"
+						{type:'video/mp4', src: stream + 'media/video/openx-ad.mp4?'+(new Date()).getTime()}, // ; codecs="avc1",
+						{type:'video/ogg', src: stream + 'media/video/openx-ad.ogg?'+(new Date()).getTime()}
+					],
+					url : 'http://www.mecaso.ch'
+				},
+				{
+					title : 'Lego Pre-Roll',
+					position : 'pre-roll',
+					sources : [
+						{type:'video/webm', src: stream + 'media/video/lego.webm?'+(new Date()).getTime()}, // ; codecs="vp8"
+						{type:'video/mp4', src: stream + 'media/video/lego.mp4?'+(new Date()).getTime()}, // ; codecs="avc1",
+						{type:'video/ogg', src: stream + 'media/video/lego.ogg?'+(new Date()).getTime()}
+					],
+					url : 'http://www.mecaso.ch'
+				},
+				{
+					position : 'bottom',
+					src : 'media/swf/ad.swf',
+					url : 'http://www.rhcms.de',
+					type : 'swf',
+					begin : 4,
+					duration : 3
+					//end : '80%',
+				},
+				/*
+				{
+					title : 'Big Buck Bunny Mid Roll Ad',
+					position : 'mid-roll',
+					begin : 15,
+					sources : [
+						{type:'video/webm', src: stream + 'big_buck_bunny.webm?'+(new Date()).getTime()}, // ; codecs="vp8"
+						{type:'video/mp4', src: stream + 'big_buck_bunny.mp4?'+(new Date()).getTime()}, // ; codecs="avc1",
+						{type:'video/ogg', src: stream + 'big_buck_bunny.ogv?'+(new Date()).getTime()}
+					],
+					url : 'http://www.bigbuckbunny.org/',
+				},
+				*/
+				{
+					position : 'bottom',
+					type : 'video',
+					sources : [
+						{type:'video/webm', src: stream + 'media/video/openx-ad.webm?'+(new Date()).getTime()},
+						{type:'video/mp4', src: stream + 'media/video/openx-ad.mp4?'+(new Date()).getTime()},
+						{type:'video/ogg', src: stream + 'media/video/openx-ad.ogg?'+(new Date()).getTime()}
+					],
+					begin : 15,
+					duration : 8
+					//end : '80%',
+				},
+				{
+					title : 'OpenX Post-Roll',
+					position : 'post-roll',
+					sources : [
+						{type:'video/webm; codecs="vp8"', src : stream + 'media/video/openx-ad.webm?'+(new Date()).getTime()},
+						{type:'video/mp4; codecs="avc1"', src : stream + 'media/video/openx-ad.mp4?'+(new Date()).getTime()}
+					],
+					url : 'http://www.rhcms.de'
+				}
+			];
+			
+			var playlist1 = [
+				{
+					title : 'Clip 1',
+					sources : [
+						{type:'video/mp4', src : stream + 'media/video/624x260.mp4?'+(new Date()).getTime()}, // ; codecs="avc1"
+						{type:'video/webm', src : stream + 'media/video/624x260.webm?'+(new Date()).getTime()}, // ; codecs="vp8"
+						{type:'video/ogg', src : stream + 'media/video/624x260.ogg?'+(new Date()).getTime()},
+					],
+					ads : ads,
+					cuepoints : [0, 2.0, 4.5]
+				},
+				{
+					title : 'Lego',
+					sources : [
+						{type:'video/webm', src: stream + 'media/video/lego.webm?'+(new Date()).getTime()}, // ; codecs="vp8"
+						{type:'video/mp4', src: stream + 'media/video/lego.mp4?'+(new Date()).getTime()}, // ; codecs="avc1",
+						{type:'video/ogg', src: stream + 'media/video/lego.ogg?'+(new Date()).getTime()}
+					],
+					start : '50%'
+				}
+			];
+			
+			var playlist2 = [
+				{
+					title : 'Big Buck Bunny',
+					src : 'media/video/big_buck_bunny.webm',
+					type : 'video/webm',
+					ads : [
+						{
+							position : 'mid-roll',
+							sources : [
+								{type:'video/webm', src: 'media/video/superbowl2013-vw.webm'}, // ; codecs="vp8"
+								{type:'video/mp4', src: 'media/video/superbowl2013-vw.mp4'}, // ; codecs="avc1",
+								{type:'video/ogg', src: 'media/video/superbowl2013-vw.ogg'}
+							],
+							begin : '50.5%'
+						}
+					]
+				}
+			];
+			
+			var playlist3 = [
+				{
+					title : 'Big Buck Bunny',
+					sources : [
+						{type:'video/mp4', resolutions : {
+							'240p' : 'media/video/trailer_240p.mp4?'+(new Date()).getTime(),
+							'360p' : 'media/video/trailer_360p.mp4?'+(new Date()).getTime(),
+							'480p' : 'media/video/trailer_480p.mp4?'+(new Date()).getTime(),
+							'720p' : 'media/video/trailer_720p.mp4?'+(new Date()).getTime(),
+							'1080p' : 'media/video/trailer_1080p.mp4?'+(new Date()).getTime()
+						}},
+						{type:'video/webm', resolutions : {
+							'240p' : 'media/video/trailer_240p.webm?'+(new Date()).getTime(),
+							'360p' : 'media/video/trailer_360p.webm?'+(new Date()).getTime(),
+							'480p' : 'media/video/trailer_480p.webm?'+(new Date()).getTime(),
+							'720p' : 'media/video/trailer_720p.webm?'+(new Date()).getTime(),
+							'1080p' : 'media/video/trailer_1080p.webm?'+(new Date()).getTime()
+						}},
+						{type:'video/ogg', resolutions : {
+							'240p' : 'media/video/trailer_240p.ogg?'+(new Date()).getTime(),
+							'360p' : 'media/video/trailer_360p.ogg?'+(new Date()).getTime(),
+							'480p' : 'media/video/trailer_480p.ogg?'+(new Date()).getTime(),
+							'720p' : 'media/video/trailer_720p.ogg?'+(new Date()).getTime(),
+							'1080p' : 'media/video/trailer_1080p.ogg?'+(new Date()).getTime()
+						}}
+					],
+					contents : [
+						{
+							time : 0,
+							title : 'Intro'
+						},
+						{
+							time : 6.7,
+							title : 'Story'
+						},
+						{
+							time : 9.2,
+							title : 'Bunny'
+						},
+						{
+							time : 12.5,
+							title : 'Rodents'
+						},
+						{
+							time : 27.4,
+							title : 'Outro'
+						}
+					]
+				}
+			];
+			
+			$(function()
+			{
+				$('#debug').val('');
+				/*
+				$('#slider-test').seekSlider().on('seek', function(e,p)
+				{
+					$('.player').tooltip({animate:false,html:true,title:duration*p,trigger:'manual'}).tooltip('show');
+					$('#slider-test').tooltip('destroy');
+				});
+				*/
+				
+				var p = $('#player').bind('init', function(e, api)
+				{
+					var ad_info = $('<span class="small ad-info-timeleft"></span>');
+					$('.player').find('.control-volume').after(ad_info);
+				})
+				.bind('load', function(e, api)
+				{
+					//console.log('[event.load]', api.ad);
+					if(api.ad && api.skin == 'yt')
+					{
+						$('.player').find('.ad-info-timeleft').show();
+					}
+					else
+					{
+						$('.player').find('.ad-info-timeleft').hide();
+					}
+				})
+				.bind('ended', function(e, api)
+				{
+					//console.log('ended', api.ad);
+					
+					if(api.ad)
+					{
+						//api.showTimeline();
+					}
+					
+					return true;
+				})
+				// video stops playing
+				.bind('beforeseek', function(e, player)
+				{
+					
+					if(player.ad)
+						return false;
+					
+					return true;
+				})
+				.bind('beforepause', function(e)
+				{
+					return true;
+				})
+				.bind('beforevolumechange', function(e)
+				{
+					return true;
+				})
+				.bind('cuepoint', function(e, player, clip, cuepoint)
+				{
+					//console.log('[onCuePoint]', player, clip, cuepoint);
+				})
+				.bind('play', function(e, player)
+				{
+					//console.log('[event.play]', player);
+					
+					/*
+					if(api.ad)
+					{
+						api.hideTimeline();
+					}
+					*/
+				})
+				.bind('pause', function(e, player)
+				{
+					//console.log('[event.pause]');
+				})
+				.bind('resume', function(e, player)
+				{
+					//console.log('[resume]', player.clip.time);
+				})
+				.bind('ended', function(e, player)
+				{
+					//console.log('[ended]', player);
+				})
+				.bind('timeupdate', function(e, player)
+				{
+					if(player.ad)
+					{
+						$('.player').find('.ad-info-timeleft').html('Noch ' + Math.round(player.ad.duration - player.ad.time) + ' Sekunden bis zum Video');
+					}
+				})
+				.kit_HTML5VideoPlayer({
+					debug : true,
+					analytics : 'UA-39348271-1',
+					width: 720,
+					height: 405,
+					skin : 'flat',
+					overlays : {
+						positions : [
+							{
+								id : 'bottom',
+								bottom : 0,
+								align : 'center',
+								width : 468,
+								height : 90
+							},
+						]
+					},
+					playlist : playlist1,
+					annotateAds : true
+				});
+				
+				var api = p.kit_HTML5VideoPlayer();
+				//console.log(api.clip);
+			});
+		</script>
+		
+		<pre id="debug" style="width: 1200px; margin: 0 auto !important; display: block; height: 400px; overflow: auto;"></pre>
+		<input type="checkbox" id="autoscroll" value="1" checked/> <label for="autoscroll">Autoscroll</label>
+	</body>
+</html>
