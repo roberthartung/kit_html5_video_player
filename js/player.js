@@ -2753,6 +2753,7 @@
 			{
 				tracker = _gat._getTracker(conf.analytics);
 				tracker._setDomainName('none');
+				tracker._setAllowLinker(true);
 			}
 			
 			if(typeof _gat == 'undefined')
