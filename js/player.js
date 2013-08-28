@@ -2757,8 +2757,9 @@
 				// index/slot, name, value [, scope, 3=page level]
 				if(typeof conf.analytics_vars != 'undefined')
 				{
-					for(var v in analytics_vars)
+					for(var v in conf.analytics_vars)
 					{
+						_info('Custom Var', v);
 						tracker._setCustomVar(1, v, analytics_vars[v], 3);
 					}
 				}
