@@ -2760,7 +2760,7 @@
 					for(var v in conf.analytics_vars)
 					{
 						_info('Custom Var', v);
-						tracker._setCustomVar(1, v, analytics_vars[v], 3);
+						tracker._setCustomVar(1, v, conf.analytics_vars[v], 3);
 					}
 				}
 			}
