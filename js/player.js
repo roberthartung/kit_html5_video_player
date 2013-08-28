@@ -2752,8 +2752,8 @@
 			function _loadTracker()
 			{
 				tracker = _gat._getTracker(conf.analytics);
-				tracker._setDomainName('none');
-				tracker._setAllowLinker(true);
+				tracker._setDomainName('auto');
+				//tracker._setAllowLinker(true);
 				// index/slot, name, value [, scope, 3=page level]
 				if(typeof conf.analytics_vars != 'undefined')
 				{
