@@ -1874,11 +1874,13 @@
 			{
 				that.trigger('ad.click', [player]);
 				window.open(player.ad.url);
+				control_play.trigger('click');
 			}
 			else if(player.clip.url)
 			{
 				that.trigger('clip.click', [player]);
 				window.open(player.clip.url);
+				control_play.trigger('click');
 			}
 			else
 			{
