@@ -3,7 +3,9 @@
 	<head>
 		<link rel="stylesheet" href="css/player.basic.css" type="text/css"/>
 		<link rel="stylesheet" href="css/player.skins.css" type="text/css"/>
+		<!--
 		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		-->
 		<!--<link rel="stylesheet" href="css/elusive-webfont.css" type="text/css">-->
 		<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
 		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
@@ -38,7 +40,7 @@
 			//_gaq.push(['_trackPageview']);
 	   </script>
 	   
-		<div style="margin: 0 auto; width: 700px;" class="kit-player" id="player">
+		<div style="margin: 0 auto; width: 200px;" class="kit-player" id="player">
 			<video preload="metadata" controls loop>
 				<!--<track kind="subtitles" label="German subtitles" src="sintel_en.vtt" srclang="de" default="default"></track>-->
 				<p>Your browser does not support HTML5 video. If you are using safari you might want to <a href="http://www.apple.com/quicktime/download/" target="_blank">download QuickTime</a>. If you are using Internet Explorer please update to a newer version.</p>
@@ -106,6 +108,7 @@
 					],
 					url : 'http://www.mecaso.ch'
 				},
+				/*
 				{
 					position : 'bottom',
 					src : 'media/swf/ad.swf',
@@ -115,6 +118,7 @@
 					duration : 3
 					//end : '80%',
 				},
+				*/
 				/*
 				{
 					title : 'Big Buck Bunny Mid Roll Ad',
@@ -128,6 +132,7 @@
 					url : 'http://www.bigbuckbunny.org/',
 				},
 				*/
+				/*
 				{
 					position : 'bottom',
 					type : 'video',
@@ -140,6 +145,7 @@
 					duration : 8
 					//end : '80%',
 				},
+				*/
 				{
 					title : 'OpenX Post-Roll',
 					position : 'post-roll',
@@ -152,37 +158,105 @@
 			];
 			
 			var playlist_mecaso = [
-				{
-					title : 'Big Buck Bunny',
-					sources : [
-						{type:'video/mp4', resolutions : {
-							'240p' : 'media/video/trailer_240p.mp4?'+(new Date()).getTime(),
-							'360p' : 'media/video/trailer_360p.mp4?'+(new Date()).getTime(),
-							'480p' : 'media/video/trailer_480p.mp4?'+(new Date()).getTime(),
-							'720p' : 'media/video/trailer_720p.mp4?'+(new Date()).getTime(),
-							'1080p' : 'media/video/trailer_1080p.mp4?'+(new Date()).getTime()
-						}},
-						{type:'video/webm', resolutions : {
-							'240p' : 'media/video/trailer_240p.webm?'+(new Date()).getTime(),
-							'360p' : 'media/video/trailer_360p.webm?'+(new Date()).getTime(),
-							'480p' : 'media/video/trailer_480p.webm?'+(new Date()).getTime(),
-							'720p' : 'media/video/trailer_720p.webm?'+(new Date()).getTime(),
-							'1080p' : 'media/video/trailer_1080p.webm?'+(new Date()).getTime()
-						}},
-						{type:'video/ogg', resolutions : {
-							'240p' : 'media/video/trailer_240p.ogg?'+(new Date()).getTime(),
-							'360p' : 'media/video/trailer_360p.ogg?'+(new Date()).getTime(),
-							'480p' : 'media/video/trailer_480p.ogg?'+(new Date()).getTime(),
-							'720p' : 'media/video/trailer_720p.ogg?'+(new Date()).getTime(),
-							'1080p' : 'media/video/trailer_1080p.ogg?'+(new Date()).getTime()
-						}}
-					],
-					ads : [
-						{src : 'media/video/Pre_TCM-Swiss_V6.mp4', type : 'video/mp4', position : 'pre-roll'},
-						{src : 'media/video/Post_TCM-Swiss_V1.mp4', type : 'video/mp4', position : 'post-roll'}
-					]
+								{
+			title : 'TCM_FULL_FINAL.mp4',
+			sources : [
+																		{
+						type:'video/mp4', resolutions : {
+													'1080p' : '//media.streaming.mecaso.ch/2013/08/77/2690.mp4',
+												'720p' : '//media.streaming.mecaso.ch/2013/08/77/2691.mp4',
+												'480p' : '//media.streaming.mecaso.ch/2013/08/77/2692.mp4',
+												'360p' : '//media.streaming.mecaso.ch/2013/08/77/2693.mp4',
+												'240p' : '//media.streaming.mecaso.ch/2013/08/77/2694.mp4',
+																			}
+					},
+										{
+						type:'video/webm', resolutions : {
+													'1080p' : '//media.streaming.mecaso.ch/2013/08/77/2695.webm',
+												'720p' : '//media.streaming.mecaso.ch/2013/08/77/2696.webm',
+												'480p' : '//media.streaming.mecaso.ch/2013/08/77/2697.webm',
+												'360p' : '//media.streaming.mecaso.ch/2013/08/77/2698.webm',
+												'240p' : '//media.streaming.mecaso.ch/2013/08/77/2699.webm',
+																			}
+					},
+										{
+						type:'video/ogg', resolutions : {
+													'1080p' : '//media.streaming.mecaso.ch/2013/08/77/2700.ogg',
+												'720p' : '//media.streaming.mecaso.ch/2013/08/77/2701.ogg',
+												'480p' : '//media.streaming.mecaso.ch/2013/08/77/2702.ogg',
+												'360p' : '//media.streaming.mecaso.ch/2013/08/77/2703.ogg',
+												'240p' : '//media.streaming.mecaso.ch/2013/08/77/2704.ogg',
+									}
 				}
 			]
+			/*,
+			ads : [
+										{
+					title : 'Pre_TCM-Swiss_V6.mp4',
+					position : 'pre-roll',
+																									sources : [
+																										{
+								type:'video/mp4', resolutions : {
+																			'720p' : '//media.streaming.mecaso.ch/2013/08/79/2805.mp4',
+																		'480p' : '//media.streaming.mecaso.ch/2013/08/79/2806.mp4',
+																		'360p' : '//media.streaming.mecaso.ch/2013/08/79/2807.mp4',
+																		'240p' : '//media.streaming.mecaso.ch/2013/08/79/2808.mp4',
+																											}
+							},
+														{
+								type:'video/webm', resolutions : {
+																			'720p' : '//media.streaming.mecaso.ch/2013/08/79/2809.webm',
+																		'480p' : '//media.streaming.mecaso.ch/2013/08/79/2810.webm',
+																		'360p' : '//media.streaming.mecaso.ch/2013/08/79/2811.webm',
+																		'240p' : '//media.streaming.mecaso.ch/2013/08/79/2812.webm',
+																											}
+							},
+														{
+								type:'video/ogg', resolutions : {
+																			'720p' : '//media.streaming.mecaso.ch/2013/08/79/2813.ogg',
+																		'480p' : '//media.streaming.mecaso.ch/2013/08/79/2814.ogg',
+																		'360p' : '//media.streaming.mecaso.ch/2013/08/79/2815.ogg',
+																		'240p' : '//media.streaming.mecaso.ch/2013/08/79/2816.ogg',
+													}
+						}
+					],
+										url : 'http://www.mecaso.ch',
+				},
+							{
+					title : 'Post_TCM-Swiss_V1.mp4',
+					position : 'post-roll',
+																									sources : [
+																										{
+								type:'video/mp4', resolutions : {
+																			'720p' : '//media.streaming.mecaso.ch/2013/08/80/2861.mp4',
+																		'480p' : '//media.streaming.mecaso.ch/2013/08/80/2862.mp4',
+																		'360p' : '//media.streaming.mecaso.ch/2013/08/80/2863.mp4',
+																		'240p' : '//media.streaming.mecaso.ch/2013/08/80/2864.mp4',
+																											}
+							},
+														{
+								type:'video/webm', resolutions : {
+																			'720p' : '//media.streaming.mecaso.ch/2013/08/80/2865.webm',
+																		'480p' : '//media.streaming.mecaso.ch/2013/08/80/2866.webm',
+																		'360p' : '//media.streaming.mecaso.ch/2013/08/80/2867.webm',
+																		'240p' : '//media.streaming.mecaso.ch/2013/08/80/2868.webm',
+																											}
+							},
+														{
+								type:'video/ogg', resolutions : {
+																			'720p' : '//media.streaming.mecaso.ch/2013/08/80/2869.ogg',
+																		'480p' : '//media.streaming.mecaso.ch/2013/08/80/2870.ogg',
+																		'360p' : '//media.streaming.mecaso.ch/2013/08/80/2871.ogg',
+																		'240p' : '//media.streaming.mecaso.ch/2013/08/80/2872.ogg',
+													}
+						}
+					],
+										url : 'http://www.mecaso.ch',
+				},
+						]
+						*/
+		},
+			];
 			
 			var playlist1 = [
 				{
@@ -538,9 +612,9 @@
 				.kit_HTML5VideoPlayer({
 					debug : true,
 					analytics : 'UA-39348271-1',
-					width: '50%',
+					width: '300',
 					ratio : 9/16,
-					//forceClipRatio : true,
+					/*forceClipRatio : true,*/
 					//ratio : 3/4,
 					skin : 'flat',
 					muted : 1,

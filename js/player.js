@@ -1451,6 +1451,15 @@
 		
 		function secondsToTime(s, forceHours)
 		{
+			if(isNaN(s))
+			{
+				if(forceHours)
+					return "00:00:00";
+				
+				return "00:00";
+			}
+			
+			var _s = s;
 			s = Math.ceil(s);
 			
 			var forceHours = forceHours || false;
@@ -1460,6 +1469,15 @@
 			
 			var min = Math.floor(s / 60);
 			s -= 60 * min;
+			
+			if(isNaN(hours))
+				hours = 0;
+			
+			if(isNaN(min))
+				min = 0;
+				
+			if(isNaN(s))
+				s = 0;
 			
 			var str = '';
 			
@@ -1478,12 +1496,12 @@
 				min = '0' + min;
 			}
 			
-			str += min;
-			
 			if(s < 10)
 			{
 				s = '0' + s;
 			}
+			
+			str += min;
 			
 			return str + ':' + s;
 		}
@@ -2374,8 +2392,11 @@
 		});
 		
 		// ### event.timeupdate --> Update bar + info time
+		/*
 		var timeupdate_delay = null;
 		var timeupdate_lastTime = null;
+		*/
+		var timeupdate_count = 0;
 		video.on('timeupdate', function(e)
 		{
 			if(control_time.has('.control-info-time-total') || control_time.has('.control-info-time-left'))
@@ -2537,10 +2558,14 @@
 				}
 			}
 			
-			/*
-			control_timeline_progress.css('width', (videoObject.currentTime / videoObject.duration) * 100 + '%');
+			if(++timeupdate_count % 4 == 0)
+			{
+				var currentPercent = (videoObject.currentTime / videoObject.duration) * 100;
+				control_timeline_progress.css('width', Math.round(currentPercent) + '%');
+				timeupdate_count = 0;
+			}
+			
 			return;
-			*/
 			
 			if(timeupdate_lastTime != null)
 			{
@@ -2753,7 +2778,7 @@
 			{
 				tracker = _gat._getTracker(conf.analytics);
 				tracker._setDomainName('auto');
-				//tracker._setAllowLinker(true);
+				tracker._setAllowLinker(true);
 				// index/slot, name, value [, scope, 3=page level]
 				if(typeof conf.analytics_vars != 'undefined')
 				{

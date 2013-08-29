@@ -1,7 +1,18 @@
+/* RESET */
+.kit-player, .kit-player * {
+	font-size: 14px;
+	line-height: 20px;
+	font-family: "Trebuchet MS", Tahoma, Arial, Verdana;
+}
+
 /** skin.default : .kit-player.skin-default */
 
 .kit-player.skin-default i[class*='icon-'] {
 	color: #fff;
+}
+
+.kit-player.skin-default .khp-control-info-time-played {
+	font-size: 12px;
 }
 
 .kit-player.skin-default .khp-controls {
