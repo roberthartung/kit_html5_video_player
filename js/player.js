@@ -2881,6 +2881,11 @@
 				}
 			});
 			
+			that.on('clip.click', function(e)
+			{
+				_trackEvent('Click');
+			});
+			
 			$(window).on('unload', function(e)
 			{
 				// track event only if we have a clip and it has been played!
