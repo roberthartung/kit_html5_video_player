@@ -1864,15 +1864,21 @@
 			return false;
 		});
 		
-		div_wrapper.on('click', function(e)
+		// was div_wrapper
+		video.on('click', function(e)
 		{
-			if(!$(e.target).is(div_wrapper))
+			if(!$(e.target).is(div_ratio) && !$(e.target).is(video))
 				return;
-		
+			
 			if(player.ad)
 			{
 				that.trigger('ad.click', [player]);
 				window.open(player.ad.url);
+			}
+			else if(player.clip.url)
+			{
+				that.trigger('clip.click', [player]);
+				window.open(player.clip.url);
 			}
 			else
 			{
@@ -2784,7 +2790,7 @@
 				{
 					for(var v in conf.analytics_vars)
 					{
-						_info('Custom Var', v);
+						/*_info('Custom Var', v);*/
 						tracker._setCustomVar(1, v, conf.analytics_vars[v], 3);
 					}
 				}
