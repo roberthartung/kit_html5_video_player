@@ -1632,6 +1632,10 @@
 				{
 				  that.get(0).webkitRequestFullscreen();
 				}
+				else if(videoObject.webkitSupportsFullscreen)
+				{
+					that.get(0).webkitEnterFullscreen();
+				}
 				else
 				{
 					var old_width = that.width();
@@ -1664,6 +1668,10 @@
 				else if (document.webkitCancelFullScreen)
 				{
 				  document.webkitCancelFullScreen();
+				}
+				else if (document.webkitExitFullscreen)
+				{
+				  document.webkitExitFullscreen();
 				}
 				else
 				{
@@ -2632,7 +2640,7 @@
 				}
 			}
 			
-			if(++timeupdate_count % 4 == 0)
+			if(++timeupdate_count % 2 == 0)
 			{
 				var currentPercent = (videoObject.currentTime / videoObject.duration) * 100;
 				control_timeline_progress.css('width', Math.round(currentPercent) + '%');
