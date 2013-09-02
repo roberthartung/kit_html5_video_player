@@ -1155,24 +1155,7 @@
 						
 						if(src.resolutions)
 						{
-							var resolution = conf.resolution ? conf.resolution : '1080p';
-							
-							var clipSupportsDefaultResolution = false;
-							$.each(src.resolutions, function(k, v)
-							{
-								if(k == resolution)
-								{
-									clipSupportsDefaultResolution = true;
-								}
-							});
-							
-							if(!clipSupportsDefaultResolution)
-							{
-								for(resolution in src.resolutions)
-									break;
-							}
-							
-							clip.resolution = resolution;
+							clip.resolution = src.resolution;
 							clip.resolutions = src.resolutions;
 							clip.src = src.resolutions[clip.resolution];
 						}
@@ -1420,6 +1403,24 @@
 			
 			if(typeof src.resolutions != 'undefined')
 			{
+				var resolution = conf.resolution ? conf.resolution : '1080p';
+				
+				var clipSupportsDefaultResolution = false;
+				$.each(src.resolutions, function(k, v)
+				{
+					if(k == resolution)
+					{
+						clipSupportsDefaultResolution = true;
+					}
+				});
+				
+				if(!clipSupportsDefaultResolution)
+				{
+					for(resolution in src.resolutions)
+						break;
+				}
+				
+				/*
 				var resolutions = [];
 				
 				for(var key in src.resolutions)
@@ -1427,9 +1428,11 @@
 					resolutions.push(parseInt(key.substr(0,key.length-1)));
 				}
 				
-				resolutions = resolutions.sort(function Numsort (a, b) { return a - b; });
+				// resolutions = resolutions.sort(function Numsort (a, b) { return a - b; });
+				
 				
 				var resolution = resolutions[0] + 'p';
+				*/
 				
 				return {type : src.type,
 					resolution: resolution,
