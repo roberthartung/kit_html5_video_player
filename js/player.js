@@ -415,6 +415,7 @@
 		var cuePointIndex = null;
 		
 		// Controls
+		var div_poster = $('<div class="khp-poster"><i class="icon-play"></i></div>');
 		var div_wrapper = $('<div class="khp-wrapper"/>'); /*  style="position: absolute;" width: 640px; height: 280px; */
 		var div_ratio = $('<div class="khp-ratio"/>');
 		var div_controls_bar = $('<div class="khp-controls-bar"/>');
@@ -1028,6 +1029,21 @@
 				player.ratio = r;
 				div_ratio.css({paddingTop : r * 100 + '%'});
 				_info('ratio:', r);
+				div_poster.css({
+					width: div_ratio.outerWidth(),
+					height:div_ratio.outerHeight()
+				});
+				
+				var poster_icon_play = div_poster.find('i');
+				window.setTimeout(function(){
+					poster_icon_play.css({
+						paddingLeft: div_ratio.outerWidth()/2,
+						marginLeft: '-' + (poster_icon_play.outerWidth() / 2) + 'px',
+						paddingTop: div_ratio.outerHeight()/2,
+						marginTop: '-' + (poster_icon_play.outerHeight() / 2) + 'px'
+					});
+				}, 20);
+				
 			},
 			setColorScheme : function(scheme)
 			{
@@ -1312,6 +1328,7 @@
 		
 		that.append(div_ratio);
 		that.append(div_wrapper);
+		that.prepend(div_poster);
 		
 		div_overlay.hide();
 		
@@ -2139,6 +2156,7 @@
 		
 		video.on('play', function(e)
 		{
+			that.removeClass('is-poster');
 			if(videoObject.currentTime)
 			{
 				that.trigger('resume', [player]);
@@ -2155,6 +2173,7 @@
 		
 		video.on('pause', function(e)
 		{
+			//that.addClass('is-poster');
 			that.trigger('pause', [player]);
 			// Switch to play icon when in pause mode
 			control_play.removeClass('icon-pause').addClass('icon-play');
@@ -2755,6 +2774,23 @@
 		{
 			_error('[init] no valid clip found');
 			return;
+		}
+		
+		if(player.clip.previews)
+		{
+			that.addClass('is-poster');
+			div_poster.find('i').on('click', function(e)
+			{
+				e.stopPropagation();
+				control_play.trigger('click');
+				return false;
+			});
+			for(var preview_resolution in player.clip.previews)
+			{
+				div_poster.attr('poster', player.clip.previews[preview_resolution]);
+				div_poster.css('backgroundImage', 'url('+player.clip.previews[preview_resolution]+')');
+				break;
+			}
 		}
 		
 		// player.overlay

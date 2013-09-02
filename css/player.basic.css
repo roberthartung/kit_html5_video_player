@@ -28,6 +28,25 @@
 	position: absolute;
 	bottom: 0;
 	width: 100%;
+	z-index: 3;
+}
+
+.kit-player .khp-poster .icon-play {
+	/*display: block;*/
+	display: inline-block;
+	font-size: 100px;
+	cursor: pointer;
+}
+
+.kit-player .khp-poster {
+	background-size: 100% 100%;
+	position: absolute;
+	z-index: 1;
+	display: none;
+}
+
+.kit-player.is-poster .khp-poster {
+	display: block;
 }
 
 .kit-player .khp-controls {
@@ -81,6 +100,7 @@
 	margin-left: -12px;
 	margin-top: -14px;
 	display: none;
+	z-index: 3;
 }
 
 .kit-player.is-waiting .khp-indicator-loading, .kit-player.is-seeking .khp-indicator-loading {
