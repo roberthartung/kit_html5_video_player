@@ -1628,13 +1628,13 @@
 				{
 				  that.get(0).mozRequestFullScreen();
 				}
-				else if (videoObject.webkitRequestFullscreen)
-				{
-				  that.get(0).webkitRequestFullscreen();
-				}
 				else if(videoObject.webkitSupportsFullscreen)
 				{
-					that.get(0).webkitEnterFullscreen();
+					videoObject.webkitEnterFullscreen();
+				}
+				else if (that.get(0).webkitRequestFullscreen)
+				{
+				  that.get(0).webkitRequestFullscreen();
 				}
 				else
 				{
