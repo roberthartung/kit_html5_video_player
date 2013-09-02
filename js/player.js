@@ -2726,6 +2726,7 @@
 		{
 			// dont use _setVolume because this would override the user's volume
 			videoObject.volume = 0;
+			control_mute.removeClass(iconSet.unmuted).addClass(iconSet.muted);
 			/*
 			initialUnmuteByMouseOver : false,
 			 : false
