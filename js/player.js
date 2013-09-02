@@ -1139,7 +1139,7 @@
 						
 						if(src.resolutions)
 						{
-							var resolution = '1080p';
+							var resolution = conf.resolution ? conf.resolution : '1080p';
 							
 							var clipSupportsDefaultResolution = false;
 							$.each(src.resolutions, function(k, v)
@@ -1215,6 +1215,11 @@
 							{
 								clip.ads[a].src = src.src;
 								clip.ads[a].type = src.type;
+								if(src.resolution)
+								{
+									clip.ads[a].resolution = src.resolution;
+									clip.ads[a].resolutions = src.resolutions;
+								}
 							}
 							
 							continue;
@@ -1398,9 +1403,21 @@
 			
 			if(typeof src.resolutions != 'undefined')
 			{
+				var resolutions = [];
+				
 				for(var key in src.resolutions)
-					break;
-				return {type : src.type, resolutions : src.resolutions, src : src.resolutions[key]};
+				{
+					resolutions.push(parseInt(key.substr(0,key.length-1)));
+				}
+				
+				resolutions = resolutions.sort(function Numsort (a, b) { return a - b; });
+				
+				var resolution = resolutions[0] + 'p';
+				
+				return {type : src.type,
+					resolution: resolution,
+					resolutions : src.resolutions,
+					src : src.resolutions[resolution]};
 			}
 			
 			return {type : src.type, src : src.src};
@@ -1713,18 +1730,6 @@
 			{
 				settings = $('<div class="khp-settings"></div>');
 				settings.hide();
-				
-				for(var resolution in player.clip.resolutions)
-				{
-					var r = $('<a data-resolution="' + resolution + '"><i class="icon-circle"></i> ' + resolution + '</a>');
-					if(resolution == player.clip.resolution)
-						r.addClass('active');
-					settings.prepend(r);
-				}
-				
-				//settings.append('<a><i class="icon-circle"></i> 1080p</a><a><i class="icon-circle"></i> 720p</a><a><i class="icon-circle"></i> 480p</a><a><i class="icon-circle"></i> 360p</a><a><i class="icon-circle"></i> 420p</a>');
-				
-				div_wrapper.append(settings);
 			}
 			else
 			{
@@ -1736,6 +1741,35 @@
 				settings.hide();
 				return;
 			}
+			
+			settings.find('> a').remove();
+			
+			if(player.ad)
+			{
+				for(var resolution in player.ad.resolutions)
+				{
+					var r = $('<a data-resolution="' + resolution + '"><i class="icon-circle"></i> ' + resolution + '</a>');
+					if(resolution == player.ad.resolution)
+						r.addClass('active');
+					
+					settings.prepend(r);
+				}
+			}
+			else
+			{
+				for(var resolution in player.clip.resolutions)
+				{
+					var r = $('<a data-resolution="' + resolution + '"><i class="icon-circle"></i> ' + resolution + '</a>');
+					if(resolution == player.clip.resolution)
+						r.addClass('active');
+					
+					settings.prepend(r);
+				}
+			}
+			
+			//settings.append('<a><i class="icon-circle"></i> 1080p</a><a><i class="icon-circle"></i> 720p</a><a><i class="icon-circle"></i> 480p</a><a><i class="icon-circle"></i> 360p</a><a><i class="icon-circle"></i> 420p</a>');
+			
+			div_wrapper.append(settings);
 			
 			var pos = $(this).position();
 			
@@ -1765,7 +1799,17 @@
 			{
 				videoObject.pause();
 			}
-			videoObject.src = player.clip.resolutions[$(this).attr('data-resolution')];
+			
+			if(player.ad)
+			{
+				videoObject.src = player.ad.resolutions[$(this).attr('data-resolution')];
+				player.ad.resolution = $(this).attr('data-resolution');
+			}
+			else
+			{
+				videoObject.src = player.clip.resolutions[$(this).attr('data-resolution')];
+				player.clip.resolution = $(this).attr('data-resolution');
+			}
 			
 			div_wrapper.find('.khp-settings a.active').removeClass('active');
 			$(this).addClass('active');
