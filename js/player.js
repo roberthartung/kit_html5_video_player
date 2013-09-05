@@ -1638,8 +1638,8 @@
 				}
 				else
 				{
-					var old_width = that.width();
-					var old_height = that.height();
+					old_width = that.width();
+					old_height = that.height();
 					that.addClass('is-pseudo-fullscreen');
 					//that.wrap('<div style="background-color: #000; position: absolute; left: 0; top: 0; width: '+$(document).width()+'px; height: '+$(document).height()+'px;"></div>');
 					that.css({width : $(window).width(), height : $(window).height()});
