@@ -2930,8 +2930,6 @@
 					_debug("[trackEvent] (" + category + ", " + action + ", " + label + ", " + parseInt(value) + ", " + (implicit ? true : false) + ")");
 					tracker._trackEvent(category, action, label, parseInt(value), implicit ? true : false);
 				}
-				
-				
 			}
 			
 			that.on('resume', function(e)
@@ -2948,6 +2946,11 @@
 					tracker._trackEvent("Videos", "Resume", player.clip.title ? player.clip.title : player.clip.src, parseInt(player.clip.time));
 				}
 				*/
+			});
+			
+			that.on('play', function(e)
+			{
+				_trackEvent('Play', player.ad ? player.ad.time : player.clip.time);
 			});
 			
 			that.on('ended', function(e)
