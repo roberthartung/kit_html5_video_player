@@ -202,6 +202,7 @@
   
 (function( $ )
 {
+	/*
 	var _scripts = document.getElementsByTagName('script');
 	var _script = _scripts[_scripts.length - 1];
 	var _script_path = $(_script).attr('src').split('/');
@@ -217,6 +218,7 @@
 	{
 		var _script_path_css = _script_path_js;
 	}
+	*/
 	
   $.fn.kit_HTML5VideoPlayer = function(conf)
   {
