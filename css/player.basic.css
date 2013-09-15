@@ -89,7 +89,7 @@
 
 .kit-player .khp-wrapper {
 	overflow: hidden;
-	clear: both;
+	/*clear: both;*/
 	background-image: url('transparent.gif');
 }
 
