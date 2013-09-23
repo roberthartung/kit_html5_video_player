@@ -2882,6 +2882,7 @@
 				tracker = _gat._createTracker(conf.analytics, 'mecaso_html_video_player');
 				if(conf.analytics_referrer_override)
 				{
+					_info('_setReferrerOverride', conf.analytics_referrer_override);
 					tracker._setReferrerOverride(conf.analytics_referrer_override);
 				}
 				// index/slot, name, value [, scope, 3=page level]
