@@ -2879,9 +2879,6 @@
 			function _loadTracker()
 			{
 				tracker = _gat._getTracker(conf.analytics);
-				tracker._setDomainName('auto');
-				tracker._setAllowLinker(true);
-				tracker._trackPageview(conf.analytics_url ? conf.analytics_url : null);
 				// index/slot, name, value [, scope, 3=page level]
 				if(typeof conf.analytics_vars != 'undefined')
 				{
@@ -2891,6 +2888,9 @@
 						tracker._setCustomVar(1, v, conf.analytics_vars[v], 3);
 					}
 				}
+				tracker._setDomainName('auto');
+				tracker._setAllowLinker(true);
+				tracker._trackPageview(conf.analytics_url ? conf.analytics_url : null);
 			}
 			
 			if(typeof _gat == 'undefined')
