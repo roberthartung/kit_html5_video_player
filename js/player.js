@@ -2880,6 +2880,10 @@
 			{
 				// tracker = _gat._getTracker(conf.analytics);
 				tracker = _gat._createTracker(conf.analytics, 'mecaso_html_video_player');
+				if(conf.analytics_referrer_override)
+				{
+					tracker._setReferrerOverride(conf.analytics_referrer_override);
+				}
 				// index/slot, name, value [, scope, 3=page level]
 				if(typeof conf.analytics_vars != 'undefined')
 				{
@@ -2891,10 +2895,6 @@
 				}
 				tracker._setDomainName('auto');
 				tracker._setAllowLinker(true);
-				if(conf.analytics_referrer_override)
-				{
-					tracker._setReferrerOverride(conf.analytics_referrer_override);
-				}
 				// _gat._anonymizeIp();
 				//tracker._anonymizeIp();
 				// _gaq.push (['_gat._anonymizeIp']);
