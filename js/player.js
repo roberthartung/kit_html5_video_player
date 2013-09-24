@@ -2875,15 +2875,15 @@
 		if(conf.analytics)
 		{
 			var tracker;
+			var events = [['Load']];
 			
 			function _loadTracker()
 			{
 				// tracker = _gat._getTracker(conf.analytics);
 				tracker = _gat._createTracker(conf.analytics, 'mecaso_html_video_player');
-				_info('conf', conf);
 				if(conf.analytics_referrer_override)
 				{
-					_info('_setReferrerOverride', conf.analytics_referrer_override);
+					//_info('_setReferrerOverride', conf.analytics_referrer_override);
 					tracker._setReferrerOverride(conf.analytics_referrer_override);
 				}
 				// index/slot, name, value [, scope, 3=page level]
@@ -2901,6 +2901,14 @@
 				//tracker._anonymizeIp();
 				// _gaq.push (['_gat._anonymizeIp']);
 				tracker._trackPageview(conf.analytics_url ? conf.analytics_url : null);
+				
+				if(events.length > 0)
+				{
+					$.each(events, function(index, args)
+					{
+						_trackEvent.apply(that, args);
+					});
+				}
 			}
 			
 			if(typeof _gat == 'undefined')
@@ -2914,6 +2922,12 @@
 			
 			function _trackEvent(action, value, implicit)
 			{
+				if(typeof tracker == 'undefined')
+				{
+					events.push([action, value, implicit]);
+					return;
+				}
+				
 				var category;
 				var label;
 				
@@ -2931,17 +2945,17 @@
 				if(!value)
 				{
 					_debug("[trackEvent] (" + category + ", " + action + ", " + label + ")");
-					tracker._trackEvent(category, action, label);
+					return tracker._trackEvent(category, action, label);
 				}
 				else if(typeof implicit == 'undefined')
 				{
 					_debug("[trackEvent] (" + category + ", " + action + ", " + label + ", " + parseInt(value) + ")");
-					tracker._trackEvent(category, action, label, parseInt(value));
+					return tracker._trackEvent(category, action, label, parseInt(value));
 				}
 				else
 				{
 					_debug("[trackEvent] (" + category + ", " + action + ", " + label + ", " + parseInt(value) + ", " + (implicit ? true : false) + ")");
-					tracker._trackEvent(category, action, label, parseInt(value), implicit ? true : false);
+					return tracker._trackEvent(category, action, label, parseInt(value), implicit ? true : false);
 				}
 			}
 			
