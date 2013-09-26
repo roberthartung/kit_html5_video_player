@@ -2884,6 +2884,11 @@
 				tracker = _gat._createTracker(conf.analytics, 'mecaso_html_video_player');
 				if(conf.analytics_campaign_parameters)
 				{
+					if(console && console.log)
+					{
+						console.log('campaign parameters:', conf.analytics_campaign_parameters);
+					}
+					
 					tracker._set('campaignParams', conf.analytics_campaign_parameters);
 				}
 				/*
