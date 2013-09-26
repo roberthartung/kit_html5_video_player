@@ -2882,11 +2882,17 @@
 			{
 				// tracker = _gat._getTracker(conf.analytics);
 				tracker = _gat._createTracker(conf.analytics, 'mecaso_html_video_player');
+				if(conf.analytics_campaign_parameters)
+				{
+					tracker._set('campaignParams', conf.analytics_campaign_parameters);
+				}
+				/*
 				if(conf.analytics_referrer_override)
 				{
 					//_info('_setReferrerOverride', conf.analytics_referrer_override);
 					tracker._setReferrerOverride(conf.analytics_referrer_override);
 				}
+				*/
 				// index/slot, name, value [, scope, 3=page level]
 				if(typeof conf.analytics_vars != 'undefined')
 				{
@@ -2897,11 +2903,13 @@
 					}
 				}
 				tracker._setDomainName('auto');
-				tracker._setAllowLinker(true);
+				//tracker._setAllowLinker(true);
 				// _gat._anonymizeIp();
 				//tracker._anonymizeIp();
 				// _gaq.push (['_gat._anonymizeIp']);
-				tracker._trackPageview(conf.analytics_url ? conf.analytics_url : null);
+				// conf.analytics_url ? conf.analytics_url : null
+				// this seems to corrupt data :(
+				tracker._trackPageview();
 				
 				if(events.length > 0)
 				{
