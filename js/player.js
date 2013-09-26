@@ -2876,6 +2876,7 @@
 		{
 			var tracker;
 			var events = [['Load']];
+			var _gaq = [];
 			
 			function _loadTracker()
 			{
@@ -2913,10 +2914,18 @@
 			
 			if(typeof _gat == 'undefined')
 			{
+				if(console && console.log)
+				{
+					console.log('loading ga.js');
+				}
 				$.getScript('//www.google-analytics.com/ga.js', _loadTracker);
 			}
 			else
 			{
+				if(console && console.log)
+				{
+					console.log('found ga.js');
+				}
 				_loadTracker();
 			}
 			
