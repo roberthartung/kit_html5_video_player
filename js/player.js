@@ -2789,6 +2789,11 @@
 			return;
 		}
 		
+		if(!conf.playButton)
+		{
+			div_poster.find('i').hide();
+		}
+		
 		if(player.clip.previews)
 		{
 			that.addClass('is-poster');
@@ -2798,6 +2803,7 @@
 				control_play.trigger('click');
 				return false;
 			});
+			
 			for(var preview_resolution in player.clip.previews)
 			{
 				div_poster.attr('poster', player.clip.previews[preview_resolution]);
