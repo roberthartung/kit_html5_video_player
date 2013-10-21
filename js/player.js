@@ -2890,6 +2890,45 @@
 			var events = [['Load']];
 			var _gaq = [];
 			
+			function _trackEvent(action, value, implicit)
+			{
+				if(typeof tracker == 'undefined' || tracker == null)
+				{
+					events.push([action, value, implicit]);
+					return;
+				}
+				
+				var category;
+				var label;
+				
+				if(player.ad)
+				{
+					category = 'Ads / ' + player.ad.position;
+					label = player.ad.title ? player.ad.title : player.ad.src;
+				}
+				else
+				{
+					category = 'Videos';
+					label = player.clip.title ? player.clip.title : player.clip.src;
+				}
+				
+				if(!value)
+				{
+					_debug("[trackEvent] (" + category + ", " + action + ", " + label + ")");
+					return tracker._trackEvent(category, action, label);
+				}
+				else if(typeof implicit == 'undefined')
+				{
+					_debug("[trackEvent] (" + category + ", " + action + ", " + label + ", " + parseInt(value) + ")");
+					return tracker._trackEvent(category, action, label, parseInt(value));
+				}
+				else
+				{
+					_debug("[trackEvent] (" + category + ", " + action + ", " + label + ", " + parseInt(value) + ", " + (implicit ? true : false) + ")");
+					return tracker._trackEvent(category, action, label, parseInt(value), implicit ? true : false);
+				}
+			}
+			
 			function _loadTracker()
 			{
 				// tracker = _gat._getTracker(conf.analytics);
@@ -2952,45 +2991,6 @@
 					console.log('found ga.js');
 				}
 				_loadTracker();
-			}
-			
-			function _trackEvent(action, value, implicit)
-			{
-				if(typeof tracker == 'undefined')
-				{
-					events.push([action, value, implicit]);
-					return;
-				}
-				
-				var category;
-				var label;
-				
-				if(player.ad)
-				{
-					category = 'Ads / ' + player.ad.position;
-					label = player.ad.title ? player.ad.title : player.ad.src;
-				}
-				else
-				{
-					category = 'Videos';
-					label = player.clip.title ? player.clip.title : player.clip.src;
-				}
-				
-				if(!value)
-				{
-					_debug("[trackEvent] (" + category + ", " + action + ", " + label + ")");
-					return tracker._trackEvent(category, action, label);
-				}
-				else if(typeof implicit == 'undefined')
-				{
-					_debug("[trackEvent] (" + category + ", " + action + ", " + label + ", " + parseInt(value) + ")");
-					return tracker._trackEvent(category, action, label, parseInt(value));
-				}
-				else
-				{
-					_debug("[trackEvent] (" + category + ", " + action + ", " + label + ", " + parseInt(value) + ", " + (implicit ? true : false) + ")");
-					return tracker._trackEvent(category, action, label, parseInt(value), implicit ? true : false);
-				}
 			}
 			
 			that.on('resume', function(e)
