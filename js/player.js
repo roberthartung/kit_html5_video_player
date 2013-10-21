@@ -2792,6 +2792,12 @@
 		if(!conf.playButton)
 		{
 			div_poster.find('i').hide();
+			div_poster.one('click', function(e)
+			{
+				e.stopPropagation();
+				control_play.trigger('click');
+				return false;
+			});
 		}
 		
 		if(player.clip.previews)
