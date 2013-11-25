@@ -1031,21 +1031,51 @@
 				player.ratio = r;
 				div_ratio.css({paddingTop : r * 100 + '%'});
 				_info('ratio:', r);
-				div_poster.css({
-					width: div_ratio.outerWidth(),
-					height:div_ratio.outerHeight()
-				});
 				
 				var poster_icon_play = div_poster.find('i');
-				window.setTimeout(function(){
+				// if they player has 100% width
+				if(conf.width === '100%')
+				{
+					div_poster.css({
+						width: '100%',
+						height: '100%'
+					});
+				}
+				else
+				{
+					div_poster.css({
+						width: div_ratio.outerWidth(),
+						height:div_ratio.outerHeight()
+					});
+				}
+				
+				window.setTimeout(function()
+				{
+					var iconWidth = poster_icon_play.outerWidth();
+						if(!iconWidth)
+							iconWidth = 102;
+							
+					var iconHeight = poster_icon_play.outerHeight();
+					if(!iconHeight)
+						iconHeight = 79;
+				
+					poster_icon_play.css({
+						left: '50%',
+						top: '50%',
+						marginLeft: '-' + (iconWidth / 2) + 'px',
+						marginTop: '-' + (iconHeight / 2) + 'px',
+						position: 'absolute'
+					});
+				
+					/*
 					poster_icon_play.css({
 						paddingLeft: div_ratio.outerWidth()/2,
 						marginLeft: '-' + (poster_icon_play.outerWidth() / 2) + 'px',
 						paddingTop: div_ratio.outerHeight()/2,
 						marginTop: '-' + (poster_icon_play.outerHeight() / 2) + 'px'
 					});
+					*/
 				}, 20);
-				
 			},
 			setColorScheme : function(scheme)
 			{
