@@ -12,7 +12,7 @@
 	</head>
 	
 	<body>
-		<div id="player">
+		<div id="player" style="margin: 0 auto;">
 			<video preload="metadata" controls>
 			  <source src="http://techslides.com/demos/sample-videos/small.webm" type="video/webm"/> 
 			  <source src="http://techslides.com/demos/sample-videos/small.ogv" type="video/ogg"/> 
@@ -26,7 +26,7 @@
 			//console.log($('video').get(0).textTracks);
 			//$('video').get(0).src = 'http://techslides.com/demos/sample-videos/small.mp4';
 			//console.log($('video').get(0).textTracks);
-			var p = $('#player').kit_HTML5VideoPlayer({skin:'flat'});
+			var p = $('#player').kit_HTML5VideoPlayer({skin:'flat',width:'50%'});
 		</script>
 	</body>
 </html>

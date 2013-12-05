@@ -12,12 +12,13 @@
 	</head>
 	
 	<body>
-		<div id="player">
+		<div id="player" style="margin: 0 auto;">
 			<video controls></video>
 		</div>
 		
 		<script>
 			var p = $('#player').kit_HTML5VideoPlayer({
+				width: '50%',
 				clip : {
 					sources : [
 						{type : 'video/webm', src : 'http://techslides.com/demos/sample-videos/small.webm'},
